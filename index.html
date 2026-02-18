@@ -22,9 +22,8 @@
   font-family:'Plus Jakarta Sans',sans-serif;
 }
 
-/* --- LIGHTNING ANIMATED BACKGROUND --- */
 body {
-  background: #000428; /* Dark base */
+  background: #000428;
   color:white;
   min-height:100vh;
   overflow-x: hidden;
@@ -36,7 +35,6 @@ body::before {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: transparent;
   z-index: -1;
   animation: lightning 4s linear infinite;
 }
@@ -50,7 +48,6 @@ body::before {
   100% { background: rgba(0,0,0,0); }
 }
 
-/* --- PRO HEADER --- */
 .header{
   backdrop-filter:blur(25px);
   background:rgba(0,0,0,0.85);
@@ -85,7 +82,6 @@ body::before {
   filter: drop-shadow(0 0 8px var(--primary));
 }
 
-/* --- SIDEBAR --- */
 .side-menu{
   position:fixed;
   top:0; left:-320px;
@@ -96,7 +92,6 @@ body::before {
   transition: 0.4s ease;
   z-index:1000;
   border-right: 3px solid var(--primary);
-  box-shadow: 10px 0 40px rgba(0,210,255,0.2);
 }
 
 .side-menu.active{ left:0; }
@@ -104,15 +99,14 @@ body::before {
 .side-menu a {
     display: block; color: white; text-decoration: none;
     padding: 18px; margin-bottom: 12px; background: rgba(255,255,255,0.05);
-    border-radius: 12px; border: 1px solid rgba(0,210,255,0.2); transition: 0.3s;
+    border-radius: 12px; border: 1px solid rgba(0,210,255,0.2);
 }
 
-/* --- SEARCH & FOLDERS --- */
 .search-box{ padding:25px 20px; max-width:500px; margin:0 auto; }
 .search-box input{
   width:100%; padding:15px 25px; border-radius:30px;
   border:2px solid var(--primary); background:rgba(0,0,0,0.5); 
-  color:white; outline:none; box-shadow: inset 0 0 10px rgba(0,210,255,0.2);
+  color:white; outline:none;
 }
 
 .container{ max-width:500px; margin:0 auto; padding:0 20px 60px; }
@@ -131,7 +125,6 @@ body::before {
   box-shadow: var(--glow); 
 }
 
-/* --- FULL PAGE VIEW --- */
 #folderPage {
   display: none; position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -144,12 +137,14 @@ body::before {
   padding: 10px 25px; border-radius: 50px; background: rgba(0,210,255,0.1);
 }
 
+/* Isse links buttons ki tarah dikhenge */
 .file-link {
   display: block; text-decoration: none; color: white;
   background: rgba(255,255,255,0.08); padding: 20px;
   margin-bottom: 15px; border-radius: 18px; border-left: 6px solid var(--primary);
   font-weight: 600; transition: 0.3s;
 }
+.file-link:hover { background: rgba(0,210,255,0.15); transform: scale(1.02); }
 </style>
 </head>
 <body>
@@ -159,8 +154,7 @@ body::before {
     <span></span><span></span><span></span>
   </div>
   <div class="brand">
-    <img src="
-https://i.ibb.co/CKq5688P/43d1a3f4d58d.jpg" alt="Logo">
+    <img src="https://i.ibb.co/CKq5688P/43d1a3f4d58d.jpg" alt="Logo">
     <div class="brand-text">JEE NEET AVENGERS</div>
   </div>
   <div style="width:45px;"></div>
@@ -178,34 +172,26 @@ https://i.ibb.co/CKq5688P/43d1a3f4d58d.jpg" alt="Logo">
 </div>
 
 <div class="container">
-  
-  <div class="folder-card" onclick="openFolder('📚 Handbooks
-Formula books
-Mind maps', 'formulaLinks')">
+  <div class="folder-card" onclick="openFolder('📚 Formula Booklets', 'formulaLinks')">
     <span>📚 Formula Booklets</span>
     <span>❯</span>
   </div>
-
   <div class="folder-card" onclick="openFolder('⚡ Physics Modules', 'physicsLinks')">
     <span>⚡ Physics Modules</span>
     <span>❯</span>
   </div>
-
   <div class="folder-card" onclick="openFolder('🧪 Chemistry Notes', 'chemistryLinks')">
     <span>🧪 Chemistry Notes</span>
     <span>❯</span>
   </div>
-
   <div class="folder-card" onclick="openFolder('📐 Maths Practice', 'mathLinks')">
     <span>📐 Maths Practice</span>
     <span>❯</span>
   </div>
-
   <div class="folder-card" onclick="openFolder('📝 PYQ Papers', 'pyqLinks')">
     <span>📝 Previous Year Papers</span>
     <span>❯</span>
   </div>
-
 </div>
 
 <div id="folderPage">
@@ -215,38 +201,31 @@ Mind maps', 'formulaLinks')">
 </div>
 
 <div id="formulaLinks" style="display:none;">
-    <a class="file-link" <a href="https://vplink.in/Uf2fho" target="_blank">HashlearnFormulaBooklet</a>
-
-<a href="https://uploda.sh/BvBwYs588dfj" target="_blank">arihant chemistry hand book</a>
-
-<a href="https://uploda.sh/f7ATkkB4mx0C" target="_blank">arihant physics handbook</a>
-
-<a href="https://uploda.sh/BHjJE4PpFKIV" target="_blank">Handbook of Mathematics Arihant @neetquestionpaper</a>
-
-<a href="https://uploda.sh/cl67EM3yIqS6" target="_blank">HandBook MathsAllen</a>
-
-<a href="https://uploda.sh/4zBlRWNmphit" target="_blank">Hashlearn Maths Formula Book</a>
-
-<a href="https://uploda.sh/OzVEwCo1XsRw" target="_blank">Chemistry_Formula_Booklet_Hashlearn</a>
+    <a class="file-link" href="https://vplink.in/Uf2fho" target="_blank">Hashlearn Formula Booklet</a>
+    <a class="file-link" href="https://uploda.sh/BvBwYs588dfj" target="_blank">Arihant Chemistry Hand Book</a>
+    <a class="file-link" href="https://uploda.sh/f7ATkkB4mx0C" target="_blank">Arihant Physics Handbook</a>
+    <a class="file-link" href="https://uploda.sh/BHjJE4PpFKIV" target="_blank">Handbook of Mathematics Arihant</a>
+    <a class="file-link" href="https://uploda.sh/cl67EM3yIqS6" target="_blank">HandBook Maths Allen</a>
+</div>
 
 <div id="physicsLinks" style="display:none;">
-    <a class="file-link" href="YOUR_LINK_HERE">🚀 Kinematics Full Module</a>
-    <a class="file-link" href="YOUR_LINK_HERE">⚛️ Modern Physics Notes</a>
+    <a class="file-link" href="#">🚀 Kinematics Full Module</a>
+    <a class="file-link" href="#">⚛️ Modern Physics Notes</a>
 </div>
 
 <div id="chemistryLinks" style="display:none;">
-    <a class="file-link" href="YOUR_LINK_HERE">⚗️ Organic Name Reactions</a>
-    <a class="file-link" href="YOUR_LINK_HERE">🧪 Periodic Table Tricks</a>
+    <a class="file-link" href="#">⚗️ Organic Name Reactions</a>
+    <a class="file-link" href="#">🧪 Periodic Table Tricks</a>
 </div>
 
 <div id="mathLinks" style="display:none;">
-    <a class="file-link" href="YOUR_LINK_HERE">📐 Integration Short-cuts</a>
-    <a class="file-link" href="YOUR_LINK_HERE">📏 Coordinate Geometry</a>
+    <a class="file-link" href="#">📐 Integration Short-cuts</a>
+    <a class="file-link" href="#">📏 Coordinate Geometry</a>
 </div>
 
 <div id="pyqLinks" style="display:none;">
-    <a class="file-link" href="YOUR_LINK_HERE">📝 JEE Main 2025 Papers</a>
-    <a class="file-link" href="YOUR_LINK_HERE">📝 NEET 2024 Question Bank</a>
+    <a class="file-link" href="#">📝 JEE Main 2025 Papers</a>
+    <a class="file-link" href="#">📝 NEET 2024 Question Bank</a>
 </div>
 
 <script>
@@ -254,6 +233,7 @@ function toggleMenu(){ document.getElementById("sideMenu").classList.toggle("act
 
 function openFolder(title, contentId) {
     document.getElementById('pageTitle').innerText = title;
+    // .innerHTML use karne se saare hidden links folder page me copy ho jayenge
     document.getElementById('linksContainer').innerHTML = document.getElementById(contentId).innerHTML;
     document.getElementById('folderPage').style.display = 'block';
     document.body.style.overflow = 'hidden';
