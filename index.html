@@ -11,8 +11,8 @@
   --primary:#00d2ff;
   --secondary: #3a7bd5;
   --accent: #ff4c4c;
-  --glass: rgba(0, 8, 20, 0.75);
-  --glow: 0 0 20px rgba(0,210,255,0.7);
+  --glass: rgba(0, 15, 30, 0.85);
+  --glow: 0 0 20px rgba(0,210,255,0.6);
 }
 
 *{
@@ -27,30 +27,28 @@ body {
   color:white;
   min-height:100vh;
   overflow-x: hidden;
-  position: relative;
 }
 
+/* Lightning Background Effect */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: -1;
-  animation: lightning 4s linear infinite;
+  animation: lightning 5s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes lightning {
-  0% { background: rgba(0,0,0,0); }
-  95% { background: rgba(0,0,0,0); }
-  96% { background: rgba(255,255,255,0.1); }
-  97% { background: rgba(0,210,255,0.2); }
-  98% { background: rgba(255,255,255,0.1); }
-  100% { background: rgba(0,0,0,0); }
+  0%, 94%, 100% { background: rgba(0,0,0,0); }
+  95% { background: rgba(255,255,255,0.05); }
+  97% { background: rgba(0,210,255,0.15); }
 }
 
 .header{
-  backdrop-filter:blur(25px);
-  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(20px);
+  background:rgba(0,0,0,0.8);
   padding:15px 20px;
   display:flex;
   align-items:center;
@@ -61,35 +59,34 @@ body::before {
 }
 
 .menu-btn {
-  width: 45px; height: 42px;
-  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5.5px;
-  cursor: pointer; border: 2px solid var(--primary); border-radius: 12px;
-  background: rgba(0, 210, 255, 0.1); box-shadow: var(--glow);
+  width: 42px; height: 42px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+  cursor: pointer; border: 2px solid var(--primary); border-radius: 10px;
+  background: rgba(0, 210, 255, 0.1); transition: 0.3s;
 }
 
-.menu-btn span { width: 24px; height: 3px; background: var(--primary); border-radius: 5px; }
+.menu-btn span { width: 22px; height: 3px; background: var(--primary); border-radius: 5px; }
 
 .brand{ flex-grow: 1; display:flex; flex-direction: column; align-items:center; }
 .brand img{ 
-  width: 65px; height: 65px; border-radius: 50%; 
+  width: 55px; height: 55px; border-radius: 50%; 
   border: 2px solid var(--primary); box-shadow: var(--glow); 
-  margin-bottom: 5px;
+  margin-bottom: 5px; object-fit: cover;
 }
 .brand-text {
-  font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: 2px;
+  font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px;
   background: linear-gradient(to bottom, #fff, #00d2ff);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 8px var(--primary));
 }
 
 .side-menu{
   position:fixed;
   top:0; left:-320px;
-  width:290px; height:100%;
-  background: rgba(0, 5, 15, 0.98);
+  width:280px; height:100%;
+  background: rgba(0, 8, 20, 0.98);
   backdrop-filter: blur(25px);
   padding:30px 20px;
-  transition: 0.4s ease;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index:1000;
   border-right: 3px solid var(--primary);
 }
@@ -98,31 +95,33 @@ body::before {
 
 .side-menu a {
     display: block; color: white; text-decoration: none;
-    padding: 18px; margin-bottom: 12px; background: rgba(255,255,255,0.05);
+    padding: 15px; margin-bottom: 12px; background: rgba(255,255,255,0.05);
     border-radius: 12px; border: 1px solid rgba(0,210,255,0.2);
+    font-weight: 600;
 }
 
 .search-box{ padding:25px 20px; max-width:500px; margin:0 auto; }
 .search-box input{
-  width:100%; padding:15px 25px; border-radius:30px;
-  border:2px solid var(--primary); background:rgba(0,0,0,0.5); 
-  color:white; outline:none;
+  width:100%; padding:14px 20px; border-radius:30px;
+  border:2px solid var(--primary); background:rgba(0,0,0,0.4); 
+  color:white; outline:none; transition: 0.3s;
 }
+.search-box input:focus { box-shadow: var(--glow); }
 
 .container{ max-width:500px; margin:0 auto; padding:0 20px 60px; }
 
 .folder-card {
   background: var(--glass);
-  backdrop-filter: blur(15px);
-  padding: 22px; border-radius: 20px; margin-bottom: 20px;
-  cursor: pointer; border: 1px solid rgba(0,210,255,0.3);
+  backdrop-filter: blur(10px);
+  padding: 20px; border-radius: 18px; margin-bottom: 15px;
+  cursor: pointer; border: 1px solid rgba(0,210,255,0.2);
   display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
 }
 
 .folder-card:hover { 
   border-color: var(--primary); 
-  transform: translateY(-5px); 
-  box-shadow: var(--glow); 
+  transform: translateY(-3px); 
+  background: rgba(0, 210, 255, 0.1);
 }
 
 #folderPage {
@@ -132,19 +131,18 @@ body::before {
 }
 
 .back-btn {
-  display: inline-block; color: var(--primary); margin-bottom: 25px;
-  font-weight: 800; cursor: pointer; border: 2px solid var(--primary);
-  padding: 10px 25px; border-radius: 50px; background: rgba(0,210,255,0.1);
+  display: inline-block; color: white; margin-bottom: 25px;
+  font-weight: 800; cursor: pointer; border: 2px solid var(--accent);
+  padding: 8px 20px; border-radius: 50px; background: rgba(255,76,76,0.1);
 }
 
-/* Isse links buttons ki tarah dikhenge */
 .file-link {
   display: block; text-decoration: none; color: white;
-  background: rgba(255,255,255,0.08); padding: 20px;
-  margin-bottom: 15px; border-radius: 18px; border-left: 6px solid var(--primary);
-  font-weight: 600; transition: 0.3s;
+  background: rgba(255,255,255,0.07); padding: 18px;
+  margin-bottom: 12px; border-radius: 15px; border-left: 5px solid var(--primary);
+  font-weight: 600; transition: 0.2s;
 }
-.file-link:hover { background: rgba(0,210,255,0.15); transform: scale(1.02); }
+.file-link:hover { background: rgba(0,210,255,0.2); }
 </style>
 </head>
 <body>
@@ -157,18 +155,18 @@ body::before {
     <img src="https://i.ibb.co/CKq5688P/43d1a3f4d58d.jpg" alt="Logo">
     <div class="brand-text">JEE NEET AVENGERS</div>
   </div>
-  <div style="width:45px;"></div>
+  <div style="width:42px;"></div>
 </div>
 
 <div class="side-menu" id="sideMenu">
-  <div style="text-align: right; color: #ff4c4c; font-weight: bold; cursor: pointer; margin-bottom: 40px;" onclick="toggleMenu()">✕ CLOSE</div>
+  <div style="text-align: right; color: var(--accent); font-weight: bold; cursor: pointer; margin-bottom: 30px;" onclick="toggleMenu()">✕ CLOSE</div>
   <a href="https://t.me/+YMufW2Jyots5OWZl">📢 Join Telegram</a>
   <a href="https://whatsapp.com/channel/0029VbCliEBFy729EadOsk3j">💬 WhatsApp Group</a>
-  <a href="t.me/spidy_x100">👨‍💻 Contact Admin</a>
+  <a href="https://t.me/spidy_x100">👨‍💻 Contact Admin</a>
 </div>
 
 <div class="search-box">
-  <input type="text" id="searchInput" placeholder="Search Materials...">
+  <input type="text" id="searchInput" placeholder="Search Folders...">
 </div>
 
 <div class="container">
@@ -195,26 +193,19 @@ body::before {
 </div>
 
 <div id="folderPage">
-  <div class="back-btn" onclick="closeFolder()">← DISMISS</div>
-  <h2 id="pageTitle" style="margin-bottom:25px; color:var(--primary); text-transform:uppercase;">Folder</h2>
+  <div class="back-btn" onclick="closeFolder()">← BACK</div>
+  <h2 id="pageTitle" style="margin-bottom:20px; color:var(--primary);">Folder</h2>
   <div id="linksContainer"></div>
 </div>
 
 <div id="formulaLinks" style="display:none;">
-    <a class="file-link"
- <a href="https://uploda.sh/YgQqyHAPEPCx" target="_blank">HashlearnFormulaBooklet</a>
-
-<a href="https://uploda.sh/BvBwYs588dfj" target="_blank">arihant chemistry hand book</a>
-
-<a href="https://uploda.sh/f7ATkkB4mx0C" target="_blank">arihant physics handbook</a>
-
-<a href="https://uploda.sh/BHjJE4PpFKIV" target="_blank">Handbook of Mathematics Arihant @neetquestionpaper</a>
-
-<a href="https://uploda.sh/cl67EM3yIqS6" target="_blank">HandBook Maths</a>
-
-<a href="https://uploda.sh/4zBlRWNmphit" target="_blank">Hashlearn Maths Formula Book</a>
-
-<a href="https://uploda.sh/OzVEwCo1XsRw" target="_blank">Chemistry_Formula_Booklet_Hashlearn</a>
+    <a class="file-link" href="https://uploda.sh/YgQqyHAPEPCx" target="_blank">Hashlearn Formula Booklet</a>
+    <a class="file-link" href="https://uploda.sh/BvBwYs588dfj" target="_blank">Arihant Chemistry Hand Book</a>
+    <a class="file-link" href="https://uploda.sh/f7ATkkB4mx0C" target="_blank">Arihant Physics Handbook</a>
+    <a class="file-link" href="https://uploda.sh/BHjJE4PpFKIV" target="_blank">Arihant Maths Handbook</a>
+    <a class="file-link" href="https://uploda.sh/cl67EM3yIqS6" target="_blank">HandBook Maths (Extra)</a>
+    <a class="file-link" href="https://uploda.sh/4zBlRWNmphit" target="_blank">Hashlearn Maths Formula Book</a>
+    <a class="file-link" href="https://uploda.sh/OzVEwCo1XsRw" target="_blank">Hashlearn Chemistry Formula Book</a>
 </div>
 
 <div id="physicsLinks" style="display:none;">
@@ -238,12 +229,14 @@ body::before {
 </div>
 
 <script>
-function toggleMenu(){ document.getElementById("sideMenu").classList.toggle("active"); }
+function toggleMenu(){ 
+    document.getElementById("sideMenu").classList.toggle("active"); 
+}
 
 function openFolder(title, contentId) {
     document.getElementById('pageTitle').innerText = title;
-    // .innerHTML use karne se saare hidden links folder page me copy ho jayenge
-    document.getElementById('linksContainer').innerHTML = document.getElementById(contentId).innerHTML;
+    const content = document.getElementById(contentId).innerHTML;
+    document.getElementById('linksContainer').innerHTML = content;
     document.getElementById('folderPage').style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
@@ -253,10 +246,12 @@ function closeFolder() {
     document.body.style.overflow = 'auto';
 }
 
+// Search Functionality
 document.getElementById("searchInput").addEventListener("keyup", function(){
     let val = this.value.toLowerCase();
     document.querySelectorAll(".folder-card").forEach(card => {
-        card.style.display = card.innerText.toLowerCase().includes(val) ? "flex" : "none";
+        let text = card.innerText.toLowerCase();
+        card.style.display = text.includes(val) ? "flex" : "none";
     });
 });
 </script>
