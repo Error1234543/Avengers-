@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuizCraft AI — JEE NEET Gujarati MCQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --card: #1a1a24;
+  --border: #2a2a3a;
+  --accent: #7c6aff;
+  --accent2: #ff6a9b;
+  --accent3: #6affd4;
+  --text: #e8e8f0;
+  --muted: #7070a0;
+  --gold: #ffd166;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse at 20% 20%,rgba(124,106,255,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(255,106,155,.06) 0%,transparent 50%); pointer-events:none; z-index:0; }
+body::after { content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(124,106,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,106,255,.03) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; z-index:0; }
+.container { max-width:900px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+
+header { padding:28px 0 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.logo-text { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.badge { background:linear-gradient(135deg,var(--gold),#ff9a3c); color:#000; font-size:10px; font-weight:700; padding:3px 8px; border-radius:20px; }
+
+.plan-badge { display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:30px; padding:7px 16px; font-size:13px; }
+.plan-dot { width:8px; height:8px; border-radius:50%; background:var(--accent3); }
+.plan-dot.free { background:var(--gold); }
+
+.hero { text-align:center; padding:36px 0 24px; animation:fadeUp .6s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.hero-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(124,106,255,.1); border:1px solid rgba(124,106,255,.3); color:var(--accent); font-size:12px; font-weight:500; padding:5px 14px; border-radius:20px; margin-bottom:18px; }
+h1 { font-family:'Syne',sans-serif; font-size:clamp(28px,6vw,52px); font-weight:800; line-height:1.1; margin-bottom:14px; }
+h1 span { background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero p { color:var(--muted); font-size:15px; max-width:480px; margin:0 auto; line-height:1.6; }
+
+.main-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:24px; margin-bottom:16px; animation:fadeUp .6s ease .1s both; }
+.card-label { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+
+textarea { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.6; resize:vertical; min-height:100px; outline:none; transition:border-color .2s; }
+textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(124,106,255,.1); }
+textarea::placeholder { color:var(--muted); }
+
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:14px; }
+.option-group label { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:7px; }
+select { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px 14px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; outline:none; cursor:pointer; transition:border-color .2s; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237070a0' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+select:focus { border-color:var(--accent); }
+
+.btn-generate { width:100%; margin-top:18px; padding:16px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border:none; border-radius:12px; color:white; font-family:'Syne',sans-serif; font-size:16px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:all .2s; }
+.btn-generate:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(124,106,255,.4); }
+.btn-generate:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+/* Plans */
+.plans-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; animation:fadeUp .5s ease both; }
+.plan-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; text-align:center; transition:border-color .2s; }
+.plan-card.active { border-color:var(--accent); background:rgba(124,106,255,.07); }
+.plan-card.gold { border-color:var(--gold); background:rgba(255,209,102,.07); }
+.plan-name { font-family:'Syne',sans-serif; font-weight:700; font-size:13px; margin-bottom:4px; }
+.plan-q { font-size:22px; font-weight:800; font-family:'Syne',sans-serif; }
+.plan-q.c-accent { color:var(--accent3); }
+.plan-q.c-gold { color:var(--gold); }
+.plan-desc { font-size:11px; color:var(--muted); margin-top:3px; }
+.plan-btn { margin-top:10px; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--text); transition:all .2s; width:100%; }
+.plan-btn:hover { border-color:var(--accent); color:var(--accent); }
+.plan-btn.gold-btn { background:linear-gradient(135deg,var(--gold),#ff9a3c); border-color:var(--gold); color:#000; }
+.plan-btn.gold-btn:hover { box-shadow:0 4px 14px rgba(255,209,102,.3); }
+
+/* Loading */
+.loading { display:none; flex-direction:column; align-items:center; padding:50px 20px; gap:16px; }
+.loading.show { display:flex; }
+.spinner { width:44px; height:44px; border:3px solid var(--border); border-top-color:var(--accent); border-right-color:var(--accent2); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.loading-text { font-size:14px; color:var(--muted); animation:pulse 1.5s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+.progress-bar { width:280px; height:6px; background:var(--border); border-radius:10px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:10px; transition:width .5s ease; width:0%; }
+
+/* Output */
+.quiz-output { display:none; animation:fadeUp .4s ease both; }
+.quiz-output.show { display:block; }
+.output-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+.output-title { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; }
+.output-actions { display:flex; gap:8px; }
+.btn-sm { padding:8px 14px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--text); transition:all .2s; display:flex; align-items:center; gap:5px; }
+.btn-sm:hover { border-color:var(--accent); color:var(--accent); }
+.btn-sm.primary { background:var(--accent); border-color:var(--accent); color:white; }
+
+/* Questions */
+.question-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:12px; transition:border-color .2s; animation:fadeUp .3s ease both; }
+.question-card:hover { border-color:rgba(124,106,255,.3); }
+.q-header { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
+.q-num { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-family:'Syne',sans-serif; font-weight:700; font-size:11px; width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.q-text { font-size:15px; font-weight:500; line-height:1.5; flex:1; }
+.q-diff { font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; flex-shrink:0; }
+.diff-easy { background:rgba(106,255,212,.1); color:var(--accent3); border:1px solid rgba(106,255,212,.2); }
+.diff-medium { background:rgba(255,209,102,.1); color:var(--gold); border:1px solid rgba(255,209,102,.2); }
+.diff-hard { background:rgba(255,106,155,.1); color:var(--accent2); border:1px solid rgba(255,106,155,.2); }
+.options-list { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.option-item { display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px 14px; cursor:pointer; transition:all .2s; font-size:14px; }
+.option-item:hover { border-color:var(--accent); background:rgba(124,106,255,.05); }
+.option-item.correct { border-color:var(--accent3); background:rgba(106,255,212,.08); color:var(--accent3); }
+.option-item.wrong { border-color:var(--accent2); background:rgba(255,106,155,.08); color:var(--accent2); }
+.opt-letter { width:22px; height:22px; background:var(--border); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; transition:all .2s; }
+.option-item.correct .opt-letter { background:var(--accent3); color:#000; }
+.option-item.wrong .opt-letter { background:var(--accent2); color:#fff; }
+.explanation { display:none; margin-top:12px; padding:12px 14px; background:rgba(106,255,212,.06); border:1px solid rgba(106,255,212,.15); border-radius:10px; font-size:13px; color:var(--accent3); line-height:1.6; }
+.explanation.show { display:block; }
+
+/* Score */
+.score-card { display:none; background:var(--card); border:1px solid var(--border); border-radius:20px; padding:28px; text-align:center; margin-bottom:16px; animation:fadeUp .4s ease both; }
+.score-card.show { display:block; }
+.score-num { font-family:'Syne',sans-serif; font-size:52px; font-weight:800; background:linear-gradient(135deg,var(--accent3),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.score-label { color:var(--muted); font-size:14px; margin-top:4px; }
+
+/* Pro locked */
+.pro-upsell { background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(255,106,155,.1)); border:1px solid rgba(124,106,255,.3); border-radius:16px; padding:24px; text-align:center; margin-top:16px; display:none; }
+.pro-upsell h3 { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:8px; }
+.pro-upsell p { color:var(--muted); font-size:14px; margin-bottom:16px; }
+.pro-features { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.pro-feature { display:flex; align-items:center; gap:5px; font-size:13px; }
+.btn-upgrade { background:linear-gradient(135deg,var(--gold),#ff9a3c); border:none; border-radius:10px; padding:12px 28px; color:#000; font-family:'Syne',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
+.btn-upgrade:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(255,209,102,.3); }
+
+/* Pagination */
+.pagination { display:flex; align-items:center; justify-content:center; gap:10px; margin:20px 0; flex-wrap:wrap; }
+.page-btn { padding:8px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--text); transition:all .2s; }
+.page-btn:hover { border-color:var(--accent); color:var(--accent); }
+.page-btn.active { background:var(--accent); border-color:var(--accent); color:white; }
+.page-info { color:var(--muted); font-size:13px; }
+
+footer { text-align:center; padding:28px 0; color:var(--muted); font-size:13px; border-top:1px solid var(--border); margin-top:40px; }
+.toast { position:fixed; bottom:24px; right:24px; background:var(--card); border:1px solid var(--accent3); color:var(--accent3); padding:12px 18px; border-radius:10px; font-size:14px; font-weight:500; transform:translateY(100px); opacity:0; transition:all .3s; z-index:100; max-width:300px; }
+.toast.show { transform:translateY(0); opacity:1; }
+
+@media(max-width:600px) {
+  .grid2,.grid3 { grid-template-columns:1fr; }
+  .options-list { grid-template-columns:1fr; }
+  .plans-row { grid-template-columns:1fr; }
+  .output-header { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <span class="logo-text">QuizCraft AI</span>
+      <span class="badge">FREE</span>
+    </div>
+    <div class="plan-badge">
+      <div class="plan-dot free" id="planDot"></div>
+      <span id="planLabel">Free Plan</span>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-tag">✨ Powered by Groq AI (LLaMA 3.3) · JEE · NEET · Gujarati</div>
+    <h1>Generate <span>100 MCQs</span><br>Instantly</h1>
+    <p>Topic નું નામ લખો — Gujarati, English, Hindi — JEE, NEET, GUJCET level MCQ questions with explanations.</p>
+  </div>
+
+  <!-- Plans -->
+  <div class="plans-row">
+    <div class="plan-card active" id="planFree">
+      <div class="plan-name">🆓 Free</div>
+      <div class="plan-q c-accent">5 / 10</div>
+      <div class="plan-desc">MCQ per quiz</div>
+      <div class="plan-desc" style="margin-top:4px;">3 quizzes/day</div>
+    </div>
+    <div class="plan-card" id="planBasic">
+      <div class="plan-name">⭐ Basic</div>
+      <div class="plan-q" style="color:var(--accent);">30</div>
+      <div class="plan-desc">MCQ per quiz</div>
+      <div class="plan-desc" style="margin-top:4px;">₹49/month</div>
+      <button class="plan-btn" onclick="showUpsell('basic')">Upgrade</button>
+    </div>
+    <div class="plan-card gold" id="planPro">
+      <div class="plan-name">👑 Pro</div>
+      <div class="plan-q c-gold">100</div>
+      <div class="plan-desc">MCQ per quiz</div>
+      <div class="plan-desc" style="margin-top:4px;">₹99/month · Unlimited</div>
+      <button class="plan-btn gold-btn" onclick="showUpsell('pro')">Upgrade →</button>
+    </div>
+  </div>
+
+  <!-- Generator -->
+  <div class="main-card">
+    <div class="card-label">📝 Topic / Chapter</div>
+    <textarea id="topicInput" placeholder="Topic ka naam likho...
+
+Examples:
+🔬 કોષચક્ર (Cell Cycle)
+⚛️ Newton's Laws of Motion
+🧪 Organic Chemistry - Alkanes
+🌿 Photosynthesis
+📐 Limits and Derivatives
+Any topic in Gujarati, Hindi or English!"></textarea>
+
+    <div class="grid2">
+      <div class="option-group">
+        <label>Exam Type</label>
+        <select id="examType">
+          <option value="General">General</option>
+          <option value="JEE Mains" selected>JEE Mains</option>
+          <option value="JEE Advanced">JEE Advanced</option>
+          <option value="NEET">NEET</option>
+          <option value="GUJCET">GUJCET</option>
+          <option value="Board Exam">Board Exam</option>
+        </select>
+      </div>
+      <div class="option-group">
+        <label>Subject</label>
+        <select id="subject">
+          <option value="Physics">⚛️ Physics</option>
+          <option value="Chemistry">🧪 Chemistry</option>
+          <option value="Biology">🧬 Biology</option>
+          <option value="Mathematics">📐 Mathematics</option>
+          <option value="Botany">🌿 Botany</option>
+          <option value="Zoology">🐾 Zoology</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:12px;">
+      <div class="option-group">
+        <label>Questions</label>
+        <select id="numQuestions">
+          <option value="5" selected>5 — Free</option>
+          <option value="10">10 — Free</option>
+          <option value="30">30 — Basic 🔒</option>
+          <option value="50">50 — Pro 🔒</option>
+          <option value="100">100 — Pro 🔒</option>
+        </select>
+      </div>
+      <div class="option-group">
+        <label>Difficulty</label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+          <option value="mixed">Mixed 🔒</option>
+        </select>
+      </div>
+      <div class="option-group">
+        <label>Language</label>
+        <select id="language">
+          <option value="English">English</option>
+          <option value="Gujarati" selected>Gujarati (ગુજરાતી)</option>
+          <option value="Hindi">Hindi 🔒</option>
+          <option value="Hinglish">Hinglish 🔒</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn-generate" id="generateBtn" onclick="generateQuiz()">
+      ⚡ Generate MCQ Quiz
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="loading-text" id="loadingText">Topic analyze ho rahi hai...</div>
+  </div>
+
+  <!-- Score -->
+  <div class="score-card" id="scoreCard">
+    <div class="score-num" id="scoreNum">0/0</div>
+    <div class="score-label" id="scoreLabel">Questions Answered</div>
+  </div>
+
+  <!-- Output -->
+  <div class="quiz-output" id="quizOutput">
+    <div class="output-header">
+      <div class="output-title" id="quizTitle">Quiz</div>
+      <div class="output-actions">
+        <button class="btn-sm" onclick="copyQuiz()">📋 Copy</button>
+        <button class="btn-sm primary" onclick="resetQuiz()">🔄 New Quiz</button>
+      </div>
+    </div>
+    <div id="questionsContainer"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <!-- Pro Upsell -->
+  <div class="pro-upsell" id="proUpsell">
+    <h3 id="upsellTitle">🚀 Upgrade to Pro</h3>
+    <p id="upsellDesc">100 questions, unlimited quizzes, Hindi support aur bahut kuch!</p>
+    <div class="pro-features">
+      <div class="pro-feature"><span>✅</span> 100 MCQ per quiz</div>
+      <div class="pro-feature"><span>✅</span> Unlimited daily</div>
+      <div class="pro-feature"><span>✅</span> Hindi + Hinglish</div>
+      <div class="pro-feature"><span>✅</span> Mixed difficulty</div>
+      <div class="pro-feature"><span>✅</span> PDF Export</div>
+      <div class="pro-feature"><span>✅</span> All exam types</div>
+    </div>
+    <button class="btn-upgrade">👑 Upgrade to Pro — ₹99/month</button>
+  </div>
+</div>
+
+<footer>QuizCraft AI © 2025 · Powered by Groq LLaMA 3.3 · Made with ❤️ for Students</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+//  🔑 APNI GROQ API KEY YAHAN DAALO
+// ============================================================
+const GROQ_API_KEY = "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";
+// ============================================================
+
+// Config
+const FREE_DAILY_LIMIT = 3;
+const FREE_MAX_Q = 10;
+
+// State
+let freeUsesLeft = parseInt(localStorage.getItem('qc_uses_v2') || FREE_DAILY_LIMIT);
+let lastUseDate = localStorage.getItem('qc_date_v2') || '';
+let currentQuiz = null;
+let allQuestions = [];
+let answered = {};
+let score = 0;
+let currentPage = 0;
+const PAGE_SIZE = 10;
+
+// Reset daily count
+const today = new Date().toDateString();
+if (lastUseDate !== today) {
+  freeUsesLeft = FREE_DAILY_LIMIT;
+  localStorage.setItem('qc_uses_v2', freeUsesLeft);
+  localStorage.setItem('qc_date_v2', today);
+}
+
+function updatePlanUI() {
+  const label = document.getElementById('planLabel');
+  const dot = document.getElementById('planDot');
+  label.textContent = 'Free: ' + freeUsesLeft + '/3 left today';
+  dot.className = 'plan-dot ' + (freeUsesLeft > 0 ? 'free' : '');
+}
+updatePlanUI();
+
+async function generateQuiz() {
+  if (GROQ_API_KEY === "YOUR_GROQ_API_KEY_HERE") {
+    showToast('❌ Pehle code mein GROQ_API_KEY set karo!');
+    return;
+  }
+
+  const topic = document.getElementById('topicInput').value.trim();
+  if (!topic) { showToast('⚠️ Topic daalo pehle!'); return; }
+
+  const numQ = parseInt(document.getElementById('numQuestions').value);
+  const difficulty = document.getElementById('difficulty').value;
+  const language = document.getElementById('language').value;
+  const exam = document.getElementById('examType').value;
+  const subject = document.getElementById('subject').value;
+
+  // Pro/Basic locked checks
+  if (numQ > FREE_MAX_Q) { showUpsell('pro'); return; }
+  if (difficulty === 'mixed') { showUpsell('basic'); return; }
+  if (['Hindi','Hinglish'].includes(language)) { showUpsell('basic'); return; }
+
+  // Free limit check
+  if (freeUsesLeft <= 0) { showUpsell('free_limit'); return; }
+
+  // Start loading
+  document.getElementById('generateBtn').disabled = true;
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('quizOutput').classList.remove('show');
+  document.getElementById('scoreCard').classList.remove('show');
+  document.getElementById('proUpsell').style.display = 'none';
+  answered = {}; score = 0; allQuestions = []; currentPage = 0;
+
+  // Progress animation
+  let prog = 0;
+  const progInterval = setInterval(() => {
+    prog = Math.min(prog + Math.random() * 8, 90);
+    document.getElementById('progressFill').style.width = prog + '%';
+  }, 400);
+
+  const msgs = [
+    'Topic analyze ho rahi hai... 🔍',
+    'Questions generate ho rahe hain... ✍️',
+    'Options add ho rahe hain... 📝',
+    'Explanations likh raha hun... 💡',
+    'Almost done! ✨'
+  ];
+  let mi = 0;
+  const msgInterval = setInterval(() => {
+    document.getElementById('loadingText').textContent = msgs[mi++ % msgs.length];
+  }, 1500);
+
+  try {
+    let langInstr = '';
+    if (language === 'Gujarati') {
+      langInstr = `
+LANGUAGE INSTRUCTION: Write ALL questions, options, and explanations in Gujarati script (ગુજરાતી).
+- Use proper Gujarati language throughout
+- Scientific terms, chemical formulas, numbers can stay in English
+- Example: "પ્રકાશસંશ્લેષણ ક્યાં થાય છે?" not English`;
+    }
+
+    let examInstr = '';
+    if (exam === 'JEE Mains') examInstr = 'Match JEE Mains pattern: conceptual, numerical, application-based. Single correct answer.';
+    else if (exam === 'JEE Advanced') examInstr = 'Match JEE Advanced: deep conceptual, tricky, high difficulty.';
+    else if (exam === 'NEET') examInstr = 'Match NEET pattern: NCERT-based, factual, conceptual. Biology/PCB focus.';
+    else if (exam === 'GUJCET') examInstr = 'Match GUJCET Gujarat board pattern.';
+    else if (exam === 'Board Exam') examInstr = 'Standard board exam level, straightforward questions.';
+
+    const prompt = `You are an expert ${exam} question paper setter.
+
+Generate exactly ${numQ} high-quality MCQ questions.
+Exam: ${exam}
+Subject: ${subject}  
+Topic: "${topic}"
+Difficulty: ${difficulty}
+${examInstr}
+${langInstr}
+
+IMPORTANT: Cover ALL subtopics and aspects of "${topic}". Make each question unique.
+Questions should be exam-ready, accurate, and educational.
+
+Return ONLY this exact JSON format, no markdown, no extra text:
+{
+  "title": "Short quiz title about the topic",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Question text here?",
+      "difficulty": "${difficulty}",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correct": 0,
+      "explanation": "Clear explanation why this answer is correct. 2-3 sentences."
+    }
+  ]
+}
+
+correct field: 0=A, 1=B, 2=C, 3=D (0-indexed)
+Return ONLY the JSON object. No backticks.`;
+
+    const res = await fetch(
+      'https://api.groq.com/openai/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + GROQ_API_KEY
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [{ role: 'user', content: prompt }],
+          temperature: 0.7,
+          max_tokens: 8192
+        })
+      }
+    );
+
+    if (!res.ok) {
+      const e = await res.json();
+      if (res.status === 401) {
+        showToast('❌ Groq API Key galat hai! console.groq.com se check karo.');
+        return;
+      }
+      if (res.status === 429) {
+        showToast('⏳ Rate limit! 1 minute baad try karo.');
+        return;
+      }
+      throw new Error(e.error?.message || 'API Error ' + res.status);
+    }
+
+    const data = await res.json();
+    let raw = data.choices?.[0]?.message?.content || '';
+    raw = raw.replace(/```json|```/g, '').trim();
+
+    // Find JSON in response
+    const jsonStart = raw.indexOf('{');
+    const jsonEnd = raw.lastIndexOf('}');
+    if (jsonStart !== -1 && jsonEnd !== -1) {
+      raw = raw.substring(jsonStart, jsonEnd + 1);
+    }
+
+    currentQuiz = JSON.parse(raw);
+    allQuestions = currentQuiz.questions;
+
+    // Deduct free use
+    freeUsesLeft = Math.max(0, freeUsesLeft - 1);
+    localStorage.setItem('qc_uses_v2', freeUsesLeft);
+    localStorage.setItem('qc_date_v2', today);
+    updatePlanUI();
+
+    // Progress done
+    clearInterval(progInterval);
+    document.getElementById('progressFill').style.width = '100%';
+
+    setTimeout(() => {
+      renderQuiz();
+      showToast('✅ ' + allQuestions.length + ' questions ready! Answer karo! 🎯');
+    }, 300);
+
+  } catch (err) {
+    showToast('❌ Error: ' + (err.message || 'Try again'));
+    console.error(err);
+  } finally {
+    clearInterval(progInterval);
+    clearInterval(msgInterval);
+    document.getElementById('loading').classList.remove('show');
+    document.getElementById('generateBtn').disabled = false;
+  }
+}
+
+function renderQuiz() {
+  document.getElementById('quizTitle').textContent = currentQuiz.title || 'Quiz';
+  renderPage(0);
+  document.getElementById('quizOutput').classList.add('show');
+  document.getElementById('quizOutput').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderPage(page) {
+  currentPage = page;
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+
+  const start = page * PAGE_SIZE;
+  const end = Math.min(start + PAGE_SIZE, allQuestions.length);
+  const pageQs = allQuestions.slice(start, end);
+
+  pageQs.forEach((q, i) => {
+    const qi = start + i;
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.style.animationDelay = (i * 0.06) + 's';
+
+    const diffClass = { easy:'diff-easy', medium:'diff-medium', hard:'diff-hard' }[q.difficulty] || 'diff-medium';
+    const diffLabel = (q.difficulty||'medium').charAt(0).toUpperCase() + (q.difficulty||'medium').slice(1);
+    const isAnswered = answered[qi] !== undefined;
+    const correctIdx = q.correct;
+
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-num">${qi+1}</div>
+        <div class="q-text">${q.question}</div>
+        <div class="q-diff ${diffClass}">${diffLabel}</div>
+      </div>
+      <div class="options-list" id="opts-${qi}">
+        ${q.options.map((opt, oi) => {
+          let cls = 'option-item';
+          if (isAnswered) {
+            if (oi === correctIdx) cls += ' correct';
+            else if (oi === answered[qi] && answered[qi] !== correctIdx) cls += ' wrong';
+          }
+          return `<div class="${cls}" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi},${oi})">
+            <div class="opt-letter">${'ABCD'[oi]}</div>
+            <span>${opt}</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="explanation ${isAnswered ? 'show' : ''}" id="exp-${qi}">
+        💡 <strong>Explanation:</strong> ${q.explanation}
+      </div>`;
+    container.appendChild(card);
+  });
+
+  renderPagination();
+  updateScore();
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(allQuestions.length / PAGE_SIZE);
+  if (totalPages <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+
+  let html = '';
+  if (currentPage > 0) html += `<button class="page-btn" onclick="renderPage(${currentPage-1})">← Prev</button>`;
+  html += `<span class="page-info">Page ${currentPage+1} of ${totalPages}</span>`;
+  if (currentPage < totalPages-1) html += `<button class="page-btn" onclick="renderPage(${currentPage+1})">Next →</button>`;
+
+  // Page numbers
+  let nums = '';
+  for (let i = 0; i < totalPages; i++) {
+    nums += `<button class="page-btn ${i===currentPage?'active':''}" onclick="renderPage(${i})">${i+1}</button>`;
+  }
+  document.getElementById('pagination').innerHTML = nums + '<br>' + html;
+}
+
+function selectAnswer(qi, selected) {
+  if (answered[qi] !== undefined) return;
+  answered[qi] = selected;
+
+  const correct = allQuestions[qi].correct;
+  for (let i = 0; i < 4; i++) {
+    const el = document.getElementById('opt-' + qi + '-' + i);
+    if (!el) continue;
+    if (i === correct) el.classList.add('correct');
+    else if (i === selected && selected !== correct) el.classList.add('wrong');
+  }
+  const exp = document.getElementById('exp-' + qi);
+  if (exp) exp.classList.add('show');
+  if (selected === correct) score++;
+  updateScore();
+}
+
+function updateScore() {
+  const total = allQuestions.length;
+  const done = Object.keys(answered).length;
+  if (done === 0) return;
+  document.getElementById('scoreCard').classList.add('show');
+  document.getElementById('scoreNum').textContent = score + '/' + done;
+  const pct = Math.round(score/done*100);
+  document.getElementById('scoreLabel').textContent = 'Score: ' + pct + '% · ' + done + '/' + total + ' answered';
+  if (done === total) {
+    const msg = pct >= 80 ? '🎉 Excellent!' : pct >= 60 ? '👍 Good job!' : '📚 Keep practicing!';
+    showToast(msg + ' Final: ' + score + '/' + total + ' (' + pct + '%)');
+  }
+}
+
+function resetQuiz() {
+  document.getElementById('quizOutput').classList.remove('show');
+  document.getElementById('scoreCard').classList.remove('show');
+  document.getElementById('topicInput').value = '';
+  answered = {}; score = 0; currentQuiz = null; allQuestions = [];
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyQuiz() {
+  if (!allQuestions.length) return;
+  let text = (currentQuiz.title || 'Quiz') + '\n' + '='.repeat(50) + '\n\n';
+  allQuestions.forEach((q, i) => {
+    text += 'Q' + (i+1) + '. ' + q.question + '\n';
+    q.options.forEach((opt, oi) => {
+      text += '   ' + 'ABCD'[oi] + ') ' + opt + (oi === q.correct ? ' ✓' : '') + '\n';
+    });
+    text += '\n💡 ' + q.explanation + '\n\n';
+  });
+  navigator.clipboard.writeText(text).then(() => showToast('📋 Quiz copied!'));
+}
+
+function showUpsell(type) {
+  const el = document.getElementById('proUpsell');
+  el.style.display = 'block';
+  if (type === 'free_limit') {
+    document.getElementById('upsellTitle').textContent = '🔒 Free limit khatam!';
+    document.getElementById('upsellDesc').textContent = 'Aaj ke 3 free quizzes ho gaye. Kal phir aao ya upgrade karo!';
+  } else if (type === 'basic') {
+    document.getElementById('upsellTitle').textContent = '⭐ Basic Plan chahiye!';
+    document.getElementById('upsellDesc').textContent = '30 questions, Hindi language aur mixed difficulty ke liye Basic plan lo!';
+  } else {
+    document.getElementById('upsellTitle').textContent = '👑 Pro Plan chahiye!';
+    document.getElementById('upsellDesc').textContent = '50-100 questions, unlimited quizzes aur saari features ke liye Pro lo!';
+  }
+  el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+</script>
+</body>
+</html>
