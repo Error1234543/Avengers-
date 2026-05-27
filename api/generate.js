@@ -1,106 +1,117 @@
+// ============================================================
+// API Route for Vercel
+// Location: /api/generate.js
+// This runs on Vercel server — API key is SAFE here!
+// ============================================================
+
+const groqApiKey = process.env.GROQ_API_KEY;
+
 export default async function handler(req, res) {
+  // Only POST allowed
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { topic, numQ, difficulty, language, exam, subject } = req.body;
-
-  if (!topic || !numQ) {
-    return res.status(400).json({ error: 'Missing fields' });
-  }
-
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'Server not configured' });
-  }
-
   try {
-    const prompt = `Generate exactly ${numQ} MCQ questions about "${topic}".
-Return ONLY a JSON array. No markdown, no text before/after.
+    const { topic, numQ, difficulty, language, exam, subject } = req.body;
 
-[
-  {
-    "question": "Question text here?",
-    "options": ["Option A", "Option B", "Option C", "Option D"],
-    "correct": 0,
-    "explanation": "Why this is correct"
-  }
-]`;
+    // Validate input
+    if (!topic || !numQ || !difficulty || !language || !exam || !subject) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    // Check API key
+    if (!groqApiKey) {
+      return res.status(500).json({ error: 'API key not configured' });
+    }
+
+    // Build prompt
+    let langInstr = '';
+    if (language === 'Gujarati') {
+      langInstr = 'Write ALL questions, options, and explanations in Gujarati script (ગુજરાતી). Chemical formulas and numbers stay in English.';
+    } else if (language === 'Hindi') {
+      langInstr = 'Write ALL questions, options, and explanations in Hindi (हिंदी). Formulas and numbers stay in English.';
+    }
+
+    let examInstr = '';
+    if (exam === 'JEE Mains') examInstr = 'Follow JEE Mains: conceptual, numerical, application-based questions.';
+    else if (exam === 'JEE Advanced') examInstr = 'Follow JEE Advanced: deep conceptual, tricky multi-concept questions.';
+    else if (exam === 'NEET') examInstr = 'Follow NEET pattern: NCERT-based, factual and conceptual questions.';
+    else if (exam === 'GUJCET') examInstr = 'Follow GUJCET Gujarat board pattern.';
+    else if (exam === 'Board Exam') examInstr = 'Standard board exam level questions.';
+
+    const prompt = `You are an expert ${exam} question paper setter.
+
+Generate exactly ${numQ} MCQ questions.
+Exam: ${exam}
+Subject: ${subject}
+Topic: "${topic}"
+Difficulty: ${difficulty}
+${examInstr}
+${langInstr}
+
+Cover ALL subtopics of "${topic}". Make each question unique and educational.
+
+Return ONLY valid JSON — no markdown, no backticks:
+{
+  "title": "Topic as title",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Question?",
+      "difficulty": "${difficulty === 'mixed' ? 'medium' : difficulty}",
+      "options": ["A", "B", "C", "D"],
+      "correct": 0,
+      "explanation": "Why correct. 2-3 sentences."
+    }
+  ]
+}
+correct = 0-indexed. Return ONLY JSON.`;
+
+    // Call Groq API
+    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: prompt }],
-        temperature: 0.2,
-        max_tokens: 800
+        temperature: 0.7,
+        max_tokens: 8192
       })
     });
 
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
+    if (!groqRes.ok) {
+      const err = await groqRes.json();
+      if (groqRes.status === 401) {
+        return res.status(401).json({ error: 'Invalid Groq API key' });
+      }
+      if (groqRes.status === 429) {
+        return res.status(429).json({ error: 'Rate limit exceeded. Try again in 1 minute.' });
+      }
+      return res.status(groqRes.status).json({ error: err.error?.message || 'Groq API error' });
     }
 
-    const data = await response.json();
-    let content = data.choices[0].message.content;
-
-    // Clean content
-    content = content.trim();
-    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '');
-    content = content.replace(/^[\s\n]*/, '').replace(/[\s\n]*$/, '');
-
-    // Find and extract array
-    const arrayStart = content.indexOf('[');
-    const arrayEnd = content.lastIndexOf(']');
-
-    if (arrayStart === -1 || arrayEnd === -1) {
-      return res.status(400).json({ error: 'Invalid response format' });
+    const groqData = await groqRes.json();
+    let raw = groqData.choices?.[0]?.message?.content || '';
+    
+    // Extract JSON
+    raw = raw.replace(/```json|```/g, '').trim();
+    const jsonStart = raw.indexOf('{');
+    const jsonEnd = raw.lastIndexOf('}');
+    if (jsonStart !== -1 && jsonEnd !== -1) {
+      raw = raw.substring(jsonStart, jsonEnd + 1);
     }
 
-    let jsonArray = content.substring(arrayStart, arrayEnd + 1);
+    const quiz = JSON.parse(raw);
 
-    // Fix JSON issues
-    jsonArray = jsonArray.replace(/,\s*]/g, ']');
-    jsonArray = jsonArray.replace(/,\s*}/g, '}');
-    jsonArray = jsonArray.replace(/\n\s*/g, ' ');
+    // Return quiz
+    res.status(200).json(quiz);
 
-    // Parse
-    let questions;
-    try {
-      questions = JSON.parse(jsonArray);
-    } catch (e) {
-      return res.status(400).json({ error: 'Could not parse response' });
-    }
-
-    if (!Array.isArray(questions) || questions.length === 0) {
-      return res.status(400).json({ error: 'No questions generated' });
-    }
-
-    // Validate each question
-    const validQuestions = questions.map((q, idx) => ({
-      id: idx + 1,
-      question: q.question || '',
-      options: (Array.isArray(q.options) && q.options.length >= 4) ? q.options.slice(0, 4) : ['A', 'B', 'C', 'D'],
-      correct: (typeof q.correct === 'number' && q.correct >= 0 && q.correct <= 3) ? q.correct : 0,
-      explanation: q.explanation || '',
-      difficulty: difficulty || 'medium'
-    })).filter(q => q.question.length > 0);
-
-    if (validQuestions.length === 0) {
-      return res.status(400).json({ error: 'No valid questions' });
-    }
-
-    res.status(200).json({
-      title: `${exam} - ${subject}`,
-      questions: validQuestions.slice(0, numQ)
-    });
-
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: 'Generation failed' });
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).json({ error: err.message || 'Internal server error' });
   }
 }
