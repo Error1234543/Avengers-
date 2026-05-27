@@ -3,67 +3,31 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  try {
-    const { topic, numQ, difficulty, language, exam, subject } = req.body;
+  const { topic, numQ, difficulty, language, exam, subject } = req.body;
 
-    if (!topic || !numQ || !difficulty || !language || !exam || !subject) {
-      return res.status(400).json({ error: 'Missing fields' });
-    }
-
-    const groqApiKey = process.env.GROQ_API_KEY;
-    if (!groqApiKey) {
-      return res.status(500).json({ error: 'API key not set' });
-    }
-
-    const allQuestions = [];
-    const CHUNK_SIZE = 15;
-    const totalChunks = Math.ceil(numQ / CHUNK_SIZE);
-
-    for (let chunk = 0; chunk < totalChunks; chunk++) {
-      const qCount = Math.min(CHUNK_SIZE, numQ - chunk * CHUNK_SIZE);
-      const questions = await generateQuestions(
-        groqApiKey, 
-        topic, 
-        qCount, 
-        difficulty, 
-        language, 
-        exam, 
-        subject
-      );
-      allQuestions.push(...questions);
-    }
-
-    allQuestions.forEach((q, i) => q.id = i + 1);
-
-    return res.status(200).json({
-      title: `${exam} - ${subject}`,
-      questions: allQuestions.slice(0, numQ)
-    });
-
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(500).json({ error: 'Question generation failed' });
+  if (!topic || !numQ) {
+    return res.status(400).json({ error: 'Missing fields' });
   }
-}
 
-async function generateQuestions(apiKey, topic, count, difficulty, language, exam, subject) {
-  let langLine = 'English';
-  if (language === 'Gujarati') langLine = 'Gujarati (ગુજરાતી)';
-  if (language === 'Hindi') langLine = 'Hindi (हिंदी)';
-
-  const prompt = `Generate ${count} MCQ questions. Return ONLY valid JSON array, no other text.
-
-Topic: ${topic}
-Exam: ${exam}
-Subject: ${subject}
-Difficulty: ${difficulty}
-Language: ${langLine}
-
-Return as JSON array exactly like this (NO extra text, NO markdown):
-[{"question":"Q text?","options":["A","B","C","D"],"correct":0,"explanation":"Why correct."}]`;
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: 'Server not configured' });
+  }
 
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const prompt = `Generate exactly ${numQ} MCQ questions about "${topic}".
+Return ONLY a JSON array. No markdown, no text before/after.
+
+[
+  {
+    "question": "Question text here?",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "correct": 0,
+    "explanation": "Why this is correct"
+  }
+]`;
+
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,49 +36,71 @@ Return as JSON array exactly like this (NO extra text, NO markdown):
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: prompt }],
-        temperature: 0.3,
-        max_tokens: 1200
+        temperature: 0.2,
+        max_tokens: 800
       })
     });
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || `Status ${res.status}`);
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
     }
 
-    const data = await res.json();
-    let text = data.choices[0].message.content.trim();
+    const data = await response.json();
+    let content = data.choices[0].message.content;
 
-    text = text.replace(/```json\n?/g, '').replace(/```/g, '').trim();
+    // Clean content
+    content = content.trim();
+    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+    content = content.replace(/^[\s\n]*/, '').replace(/[\s\n]*$/, '');
 
-    const start = text.indexOf('[');
-    const end = text.lastIndexOf(']');
-    
-    if (start === -1 || end === -1) {
-      console.error('No JSON array found:', text.substring(0, 100));
-      throw new Error('JSON not found');
+    // Find and extract array
+    const arrayStart = content.indexOf('[');
+    const arrayEnd = content.lastIndexOf(']');
+
+    if (arrayStart === -1 || arrayEnd === -1) {
+      return res.status(400).json({ error: 'Invalid response format' });
     }
 
-    text = text.substring(start, end + 1);
+    let jsonArray = content.substring(arrayStart, arrayEnd + 1);
 
-    text = text.replace(/,\s*]/g, ']');
-    text = text.replace(/,\s*}/g, '}');
-    text = text.replace(/\n/g, ' ');
+    // Fix JSON issues
+    jsonArray = jsonArray.replace(/,\s*]/g, ']');
+    jsonArray = jsonArray.replace(/,\s*}/g, '}');
+    jsonArray = jsonArray.replace(/\n\s*/g, ' ');
 
-    const questions = JSON.parse(text);
+    // Parse
+    let questions;
+    try {
+      questions = JSON.parse(jsonArray);
+    } catch (e) {
+      return res.status(400).json({ error: 'Could not parse response' });
+    }
 
-    if (!Array.isArray(questions)) throw new Error('Not an array');
+    if (!Array.isArray(questions) || questions.length === 0) {
+      return res.status(400).json({ error: 'No questions generated' });
+    }
 
-    return questions.map(q => ({
-      question: String(q.question || ''),
-      options: Array.isArray(q.options) ? q.options.slice(0, 4) : ['A', 'B', 'C', 'D'],
-      correct: Math.min(3, Math.max(0, parseInt(q.correct) || 0)),
-      explanation: String(q.explanation || ''),
-      difficulty: difficulty
+    // Validate each question
+    const validQuestions = questions.map((q, idx) => ({
+      id: idx + 1,
+      question: q.question || '',
+      options: (Array.isArray(q.options) && q.options.length >= 4) ? q.options.slice(0, 4) : ['A', 'B', 'C', 'D'],
+      correct: (typeof q.correct === 'number' && q.correct >= 0 && q.correct <= 3) ? q.correct : 0,
+      explanation: q.explanation || '',
+      difficulty: difficulty || 'medium'
     })).filter(q => q.question.length > 0);
 
-  } catch (err) {
-    console.error(`Chunk error: ${err.message}`);
-    throw err;
+    if (validQuestions.length === 0) {
+      return res.status(400).json({ error: 'No valid questions' });
+    }
+
+    res.status(200).json({
+      title: `${exam} - ${subject}`,
+      questions: validQuestions.slice(0, numQ)
+    });
+
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'Generation failed' });
   }
 }
