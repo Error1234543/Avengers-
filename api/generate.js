@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { topic, numQ, difficulty, language, exam, subject } = req.body;
 
     if (!topic || !numQ || !difficulty || !language || !exam || !subject) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: 'Missing fields' });
     }
 
     const groqApiKey = process.env.GROQ_API_KEY;
@@ -15,189 +15,183 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'API key not configured' });
     }
 
-    // Split large requests into chunks
-    let chunksToFetch = 1;
-    let questionsPerChunk = Math.min(numQ, 25); // Max 25 per chunk
-    
-    if (numQ > 25) {
-      chunksToFetch = Math.ceil(numQ / 25);
-      questionsPerChunk = Math.ceil(numQ / chunksToFetch);
-    }
-
+    // Chunk size - never exceed 20 questions per request
+    const CHUNK_SIZE = 20;
+    const totalChunks = Math.ceil(numQ / CHUNK_SIZE);
     const allQuestions = [];
-    const chunkPromises = [];
 
-    // Create promise for each chunk
-    for (let chunk = 0; chunk < chunksToFetch; chunk++) {
-      const promise = generateChunk(
+    // Generate questions in chunks
+    for (let chunk = 0; chunk < totalChunks; chunk++) {
+      const questionsInChunk = Math.min(CHUNK_SIZE, numQ - (chunk * CHUNK_SIZE));
+      
+      const chunkQuestions = await fetchChunk(
         groqApiKey,
         topic,
-        questionsPerChunk,
+        questionsInChunk,
         difficulty,
         language,
         exam,
         subject,
         chunk + 1,
-        chunksToFetch
-      ).then(questions => {
-        allQuestions.push(...questions);
-      });
-      chunkPromises.push(promise);
+        totalChunks
+      );
+
+      allQuestions.push(...chunkQuestions);
     }
 
-    // Wait for all chunks
-    await Promise.all(chunkPromises);
-
-    // Trim to exact number if needed
-    allQuestions.splice(numQ);
-
-    // Re-index questions
+    // Re-index
     allQuestions.forEach((q, i) => {
       q.id = i + 1;
     });
 
-    const quiz = {
+    return res.status(200).json({
       title: `${exam} - ${subject} - ${topic}`,
-      questions: allQuestions
-    };
-
-    return res.status(200).json(quiz);
+      questions: allQuestions.slice(0, numQ)
+    });
 
   } catch (err) {
-    console.error('Server Error:', err.message);
-    return res.status(500).json({
-      error: 'Server error: ' + err.message
-    });
+    console.error('Error:', err.message);
+    return res.status(500).json({ error: 'Failed to generate questions. Please try again.' });
   }
 }
 
-async function generateChunk(
-  groqApiKey,
-  topic,
-  questionsPerChunk,
-  difficulty,
-  language,
-  exam,
-  subject,
-  chunkNum,
-  totalChunks
-) {
+async function fetchChunk(groqApiKey, topic, numQ, difficulty, language, exam, subject, chunkNum, totalChunks) {
   let langInstr = '';
   if (language === 'Gujarati') {
-    langInstr = 'Write ALL in Gujarati script (ગુજરાતી). Formulas in English.';
+    langInstr = 'IMPORTANT: Write ONLY in Gujarati script (ગુજરાતી). Chemical names and formulas can be in English.';
   } else if (language === 'Hindi') {
-    langInstr = 'Write ALL in Hindi (हिंदी). Formulas in English.';
+    langInstr = 'IMPORTANT: Write ONLY in Hindi (हिंदी). Chemical names and formulas can be in English.';
   }
 
-  let examInstr = 'Follow standard exam pattern.';
-  if (exam === 'JEE Mains') {
-    examInstr = 'JEE Mains: conceptual, numerical, application-based.';
-  } else if (exam === 'JEE Advanced') {
-    examInstr = 'JEE Advanced: deep conceptual, tricky, multi-concept.';
-  } else if (exam === 'NEET') {
-    examInstr = 'NEET: NCERT-based, factual and conceptual.';
-  } else if (exam === 'GUJCET') {
-    examInstr = 'GUJCET Gujarat board pattern.';
-  }
+  let examInstr = '';
+  if (exam === 'JEE Mains') examInstr = 'JEE Mains pattern: conceptual, numerical problems, application-based.';
+  else if (exam === 'JEE Advanced') examInstr = 'JEE Advanced: deep concepts, tricky questions, multi-concept.';
+  else if (exam === 'NEET') examInstr = 'NEET pattern: NCERT-based, factual and conceptual questions.';
+  else if (exam === 'GUJCET') examInstr = 'GUJCET pattern: Gujarat board standard.';
+  else examInstr = 'Standard exam pattern questions.';
 
-  const prompt = `Generate exactly ${questionsPerChunk} unique MCQ questions (Chunk ${chunkNum}/${totalChunks}).
+  const systemPrompt = `You are an expert ${exam} question setter. Generate exactly ${numQ} MCQ questions.
+Return ONLY a valid JSON array with NO extra text, NO markdown, NO explanation outside JSON.
+Each question must have exactly 4 options.
+The "correct" field must be 0, 1, 2, or 3 (the index of the correct option).`;
 
-Topic: "${topic}"
-Exam: ${exam}
-Subject: ${subject}
+  const userPrompt = `Generate ${numQ} unique MCQ questions for ${exam} exam (Chunk ${chunkNum}/${totalChunks}).
+
+Topic: ${topic}
+Subject: ${subject}  
 Difficulty: ${difficulty}
+Language: ${language}
 
 ${examInstr}
 ${langInstr}
 
-IMPORTANT:
-- Each question must be UNIQUE and different from others
-- Cover different aspects of "${topic}"
-- Ensure only ONE correct answer per question
-
-Return ONLY valid JSON (no markdown, no text before/after):
-
-{
-  "questions": [
-    {
-      "id": ${(chunkNum - 1) * questionsPerChunk + 1},
-      "question": "Question text?",
-      "difficulty": "${difficulty === 'mixed' ? 'medium' : difficulty}",
-      "options": ["Option A", "Option B", "Option C", "Option D"],
-      "correct": 0,
-      "explanation": "Brief explanation of correct answer."
-    }
-  ]
-}`;
-
-  try {
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${groqApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.7,
-        max_tokens: 2000,
-        top_p: 0.95
-      })
-    });
-
-    if (!groqRes.ok) {
-      const errData = await groqRes.json();
-      console.error(`Chunk ${chunkNum} Error:`, errData);
-
-      if (groqRes.status === 429) {
-        // Rate limit - retry after delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        return generateChunk(
-          groqApiKey,
-          topic,
-          questionsPerChunk,
-          difficulty,
-          language,
-          exam,
-          subject,
-          chunkNum,
-          totalChunks
-        );
-      }
-
-      throw new Error(`API Error: ${errData.error?.message || groqRes.status}`);
-    }
-
-    const groqData = await groqRes.json();
-    let rawResponse = groqData.choices[0].message.content;
-
-    // Clean response
-    rawResponse = rawResponse.trim();
-    rawResponse = rawResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '');
-
-    const jsonStart = rawResponse.indexOf('{');
-    const jsonEnd = rawResponse.lastIndexOf('}');
-
-    if (jsonStart === -1 || jsonEnd === -1) {
-      throw new Error('JSON not found in response');
-    }
-
-    let jsonStr = rawResponse.substring(jsonStart, jsonEnd + 1);
-    jsonStr = jsonStr.replace(/,(\s*[\]\}])/g, '$1');
-    jsonStr = jsonStr.replace(/[\u2018\u2019]/g, "'");
-    jsonStr = jsonStr.replace(/[\u201C\u201D]/g, '"');
-
-    const data = JSON.parse(jsonStr);
-
-    if (!Array.isArray(data.questions)) {
-      throw new Error('Invalid questions array');
-    }
-
-    return data.questions;
-
-  } catch (err) {
-    console.error(`Error generating chunk ${chunkNum}:`, err);
-    throw err;
+Return ONLY this JSON array structure - nothing else:
+[
+  {
+    "question": "Complete question text here?",
+    "options": ["Option A text", "Option B text", "Option C text", "Option D text"],
+    "correct": 0,
+    "explanation": "Why this option is correct."
   }
+]
+
+Rules:
+- Return ONLY the JSON array
+- No markdown backticks
+- No text before or after JSON
+- Exactly 4 options per question
+- correct field: 0-3 only
+- No trailing commas`;
+
+  const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${groqApiKey}`
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      temperature: 0.5,
+      max_tokens: 1500,
+      top_p: 0.9
+    })
+  });
+
+  if (!groqRes.ok) {
+    const errData = await groqRes.json();
+    console.error(`Chunk ${chunkNum} API error:`, errData);
+    
+    if (groqRes.status === 429) {
+      // Rate limit - wait and retry
+      await sleep(2000);
+      return fetchChunk(groqApiKey, topic, numQ, difficulty, language, exam, subject, chunkNum, totalChunks);
+    }
+    
+    throw new Error(`API Error: ${groqRes.status}`);
+  }
+
+  const data = await groqRes.json();
+  let content = data.choices[0].message.content.trim();
+
+  // Remove markdown code blocks
+  content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+  // If wrapped in object, extract array
+  if (content.startsWith('{') && content.includes('"questions"')) {
+    const obj = JSON.parse(content);
+    content = JSON.stringify(obj.questions);
+  }
+
+  // Clean common issues
+  content = content.replace(/,\s*]/g, ']');  // Remove trailing commas in arrays
+  content = content.replace(/,\s*}/g, '}');  // Remove trailing commas in objects
+  content = content.replace(/[\u2018\u2019]/g, "'");  // Fix smart quotes
+  content = content.replace(/[\u201C\u201D]/g, '"');  // Fix smart double quotes
+
+  // Ensure it's an array
+  if (!content.startsWith('[')) {
+    content = '[' + content + ']';
+  }
+
+  let questions = [];
+  try {
+    questions = JSON.parse(content);
+  } catch (parseErr) {
+    console.error(`Parse error in chunk ${chunkNum}:`, parseErr.message);
+    console.error('Content start:', content.substring(0, 200));
+    
+    // Try to salvage
+    try {
+      const arrayContent = content.replace(/^{[\s\S]*?"questions"\s*:\s*/, '').replace(/\}$/, '');
+      questions = JSON.parse(arrayContent);
+    } catch (e) {
+      throw new Error(`Failed to parse chunk ${chunkNum}`);
+    }
+  }
+
+  if (!Array.isArray(questions)) {
+    throw new Error(`Chunk ${chunkNum}: Not an array`);
+  }
+
+  // Validate and clean questions
+  return questions.map((q, idx) => ({
+    id: idx + 1,
+    question: q.question || 'Question missing',
+    difficulty: difficulty === 'mixed' ? 'medium' : difficulty,
+    options: Array.isArray(q.options) && q.options.length === 4 
+      ? q.options 
+      : ['Option A', 'Option B', 'Option C', 'Option D'],
+    correct: typeof q.correct === 'number' && q.correct >= 0 && q.correct <= 3 
+      ? q.correct 
+      : 0,
+    explanation: q.explanation || 'Explanation not provided'
+  }));
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
