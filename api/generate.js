@@ -43,10 +43,10 @@ Format:
             'Authorization': `Bearer ${apiKey}`
           },
           body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: 'llama-3.1-8b-instant',
             messages: [{ role: 'user', content: prompt }],
             temperature: 0.3,
-            max_tokens: 4000
+            max_tokens: 1500
           })
         });
       } catch (fetchErr) {
