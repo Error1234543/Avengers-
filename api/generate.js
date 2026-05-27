@@ -1,6 +1,7 @@
+
 // ============================================================
-// API Route for Vercel
 // File: /api/generate.js
+// Stable MCQ Generator for Vercel + Groq
 // ============================================================
 
 const API_KEYS = [
@@ -10,7 +11,7 @@ const API_KEYS = [
 ].filter(Boolean);
 
 // ============================================================
-// Rotate API Keys Automatically
+// API KEY ROTATION
 // ============================================================
 
 async function callGroqWithRotation(body) {
@@ -22,23 +23,32 @@ async function callGroqWithRotation(body) {
         'https://api.groq.com/openai/v1/chat/completions',
         {
           method: 'POST',
+
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${apiKey}`,
           },
+
           body: JSON.stringify(body),
         }
       );
 
-      // Rate limit → next key
+      // Rate Limited
       if (response.status === 429) {
-        console.log(`Key ${i + 1} rate limited → trying next key`);
+        console.log(
+          `API Key ${i + 1} Rate Limited → Trying Next Key`
+        );
+
         continue;
       }
 
       return response;
     } catch (err) {
-      console.error(`Key ${i + 1} fetch error:`, err.message);
+      console.error(
+        `API Key ${i + 1} Error:`,
+        err.message
+      );
+
       continue;
     }
   }
@@ -47,15 +57,23 @@ async function callGroqWithRotation(body) {
 }
 
 // ============================================================
-// Main API
+// MAIN API
 // ============================================================
 
 export default async function handler(req, res) {
+  // ============================================================
+  // METHOD CHECK
+  // ============================================================
+
   if (req.method !== 'POST') {
     return res.status(405).json({
       error: 'Method not allowed',
     });
   }
+
+  // ============================================================
+  // REQUEST BODY
+  // ============================================================
 
   const {
     topic,
@@ -65,6 +83,10 @@ export default async function handler(req, res) {
     exam,
     subject,
   } = req.body;
+
+  // ============================================================
+  // VALIDATION
+  // ============================================================
 
   if (!topic || !numQ) {
     return res.status(400).json({
@@ -79,41 +101,45 @@ export default async function handler(req, res) {
   }
 
   // ============================================================
-  // Language Instructions
+  // LANGUAGE INSTRUCTIONS
   // ============================================================
 
   const langInstruction =
     language === 'Gujarati'
-      ? 'IMPORTANT: Write ALL text strictly in Gujarati script (ગુજરાતી). No English words.'
+      ? 'IMPORTANT: Write ALL text strictly in Gujarati script (ગુજરાતી). No English words at all.'
       : language === 'Hindi'
-      ? 'IMPORTANT: Write ALL text strictly in Hindi (हिंदी). No English words.'
+      ? 'IMPORTANT: Write ALL text strictly in Hindi (हिंदी). No English words at all.'
       : 'Write everything in English.';
 
   // ============================================================
-  // Batch Settings
+  // SETTINGS
   // ============================================================
 
   const total = parseInt(numQ);
 
-  // 25 questions per API call
-  const BATCH_SIZE = 25;
+  // Stable Batch Size
+  const BATCH_SIZE = 10;
 
-  // High token limit
-  const MAX_TOKENS = 8000;
+  // Stable Tokens
+  const MAX_TOKENS = 3000;
 
   const totalBatches = Math.ceil(total / BATCH_SIZE);
 
   let allQuestions = [];
 
-  // Duplicate prevention
+  // Duplicate Prevention
   const seenQuestions = new Set();
 
-  try {
-    // ============================================================
-    // Generate Batch by Batch
-    // ============================================================
+  // ============================================================
+  // START GENERATION
+  // ============================================================
 
+  try {
     for (let batch = 0; batch < totalBatches; batch++) {
+      // ========================================================
+      // CURRENT BATCH COUNT
+      // ========================================================
+
       const batchCount = Math.min(
         BATCH_SIZE,
         total - allQuestions.length
@@ -123,19 +149,18 @@ export default async function handler(req, res) {
         `Generating Batch ${batch + 1}/${totalBatches}`
       );
 
+      // ========================================================
+      // PROMPT
+      // ========================================================
+
       const prompt = `
 Generate exactly ${batchCount} UNIQUE MCQ questions about "${topic}".
 
 This is batch ${batch + 1} of ${totalBatches}.
 
-IMPORTANT:
-- Do NOT repeat previous questions
-- Questions must be fully unique
-- Questions must be exam-level quality
-
 ${langInstruction}
 
-Difficulty Level:
+Difficulty:
 ${difficulty || 'medium'}
 
 Exam:
@@ -149,6 +174,7 @@ STRICT RULES:
 - No markdown
 - No backticks
 - No explanation outside JSON
+- Do NOT repeat previous questions
 - Each question must contain:
   question
   options
@@ -156,7 +182,7 @@ STRICT RULES:
   explanation
 
 - Exactly 4 options required
-- "correct" must be:
+- correct must be:
   0 or 1 or 2 or 3
 
 JSON FORMAT:
@@ -171,18 +197,19 @@ JSON FORMAT:
 ]
 `;
 
-      // ============================================================
-      // API Call
-      // ============================================================
+      // ========================================================
+      // API CALL
+      // ========================================================
 
       const response = await callGroqWithRotation({
-        model: 'llama-3.1-8b-instant',
+        model: 'llama3-70b-8192',
 
         messages: [
           {
             role: 'system',
+
             content: `
-You are an expert MCQ generator.
+You are a professional MCQ generator.
 
 ${langInstruction}
 
@@ -203,9 +230,9 @@ Never explain anything outside JSON.
         max_tokens: MAX_TOKENS,
       });
 
-      // ============================================================
-      // API Error
-      // ============================================================
+      // ========================================================
+      // API ERROR
+      // ========================================================
 
       if (!response || !response.ok) {
         const errText = response
@@ -220,26 +247,28 @@ Never explain anything outside JSON.
         continue;
       }
 
-      // ============================================================
-      // Parse API Response
-      // ============================================================
+      // ========================================================
+      // RESPONSE JSON
+      // ========================================================
 
       const data = await response.json();
 
       const content =
         data?.choices?.[0]?.message?.content?.trim();
 
+      console.log(content);
+
       if (!content) {
         console.error(
-          `Batch ${batch + 1}: Empty response`
+          `Batch ${batch + 1}: Empty Response`
         );
 
         continue;
       }
 
-      // ============================================================
-      // Extract JSON
-      // ============================================================
+      // ========================================================
+      // EXTRACT JSON
+      // ========================================================
 
       const arrayStart = content.indexOf('[');
 
@@ -247,25 +276,26 @@ Never explain anything outside JSON.
 
       if (arrayStart === -1 || arrayEnd === -1) {
         console.error(
-          `Batch ${batch + 1}: No JSON found`
+          `Batch ${batch + 1}: JSON Array Not Found`
         );
 
         continue;
       }
 
-      let jsonStr = content.substring(
-        arrayStart,
-        arrayEnd + 1
-      );
+      let jsonStr = content
+        .substring(arrayStart, arrayEnd + 1)
+        .replace(/```json/g, '')
+        .replace(/```/g, '')
+        .trim();
 
-      // Fix broken commas
+      // Fix Broken Commas
       jsonStr = jsonStr
         .replace(/,\s*]/g, ']')
         .replace(/,\s*}/g, '}');
 
-      // ============================================================
-      // Convert JSON
-      // ============================================================
+      // ========================================================
+      // PARSE JSON
+      // ========================================================
 
       let questions = [];
 
@@ -273,20 +303,28 @@ Never explain anything outside JSON.
         questions = JSON.parse(jsonStr);
       } catch (e) {
         console.error(
-          `Batch ${batch + 1} JSON Parse Error:`,
+          `Batch ${batch + 1} Parse Error:`,
           e.message
         );
 
         continue;
       }
 
+      // ========================================================
+      // VALIDATE ARRAY
+      // ========================================================
+
       if (!Array.isArray(questions)) {
+        console.error(
+          `Batch ${batch + 1}: Response Not Array`
+        );
+
         continue;
       }
 
-      // ============================================================
-      // Validate Questions
-      // ============================================================
+      // ========================================================
+      // VALIDATE QUESTIONS
+      // ========================================================
 
       const validQuestions = questions
         .filter((q) => {
@@ -296,7 +334,7 @@ Never explain anything outside JSON.
             .trim()
             .toLowerCase();
 
-          // Remove duplicates
+          // Remove Duplicates
           if (seenQuestions.has(cleanQuestion)) {
             return false;
           }
@@ -334,9 +372,9 @@ Never explain anything outside JSON.
           difficulty: difficulty || 'medium',
         }));
 
-      // ============================================================
-      // Save Batch
-      // ============================================================
+      // ========================================================
+      // SAVE QUESTIONS
+      // ========================================================
 
       allQuestions = [
         ...allQuestions,
@@ -344,23 +382,24 @@ Never explain anything outside JSON.
       ];
 
       console.log(
-        `Batch ${batch + 1} Complete → Added ${
-          validQuestions.length
-        } Questions`
+        `Batch ${batch + 1} Added ${validQuestions.length} Questions`
       );
 
       console.log(
         `Current Total: ${allQuestions.length}`
       );
 
-      // Small delay between batches
+      // ========================================================
+      // SMALL DELAY
+      // ========================================================
+
       if (batch < totalBatches - 1) {
         await new Promise((r) => setTimeout(r, 700));
       }
     }
 
     // ============================================================
-    // Final Validation
+    // FINAL CHECK
     // ============================================================
 
     if (allQuestions.length === 0) {
@@ -371,7 +410,7 @@ Never explain anything outside JSON.
     }
 
     // ============================================================
-    // Final Response
+    // SUCCESS RESPONSE
     // ============================================================
 
     return res.status(200).json({
@@ -388,7 +427,10 @@ Never explain anything outside JSON.
       questions: allQuestions.slice(0, total),
     });
   } catch (error) {
-    console.error('Handler Error:', error.message);
+    console.error(
+      'Handler Error:',
+      error.message
+    );
 
     return res.status(500).json({
       error: 'Generation failed. Please try again.',
