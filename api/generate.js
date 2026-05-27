@@ -1,11 +1,9 @@
-// API Keys array - jab ek limit hit kare to dusri use hogi
 const API_KEYS = [
   process.env.GROQ_API_KEY_1,
   process.env.GROQ_API_KEY_2,
   process.env.GROQ_API_KEY_3,
 ].filter(Boolean);
 
-// Smart key rotation - ek key exhaust ho to next try karo
 async function callGroqWithRotation(body) {
   for (let i = 0; i < API_KEYS.length; i++) {
     const apiKey = API_KEYS[i];
@@ -19,7 +17,6 @@ async function callGroqWithRotation(body) {
         body: JSON.stringify(body)
       });
 
-      // Rate limit hit - next key try karo
       if (response.status === 429) {
         console.log(`Key ${i + 1} rate limited, trying key ${i + 2}...`);
         continue;
@@ -31,7 +28,7 @@ async function callGroqWithRotation(body) {
       continue;
     }
   }
-  return null; // Saari keys fail
+  return null;
 }
 
 export default async function handler(req, res) {
@@ -49,15 +46,17 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'No API keys configured' });
   }
 
-  // Language instruction
   const langInstruction =
     language === 'Gujarati'
-      ? 'IMPORTANT: Write ALL text strictly in Gujarati script (ગુજરાતી લિપિ). Every word must be in Gujarati. No English words anywhere.'
+      ? 'IMPORTANT: Write ALL text strictly in Gujarati script (ગુજરાતી લિપિ). Every single word must be in Gujarati. No English words anywhere at all.'
       : language === 'Hindi'
-      ? 'IMPORTANT: Write ALL text strictly in Hindi (हिंदी). Every word must be in Hindi. No English words anywhere.'
+      ? 'IMPORTANT: Write ALL text strictly in Hindi (हिंदी). Every single word must be in Hindi. No English words anywhere at all.'
       : 'Write everything in English.';
 
-  const BATCH_SIZE = 5;
+  // Gujarati/Hindi script uses 2-3x more tokens than English
+  // Smaller batches = complete JSON, no parse failures
+  const BATCH_SIZE = (language === 'Gujarati' || language === 'Hindi') ? 3 : 5;
+  const MAX_TOKENS = (language === 'Gujarati' || language === 'Hindi') ? 4000 : 2000;
   const total = parseInt(numQ);
   const totalBatches = Math.ceil(total / BATCH_SIZE);
   let allQuestions = [];
@@ -85,7 +84,7 @@ JSON Format:
         messages: [
           {
             role: 'system',
-            content: `You are an expert MCQ generator for competitive exams. ${langInstruction} Always respond with ONLY a valid JSON array.`
+            content: `You are an expert MCQ generator for competitive exams. ${langInstruction} Always respond with ONLY a valid JSON array. No extra text.`
           },
           {
             role: 'user',
@@ -93,11 +92,12 @@ JSON Format:
           }
         ],
         temperature: 0.3,
-        max_tokens: 1500
+        max_tokens: MAX_TOKENS
       });
 
       if (!response || !response.ok) {
-        console.error(`Batch ${batch + 1}: All keys failed or API error`);
+        const errText = response ? await response.text() : 'All keys failed';
+        console.error(`Batch ${batch + 1}: API error — ${errText}`);
         continue;
       }
 
@@ -109,7 +109,6 @@ JSON Format:
         continue;
       }
 
-      // JSON array extract karo
       const arrayStart = content.indexOf('[');
       const arrayEnd = content.lastIndexOf(']');
 
@@ -119,8 +118,6 @@ JSON Format:
       }
 
       let jsonStr = content.substring(arrayStart, arrayEnd + 1);
-
-      // JSON clean karo
       jsonStr = jsonStr
         .replace(/,\s*]/g, ']')
         .replace(/,\s*}/g, '}');
@@ -145,16 +142,14 @@ JSON Format:
             : ['Option A', 'Option B', 'Option C', 'Option D'],
           correct:
             typeof q.correct === 'number' && q.correct >= 0 && q.correct <= 3
-              ? q.correct
-              : 0,
+              ? q.correct : 0,
           explanation: q.explanation || '',
           difficulty: difficulty || 'medium'
         }));
 
       allQuestions = [...allQuestions, ...valid];
-      console.log(`Batch ${batch + 1}/${totalBatches}: ${valid.length} questions added. Total: ${allQuestions.length}`);
+      console.log(`Batch ${batch + 1}/${totalBatches}: ${valid.length} added. Total: ${allQuestions.length}`);
 
-      // Rate limit se bachne ke liye thoda wait
       if (batch < totalBatches - 1) {
         await new Promise(r => setTimeout(r, 500));
       }
