@@ -1,22 +1,18 @@
 {
   "users": [
     {
-      "userid": "nexus001",
-      "password": "Pro@2025",
-      "name": "User 1",
-      "expiry": "2026-06-27"
+      "userid": "student1",
+      "password": "pass123",
+      "name": "Raj Patel",
+      "expiry": "2026-12-31",
+      "plan": "pro"
     },
     {
-      "userid": "nexus002",
-      "password": "Smart@MCQ",
-      "name": "User 2",
-      "expiry": "2025-12-31"
-    },
-    {
-      "userid": "nexus003",
-      "password": "Quiz@King",
-      "name": "User 3",
-      "expiry": "2025-12-31"
+      "userid": "student2",
+      "password": "pass456",
+      "name": "Priya Shah",
+      "expiry": "2026-12-31",
+      "plan": "pro"
     }
   ]
 }
