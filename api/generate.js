@@ -94,8 +94,9 @@ export default async function handler(req, res) {
 
   // Batch size: Gujarati needs smaller batches (more tokens per question)
   // 20 for English, 10 for Gujarati/Hindi to avoid JSON cutoff
-  const BATCH_SIZE = isIndic ? 10 : 20;
-  const MAX_TOKENS = isIndic ? 8000 : 6000;
+  // Gujarati heavy topics = 5 per batch, Hindi = 7, English = 20
+  const BATCH_SIZE = isGuj ? 5 : isHin ? 7 : 20;
+  const MAX_TOKENS = isGuj ? 8000 : isHin ? 7000 : 6000;
 
   const totalBatches = Math.ceil(total / BATCH_SIZE);
   let allQuestions = [];
@@ -104,6 +105,15 @@ export default async function handler(req, res) {
     for (let batch = 0; batch < totalBatches; batch++) {
       const batchCount = Math.min(BATCH_SIZE, total - allQuestions.length);
       const startNum = allQuestions.length + 1;
+      let batchSuccess = false;
+      let retryCount = 0;
+      const MAX_RETRIES = 3;
+
+      while (!batchSuccess && retryCount < MAX_RETRIES) {
+        if (retryCount > 0) {
+          console.log(`Batch ${batch + 1}: Retry ${retryCount}/${MAX_RETRIES}...`);
+          await new Promise(r => setTimeout(r, 600 * retryCount));
+        }
 
       const prompt = `Generate exactly ${batchCount} MCQ questions about "${topic}".
 ${langInstruction}
@@ -134,21 +144,22 @@ CRITICAL: Respond with ONLY a valid JSON array. No text before [. No text after 
         max_tokens: MAX_TOKENS
       });
 
+      // Retry logic — 2 extra attempts per batch
       if (!response || !response.ok) {
         const errText = response ? await response.text() : 'All keys failed';
         console.error(`Batch ${batch + 1} failed: ${errText}`);
-        continue;
+        retryCount++; continue;
       }
 
       const data = await response.json();
       const content = data.choices?.[0]?.message?.content?.trim();
-      if (!content) { console.error(`Batch ${batch + 1}: Empty`); continue; }
+      if (!content) { console.error(`Batch ${batch + 1}: Empty`); retryCount++; continue; }
 
       const arrayStart = content.indexOf('[');
       const arrayEnd = content.lastIndexOf(']');
       if (arrayStart === -1 || arrayEnd === -1) {
         console.error(`Batch ${batch + 1}: No JSON array. Got: ${content.substring(0, 150)}`);
-        continue;
+        retryCount++; continue;
       }
 
       let jsonStr = content.substring(arrayStart, arrayEnd + 1)
@@ -161,7 +172,7 @@ CRITICAL: Respond with ONLY a valid JSON array. No text before [. No text after 
         questions = JSON.parse(jsonStr);
       } catch (e) {
         console.error(`Batch ${batch + 1} parse error:`, e.message);
-        continue;
+        retryCount++; continue;
       }
 
       if (!Array.isArray(questions)) continue;
@@ -182,6 +193,9 @@ CRITICAL: Respond with ONLY a valid JSON array. No text before [. No text after 
 
       allQuestions = [...allQuestions, ...valid];
       console.log(`Batch ${batch + 1}/${totalBatches}: +${valid.length} | Total: ${allQuestions.length}/${total}`);
+        batchSuccess = true; // batch parsed OK
+        break;
+      } // end while retry
 
       if (batch < totalBatches - 1) await new Promise(r => setTimeout(r, 400));
     }
