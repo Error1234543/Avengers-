@@ -1,4 +1,3 @@
-
 const API_KEYS = [
   process.env.GROQ_API_KEY_1,
   process.env.GROQ_API_KEY_2,
@@ -7,127 +6,161 @@ const API_KEYS = [
 
 async function callGroqWithRotation(body) {
   for (let i = 0; i < API_KEYS.length; i++) {
-    const apiKey = API_KEYS[i];
     try {
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': Bearer ${apiKey}
+          'Authorization': `Bearer ${API_KEYS[i]}`
         },
         body: JSON.stringify(body)
       });
-
       if (response.status === 429) {
-        console.log(Key ${i + 1} rate limited, trying key ${i + 2}...);
+        console.log(`Key ${i + 1} rate limited, trying next...`);
         continue;
       }
-
       return response;
     } catch (err) {
-      console.error(Key ${i + 1} fetch error:, err.message);
+      console.error(`Key ${i + 1} error:`, err.message);
       continue;
     }
   }
   return null;
 }
 
+// Daily usage store (in-memory — resets on server restart, fine for Vercel)
+const dailyUsage = {};
+function getDailyKey(userId) {
+  return `${userId}_${new Date().toISOString().slice(0, 10)}`;
+}
+function checkUsage(userId, limit) {
+  const key = getDailyKey(userId);
+  const current = dailyUsage[key] || 0;
+  if (current >= limit) return { allowed: false, used: current, limit };
+  dailyUsage[key] = current + 1;
+  return { allowed: true, used: current + 1, limit };
+}
+
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  const { topic, numQ, difficulty, language, exam, subject, userId, userPlan } = req.body;
+
+  if (!topic || !numQ) return res.status(400).json({ error: 'Missing fields' });
+  if (API_KEYS.length === 0) return res.status(500).json({ error: 'No API keys configured' });
+
+  // ── PLAN SETTINGS ──────────────────────────────────────────────────
+  // userPlan: 'free' | 'pro'
+  // pro = ₹300/month → 20 quizzes/day, max 100 MCQ
+  // free = 3 trials total (handled in frontend), max 5 MCQ
+  const isPro = userPlan === 'pro';
+  const DAILY_LIMIT = isPro ? 20 : 999; // free trials handled in frontend
+  
+  const uid = userId || req.headers['x-forwarded-for'] || 'anonymous';
+  if (isPro) {
+    const usage = checkUsage(uid, DAILY_LIMIT);
+    if (!usage.allowed) {
+      return res.status(429).json({
+        error: `Daily limit khatam! Aaj ke 20 quizzes ho gaye. Kal reset hoga. 🌙`,
+        used: usage.used,
+        limit: usage.limit
+      });
+    }
   }
 
-  const { topic, numQ, difficulty, language, exam, subject } = req.body;
-
-  if (!topic || !numQ) {
-    return res.status(400).json({ error: 'Missing fields' });
-  }
-
-  if (API_KEYS.length === 0) {
-    return res.status(500).json({ error: 'No API keys configured' });
-  }
-
-  const langInstruction =
-    language === 'Gujarati'
-      ? 'IMPORTANT: Write ALL text strictly in Gujarati script (ગુજરાતી લિપિ). Every single word must be in Gujarati. No English words anywhere at all.'
-      : language === 'Hindi'
-      ? 'IMPORTANT: Write ALL text strictly in Hindi (हिंदी). Every single word must be in Hindi. No English words anywhere at all.'
-      : 'Write everything in English.';
-
-  // Gujarati/Hindi script uses 2-3x more tokens than English
-  // Smaller batches = complete JSON, no parse failures
-  const BATCH_SIZE = (language === 'Gujarati' || language === 'Hindi') ? 3 : 5;
-  const MAX_TOKENS = (language === 'Gujarati' || language === 'Hindi') ? 4000 : 2000;
+  // ── LANGUAGE & MODEL SETTINGS ──────────────────────────────────────
+  const isGuj = language === 'Gujarati';
+  const isHin = language === 'Hindi';
+  const isIndic = isGuj || isHin;
   const total = parseInt(numQ);
+  const isFiveOnly = total <= 5; // Free users / small requests
+
+  // Small requests (5 MCQ) = fast cheap model
+  // Large requests (100 MCQ) = better model for quality
+  const MODEL = isFiveOnly
+    ? 'llama-3.1-8b-instant'       // Fast + cheap for 5 MCQ
+    : 'llama-3.3-70b-versatile';   // Best quality for 100 MCQ
+
+  const langInstruction = isGuj
+    ? `IMPORTANT: Write EVERY SINGLE WORD in Gujarati script (ગુજરાતી લિપિ) ONLY.
+- Questions must be in Gujarati.
+- All 4 options must be in Gujarati.
+- Explanation must be in Gujarati.
+- Do NOT use any English words anywhere.
+- Use proper Gujarati grammar and spelling.`
+    : isHin
+    ? `IMPORTANT: Write EVERY SINGLE WORD in Hindi (हिंदी) ONLY. No English words anywhere.`
+    : `Write everything in clear English.`;
+
+  // Batch size: Gujarati needs smaller batches (more tokens per question)
+  // 20 for English, 10 for Gujarati/Hindi to avoid JSON cutoff
+  const BATCH_SIZE = isIndic ? 10 : 20;
+  const MAX_TOKENS = isIndic ? 8000 : 6000;
+
   const totalBatches = Math.ceil(total / BATCH_SIZE);
   let allQuestions = [];
 
   try {
     for (let batch = 0; batch < totalBatches; batch++) {
       const batchCount = Math.min(BATCH_SIZE, total - allQuestions.length);
+      const startNum = allQuestions.length + 1;
 
-      const prompt = Generate exactly ${batchCount} unique MCQ questions about "${topic}".
+      const prompt = `Generate exactly ${batchCount} MCQ questions about "${topic}".
 ${langInstruction}
-Difficulty level: ${difficulty || 'medium'}.
-Exam type: ${exam || 'General'}, Subject: ${subject || 'General'}.
+Difficulty: ${difficulty || 'medium'}.
+Exam: ${exam || 'General'}, Subject: ${subject || 'General'}.
+These are questions ${startNum} to ${startNum + batchCount - 1} in a set.
 
-STRICT RULES:
-- Return ONLY a valid JSON array. Nothing else.
-- No markdown, no backticks, no explanation outside JSON.
-- Each question must have exactly 4 options.
-- "correct" field = index of correct option (0, 1, 2, or 3).
+RULES (follow strictly):
+1. Return ONLY a valid JSON array — no markdown, no backticks, no explanation text.
+2. Each item: {"question":"...","options":["A","B","C","D"],"correct":0,"explanation":"..."}
+3. "correct" = index 0,1,2,3 of the correct option.
+4. All 4 options must be unique and meaningful.
+5. Questions must be different from each other.
 
-JSON Format:
-[{"question":"...","options":["...","...","...","..."],"correct":0,"explanation":"..."}];
+Return ONLY the JSON array starting with [ and ending with ]`;
 
       const response = await callGroqWithRotation({
-        model: 'llama-3.1-8b-instant',
+        model: MODEL,
         messages: [
           {
             role: 'system',
-            content: You are an expert MCQ generator for competitive exams. ${langInstruction} Always respond with ONLY a valid JSON array. No extra text.
+            content: `You are an expert MCQ generator for JEE, NEET, GUJCET exams. ${langInstruction}
+CRITICAL: Respond with ONLY a valid JSON array. No text before [. No text after ]. No markdown.`
           },
-          {
-            role: 'user',
-            content: prompt
-          }
+          { role: 'user', content: prompt }
         ],
-        temperature: 0.3,
+        temperature: 0.4,
         max_tokens: MAX_TOKENS
       });
 
       if (!response || !response.ok) {
         const errText = response ? await response.text() : 'All keys failed';
-        console.error(Batch ${batch + 1}: API error — ${errText});
+        console.error(`Batch ${batch + 1} failed: ${errText}`);
         continue;
       }
 
       const data = await response.json();
       const content = data.choices?.[0]?.message?.content?.trim();
-
-      if (!content) {
-        console.error(Batch ${batch + 1}: Empty response);
-        continue;
-      }
+      if (!content) { console.error(`Batch ${batch + 1}: Empty`); continue; }
 
       const arrayStart = content.indexOf('[');
       const arrayEnd = content.lastIndexOf(']');
-
       if (arrayStart === -1 || arrayEnd === -1) {
-        console.error(Batch ${batch + 1}: No JSON array found);
+        console.error(`Batch ${batch + 1}: No JSON array. Got: ${content.substring(0, 150)}`);
         continue;
       }
 
-      let jsonStr = content.substring(arrayStart, arrayEnd + 1);
-      jsonStr = jsonStr
+      let jsonStr = content.substring(arrayStart, arrayEnd + 1)
         .replace(/,\s*]/g, ']')
-        .replace(/,\s*}/g, '}');
+        .replace(/,\s*}/g, '}')
+        .replace(/[\x00-\x1F\x7F]/g, ' ');
 
-let questions;
+      let questions;
       try {
         questions = JSON.parse(jsonStr);
       } catch (e) {
-        console.error(Batch ${batch + 1} parse error:, e.message);
+        console.error(`Batch ${batch + 1} parse error:`, e.message);
         continue;
       }
 
@@ -141,29 +174,30 @@ let questions;
           options: Array.isArray(q.options) && q.options.length >= 4
             ? q.options.slice(0, 4)
             : ['Option A', 'Option B', 'Option C', 'Option D'],
-          correct:
-            typeof q.correct === 'number' && q.correct >= 0 && q.correct <= 3
-              ? q.correct : 0,
+          correct: typeof q.correct === 'number' && q.correct >= 0 && q.correct <= 3
+            ? q.correct : 0,
           explanation: q.explanation || '',
           difficulty: difficulty || 'medium'
         }));
 
       allQuestions = [...allQuestions, ...valid];
-      console.log(Batch ${batch + 1}/${totalBatches}: ${valid.length} added. Total: ${allQuestions.length});
+      console.log(`Batch ${batch + 1}/${totalBatches}: +${valid.length} | Total: ${allQuestions.length}/${total}`);
 
-      if (batch < totalBatches - 1) {
-        await new Promise(r => setTimeout(r, 500));
-      }
+      if (batch < totalBatches - 1) await new Promise(r => setTimeout(r, 400));
     }
 
     if (allQuestions.length === 0) {
-      return res.status(500).json({ error: 'No questions could be generated. Try again later.' });
+      return res.status(500).json({ error: 'Questions generate nahi hue. Topic change karke try karo.' });
     }
 
+    const usageInfo = isPro ? checkUsage(uid, DAILY_LIMIT) : null;
+
     return res.status(200).json({
-      title: ${exam || topic} — ${subject || topic},
+      title: `${exam || topic} — ${subject || topic}`,
       generated: allQuestions.length,
       requested: total,
+      dailyUsed: usageInfo?.used || 0,
+      dailyLimit: DAILY_LIMIT,
       questions: allQuestions.slice(0, total)
     });
 
