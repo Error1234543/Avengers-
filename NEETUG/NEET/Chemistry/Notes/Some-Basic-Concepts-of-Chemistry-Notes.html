@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Some Basic Concepts of Chemistry - NEET Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Some Basic Concepts of Chemistry - NEET Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to Chemistry and Its Importance</h2><div>Chemistry is the scientific study of matter, its properties, composition, structure, and the changes it undergoes during chemical reactions. For NEET, understanding basic concepts of chemistry is crucial as it forms the foundation for more advanced topics like thermodynamics, equilibrium, and organic chemistry. Chemistry is divided into three main branches: Physical Chemistry (quantitative aspects), Organic Chemistry (carbon compounds), and Inorganic Chemistry (non-carbon compounds). In NEET, questions often test the application of these basic concepts in problem-solving, so clarity in definitions and principles is essential.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Matter and Its Classification</h2><div>Matter is anything that occupies space and has mass. It can be classified based on its physical state (solid, liquid, gas) or its chemical composition (elements, compounds, mixtures).
+
+- **Elements**: Pure substances consisting of only one type of atom (e.g., oxygen, gold).
+- **Compounds**: Pure substances formed by the chemical combination of two or more elements in fixed proportions (e.g., water, carbon dioxide).
+- **Mixtures**: Physical combinations of two or more substances that retain their individual properties. Mixtures can be homogeneous (uniform composition, e.g., saltwater) or heterogeneous (non-uniform composition, e.g., sand in water).
+
+For NEET, it is important to distinguish between these classifications and understand their properties, such as the separation techniques for mixtures (e.g., filtration, distillation, chromatography).</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Laws of Chemical Combination</h2><div>The laws of chemical combination are fundamental principles governing chemical reactions. These include:
+
+1. **Law of Conservation of Mass (Lavoisier)**: Mass is neither created nor destroyed in a chemical reaction. The total mass of reactants equals the total mass of products.
+2. **Law of Definite Proportions (Proust)**: A chemical compound always contains the same elements combined in a fixed proportion by mass, regardless of its source or method of preparation.
+3. **Law of Multiple Proportions (Dalton)**: When two elements combine to form more than one compound, the masses of one element that combine with a fixed mass of the other element are in the ratio of small whole numbers.
+4. **Gay-Lussac’s Law of Gaseous Volumes**: When gases react together to form other gases, and all volumes are measured at the same temperature and pressure, the ratio between the volumes of the reactants and the products can be expressed in simple whole numbers.
+5. **Avogadro’s Law**: Equal volumes of gases at the same temperature and pressure contain an equal number of molecules.
+
+These laws are frequently tested in NEET through numerical problems and conceptual questions.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Atomic and Molecular Mass</h2><div>Atomic mass is the mass of an atom of an element, expressed in atomic mass units (amu). One atomic mass unit is defined as 1/12th the mass of a carbon-12 atom. Molecular mass is the sum of the atomic masses of all the atoms in a molecule.
+
+- **Gram Atomic Mass**: The atomic mass of an element expressed in grams (e.g., 1 gram atomic mass of oxygen = 16 g).
+- **Gram Molecular Mass**: The molecular mass of a substance expressed in grams (e.g., 1 gram molecular mass of water = 18 g).
+
+For NEET, it is critical to calculate molecular masses accurately, especially for compounds involving polyatomic ions (e.g., sulfate, nitrate). Common mistakes include miscounting atoms or misapplying atomic masses.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Mole Concept and Avogadro’s Number</h2><div>The mole is a fundamental unit in chemistry that represents the amount of substance containing as many entities (atoms, molecules, ions) as there are atoms in 12 grams of carbon-12. This number is Avogadro’s number, approximately 6.022 × 10²³ entities per mole.
+
+Key relationships:
+- 1 mole of any substance = Avogadro’s number of particles (atoms, molecules, or ions).
+- 1 mole of any gas at STP (Standard Temperature and Pressure) occupies 22.4 liters.
+- Molar mass (g/mol) = mass of 1 mole of a substance.
+
+For NEET, the mole concept is frequently applied in stoichiometry problems, such as calculating the number of moles, mass, or volume of reactants and products in a chemical reaction.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Stoichiometry and Chemical Equations</h2><div>Stoichiometry is the quantitative relationship between reactants and products in a chemical reaction. A balanced chemical equation provides the stoichiometric coefficients, which indicate the mole ratios of reactants and products.
+
+Steps to solve stoichiometry problems:
+1. Write the balanced chemical equation.
+2. Convert the given quantities (mass, volume, or number of particles) to moles.
+3. Use the stoichiometric coefficients to determine the mole ratio of reactants and products.
+4. Convert the moles of the desired product back to the required quantity (mass, volume, etc.).
+
+For NEET, common stoichiometry problems include:
+- Calculating the mass of a product formed from a given mass of reactant.
+- Determining the limiting reagent in a reaction.
+- Calculating the percentage yield of a reaction.
+
+Example: For the reaction 2H₂ + O₂ → 2H₂O, if 4 grams of H₂ reacts with excess O₂, calculate the mass of water formed.
+Solution: Moles of H₂ = 4 g / 2 g/mol = 2 moles. From the equation, 2 moles of H₂ produce 2 moles of H₂O. Mass of H₂O = 2 moles × 18 g/mol = 36 g.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Empirical and Molecular Formulas</h2><div>The empirical formula of a compound represents the simplest whole-number ratio of atoms of each element in the compound. The molecular formula represents the actual number of atoms of each element in a molecule of the compound.
+
+Steps to determine empirical and molecular formulas:
+1. Calculate the mass percentage of each element in the compound.
+2. Convert the mass percentages to moles of each element.
+3. Divide by the smallest number of moles to get the simplest ratio.
+4. Multiply the ratio by a whole number (if necessary) to obtain whole numbers for all elements.
+5. For the molecular formula, use the molecular mass (given or calculated) and the empirical formula mass to determine the multiplier.
+
+Example: A compound contains 40% carbon, 6.7% hydrogen, and 53.3% oxygen by mass. Its molecular mass is 60 g/mol. Determine its empirical and molecular formulas.
+Solution: Moles of C = 40/12 = 3.33, H = 6.7/1 = 6.7, O = 53.3/16 = 3.33. Simplest ratio: C:H:O = 1:2:1. Empirical formula = CH₂O. Empirical formula mass = 30 g/mol. Molecular formula = (CH₂O)₂ = C₂H₄O₂.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. Concentration Terms and Calculations</h2><div>Concentration terms describe the amount of solute present in a given amount of solvent or solution. Common concentration terms include:
+
+1. **Molarity (M)**: Moles of solute per liter of solution. Formula: M = moles of solute / volume of solution (L).
+2. **Molality (m)**: Moles of solute per kilogram of solvent. Formula: m = moles of solute / mass of solvent (kg).
+3. **Mole Fraction (χ)**: Ratio of the moles of a component to the total moles of all components in the solution. Formula: χ_A = moles of A / total moles.
+4. **Mass Percentage**: Mass of solute per 100 grams of solution. Formula: (mass of solute / mass of solution) × 100.
+5. **Parts Per Million (ppm)**: Mass of solute per million parts of solution. Used for very dilute solutions.
+
+For NEET, molarity and molality are frequently tested, especially in problems involving dilution, mixing of solutions, or colligative properties. It is important to distinguish between these terms and apply the correct formula based on the given data.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>9. Limiting Reagent and Percentage Yield</h2><div>In a chemical reaction, the limiting reagent is the reactant that is completely consumed first, thereby limiting the amount of product formed. The other reactants are called excess reagents.
+
+Steps to identify the limiting reagent:
+1. Write the balanced chemical equation.
+2. Calculate the moles of each reactant.
+3. Use the stoichiometric coefficients to determine the mole ratio of reactants.
+4. Compare the mole ratio with the actual mole ratio to identify the limiting reagent.
+
+Percentage yield is a measure of the efficiency of a reaction and is calculated as:
+Percentage Yield = (Actual Yield / Theoretical Yield) × 100.
+
+For NEET, problems often involve calculating the limiting reagent and then using it to determine the theoretical yield or percentage yield of a reaction.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>10. Common Mistakes and NEET-Specific Tips</h2><div>1. **Unit Confusion**: Always ensure units are consistent (e.g., grams vs. kilograms, liters vs. milliliters). Convert all quantities to the same unit before calculations.
+2. **Balancing Equations**: A common mistake is not balancing chemical equations before solving stoichiometry problems. Always double-check the coefficients.
+3. **Mole Concept Misapplication**: Confusing moles with mass or volume is frequent. Remember that moles are a count of particles, not a direct measure of mass or volume.
+4. **Limiting Reagent Errors**: Students often assume the reactant with the smaller mass is the limiting reagent. Always calculate moles and compare stoichiometric ratios.
+5. **Empirical vs. Molecular Formula**: Forgetting to multiply the empirical formula by the molecular mass ratio is a common error. Ensure the molecular formula is derived correctly.
+6. **Concentration Terms**: Mixing up molarity and molality is frequent. Molarity depends on the volume of the solution, while molality depends on the mass of the solvent.
+
+For NEET, practice numerical problems regularly to build speed and accuracy. Focus on understanding the underlying concepts rather than memorizing formulas.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Matter is classified into elements, compounds, and mixtures based on composition.</li><li>The laws of chemical combination (Conservation of Mass, Definite Proportions, Multiple Proportions) are fundamental to stoichiometry.</li><li>Avogadro’s number (6.022 × 10²³) is the number of entities in one mole of a substance.</li><li>One mole of any gas at STP occupies 22.4 liters.</li><li>The empirical formula represents the simplest ratio of atoms, while the molecular formula represents the actual number of atoms in a molecule.</li><li>Molarity (M) is moles of solute per liter of solution, while molality (m) is moles of solute per kilogram of solvent.</li><li>The limiting reagent determines the maximum amount of product formed in a reaction.</li><li>Percentage yield is calculated as (Actual Yield / Theoretical Yield) × 100.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Moles (n) = Mass (g) / Molar Mass (g/mol)</div><div class="formula">Molarity (M) = Moles of Solute / Volume of Solution (L)</div><div class="formula">Molality (m) = Moles of Solute / Mass of Solvent (kg)</div><div class="formula">Mole Fraction (χ_A) = Moles of A / Total Moles of All Components</div><div class="formula">Mass Percentage = (Mass of Solute / Mass of Solution) × 100</div><div class="formula">Parts Per Million (ppm) = (Mass of Solute / Mass of Solution) × 10⁶</div><div class="formula">Percentage Yield = (Actual Yield / Theoretical Yield) × 100</div><div class="formula">Empirical Formula Mass × n = Molecular Mass (where n is a whole number)</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Not balancing chemical equations before solving stoichiometry problems.</li><li>Confusing moles with mass or volume in calculations.</li><li>Assuming the reactant with the smaller mass is the limiting reagent without calculating moles.</li><li>Forgetting to convert all quantities to consistent units (e.g., grams to kilograms, milliliters to liters).</li><li>Mixing up molarity and molality in concentration calculations.</li><li>Incorrectly deriving the molecular formula from the empirical formula by not using the molecular mass.</li><li>Misapplying Avogadro’s number or the molar volume of gases at STP.</li><li>Ignoring significant figures in numerical answers, which can lead to incorrect results in NEET.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
