@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motion of System of Particles and Rigid Body - NEET Physics Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Motion of System of Particles and Rigid Body - NEET Physics Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to System of Particles and Rigid Body</h2><div>A system of particles refers to a collection of discrete particles interacting with each other. A rigid body is a special case of a system of particles where the distance between any two particles remains constant, regardless of external forces. In NEET Physics, understanding the motion of such systems is crucial for solving problems related to rotational dynamics, equilibrium, and conservation laws. The key distinction between a system of particles and a rigid body lies in the internal forces: in a rigid body, internal forces do no work, simplifying energy calculations. This chapter focuses on the center of mass, linear momentum, angular momentum, and rotational kinetic energy of these systems.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Center of Mass (COM)</h2><div>The center of mass is a point that behaves as if the entire mass of the system were concentrated there, and all external forces act at this point. For a system of *n* particles, the position vector of the COM is given by:
+
+**Formula**:
+R = (m₁r₁ + m₂r₂ + ... + mₙrₙ) / (m₁ + m₂ + ... + mₙ)
+
+where *mᵢ* is the mass of the *i*-th particle and *rᵢ* is its position vector. For a rigid body with continuous mass distribution, the COM is calculated using integration:
+
+R = (1/M) ∫ r dm
+
+where *M* is the total mass of the body. The COM of symmetric bodies (e.g., spheres, cylinders) lies at their geometric center. In the absence of external forces, the COM of a system moves with constant velocity, illustrating the principle of conservation of linear momentum.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Linear Momentum of a System of Particles</h2><div>The linear momentum (*P*) of a system of particles is the vector sum of the momenta of all individual particles:
+
+**Formula**:
+P = p₁ + p₂ + ... + pₙ = m₁v₁ + m₂v₂ + ... + mₙvₙ
+
+For a rigid body, *P = Mvₙ*, where *vₙ* is the velocity of the COM. The principle of conservation of linear momentum states that if the net external force on a system is zero, its total linear momentum remains constant. This is particularly useful in collision problems (e.g., elastic/inelastic collisions) and rocket propulsion scenarios. In NEET, expect numerical problems involving head-on collisions or explosions where momentum conservation is applied alongside energy considerations.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Rotational Motion and Moment of Inertia</h2><div>Rotational motion involves the rotation of a rigid body about a fixed axis. The moment of inertia (*I*) is the rotational analog of mass and quantifies a body's resistance to rotational motion. For a system of particles, *I* is given by:
+
+**Formula**:
+I = ∑ mᵢrᵢ²
+
+where *rᵢ* is the perpendicular distance of the *i*-th particle from the axis of rotation. For continuous bodies, *I* is calculated using integration:
+
+I = ∫ r² dm
+
+Key moments of inertia for NEET (about the axis passing through the COM):
+- Rod (length *L*): I = (1/12)ML²
+- Disc (radius *R*): I = (1/2)MR²
+- Sphere (radius *R*): I = (2/5)MR²
+- Ring (radius *R*): I = MR²
+
+The parallel axis theorem relates the moment of inertia about any axis to that about a parallel axis through the COM:
+
+**Formula**:
+I = Iₙ + Md²
+
+where *d* is the perpendicular distance between the two axes. This theorem is frequently tested in NEET problems involving composite bodies or shifted axes.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Torque and Angular Momentum</h2><div>Torque (*τ*) is the rotational analog of force and causes angular acceleration. For a particle, torque is defined as:
+
+**Formula**:
+τ = r × F
+
+where *r* is the position vector and *F* is the force vector. The magnitude of torque is *τ = rF sinθ*, where *θ* is the angle between *r* and *F*. For a rigid body, the net torque is related to angular acceleration (*α*) by:
+
+**Formula**:
+τₙₑₜ = Iα
+
+Angular momentum (*L*) is the rotational analog of linear momentum and is given by:
+
+**Formula**:
+L = r × p (for a particle)
+L = Iω (for a rigid body)
+
+where *ω* is the angular velocity. The principle of conservation of angular momentum states that if the net external torque on a system is zero, its total angular momentum remains constant. This principle is applied in problems involving rotating platforms, ice skaters, or planetary motion. NEET often tests this concept with numericals on changing moments of inertia (e.g., a person pulling in their arms while spinning).</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Rotational Kinetic Energy and Work-Energy Theorem</h2><div>The kinetic energy of a rotating rigid body is given by:
+
+**Formula**:
+K = (1/2)Iω²
+
+For a body undergoing both translational and rotational motion (e.g., a rolling wheel), the total kinetic energy is the sum of translational and rotational kinetic energies:
+
+Kₜₒₜₐₗ = (1/2)Mvₙ² + (1/2)Iω²
+
+The work-energy theorem for rotational motion states that the work done by a net torque is equal to the change in rotational kinetic energy:
+
+W = ΔK = (1/2)Iω_f² - (1/2)Iω_i²
+
+In NEET, problems often involve rolling motion without slipping, where the condition *vₙ = Rω* (for a wheel of radius *R*) is used to relate linear and angular velocities. Common examples include spheres, cylinders, or discs rolling down inclined planes.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Equilibrium of Rigid Bodies</h2><div>A rigid body is in equilibrium if both its linear and angular accelerations are zero. This requires:
+1. The net external force on the body must be zero: ∑F = 0.
+2. The net external torque about any axis must be zero: ∑τ = 0.
+
+For two-dimensional problems, these conditions reduce to:
+- ∑Fₓ = 0, ∑Fᵧ = 0 (for forces along x and y axes).
+- ∑τ = 0 (about any point, often chosen to simplify calculations).
+
+NEET problems on equilibrium typically involve ladders leaning against walls, beams supported by pivots, or objects suspended by strings. Key steps include:
+1. Drawing a free-body diagram.
+2. Resolving forces into components.
+3. Choosing a pivot point to eliminate unknown forces from torque equations.
+4. Solving the resulting system of equations.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. Rolling Motion and Friction</h2><div>Rolling motion combines translation and rotation. For pure rolling (no slipping), the point of contact with the ground is instantaneously at rest, and the condition *vₙ = Rω* holds. The friction in rolling motion is static friction, which does no work (since the point of application does not move). However, friction is essential for rolling to occur, as it provides the torque needed for rotation.
+
+Key points for NEET:
+- In the absence of slipping, the acceleration of the COM (*aₙ*) and angular acceleration (*α*) are related by *aₙ = Rα*.
+- The total kinetic energy of a rolling body is *K = (1/2)Mvₙ² + (1/2)Iω²*.
+- For a body rolling down an inclined plane, the acceleration is *a = g sinθ / (1 + I/MR²)*, where *θ* is the angle of inclination. This formula is derived by applying Newton's second law and the torque equation.
+- Common NEET problems involve comparing the accelerations of different shapes (e.g., ring vs. disc vs. sphere) rolling down the same incline.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>9. Angular Momentum Conservation in Collisions</h2><div>In collisions involving rigid bodies, angular momentum is conserved if the net external torque is zero. This is analogous to linear momentum conservation but applies to rotational motion. NEET problems often involve:
+- A particle colliding with a rod pivoted at one end.
+- A bullet hitting a door or a rod and causing it to rotate.
+- A person jumping onto a rotating platform.
+
+Key steps to solve such problems:
+1. Identify the axis of rotation and calculate the initial angular momentum of the system.
+2. Apply conservation of angular momentum: *Lᵢ = L_f*.
+3. Relate the final angular momentum to the moment of inertia and angular velocity of the system after the collision.
+4. Use energy considerations (if applicable) to find additional relationships, but note that kinetic energy may not be conserved in inelastic collisions.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>10. Common Mistakes and NEET-Specific Tips</h2><div>- **Confusing COM with geometric center**: The COM coincides with the geometric center only for symmetric, uniform bodies. For irregular or non-uniform bodies, calculations are necessary.
+- **Ignoring the parallel axis theorem**: Always check if the moment of inertia is required about an axis not passing through the COM.
+- **Misapplying conservation laws**: Ensure that the conditions for conservation (e.g., no net external force/torque) are satisfied before applying them.
+- **Sign errors in torque calculations**: Torque is a vector; assign positive/negative signs based on the direction of rotation (clockwise/anticlockwise).
+- **Forgetting rolling condition**: In rolling motion, *vₙ = Rω* is a critical relationship. Without it, the problem cannot be solved.
+- **Energy conservation in collisions**: Kinetic energy is conserved only in elastic collisions. In inelastic collisions, use momentum conservation instead.
+- **NEET weightage**: This chapter contributes ~2-3 questions in NEET, often combining concepts like COM, moment of inertia, torque, and energy. Focus on numerical problems involving rolling motion, equilibrium, and collisions.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>The center of mass of a system moves as if all the mass were concentrated there and all external forces acted at that point.</li><li>For a rigid body, the moment of inertia depends on the axis of rotation and the mass distribution.</li><li>The parallel axis theorem states that the moment of inertia about any axis is equal to the moment of inertia about a parallel axis through the COM plus the product of the total mass and the square of the distance between the axes.</li><li>Torque is the rotational analog of force and causes angular acceleration: τ = Iα.</li><li>Angular momentum is conserved if the net external torque on a system is zero.</li><li>In pure rolling motion, the condition vₙ = Rω must hold, and static friction provides the necessary torque without doing work.</li><li>The total kinetic energy of a rolling body is the sum of its translational and rotational kinetic energies.</li><li>For a body rolling down an inclined plane, the acceleration depends on the moment of inertia: a = g sinθ / (1 + I/MR²).</li><li>In equilibrium, both the net force and net torque on a rigid body must be zero.</li><li>In collisions involving rotation, angular momentum is conserved if the net external torque is zero.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Position of COM for *n* particles: R = (∑ mᵢrᵢ) / (∑ mᵢ)</div><div class="formula">Linear momentum of a system: P = ∑ mᵢvᵢ = Mvₙ</div><div class="formula">Moment of inertia for *n* particles: I = ∑ mᵢrᵢ²</div><div class="formula">Moment of inertia for continuous bodies: I = ∫ r² dm</div><div class="formula">Parallel axis theorem: I = Iₙ + Md²</div><div class="formula">Torque: τ = r × F (magnitude: τ = rF sinθ)</div><div class="formula">Torque and angular acceleration: τₙₑₜ = Iα</div><div class="formula">Angular momentum of a particle: L = r × p</div><div class="formula">Angular momentum of a rigid body: L = Iω</div><div class="formula">Rotational kinetic energy: K = (1/2)Iω²</div><div class="formula">Total kinetic energy of a rolling body: K = (1/2)Mvₙ² + (1/2)Iω²</div><div class="formula">Rolling condition: vₙ = Rω</div><div class="formula">Acceleration of a rolling body down an incline: a = g sinθ / (1 + I/MR²)</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Assuming the COM of a non-uniform body lies at its geometric center without calculation.</li><li>Forgetting to apply the parallel axis theorem when the axis of rotation does not pass through the COM.</li><li>Using the wrong moment of inertia for a given shape (e.g., confusing the moment of inertia of a disc with that of a ring).</li><li>Ignoring the vector nature of torque and angular momentum, leading to sign errors in calculations.</li><li>Applying conservation of kinetic energy in inelastic collisions involving rotation.</li><li>Failing to use the rolling condition vₙ = Rω in problems involving rolling motion.</li><li>Choosing an inconvenient pivot point for torque calculations, complicating the equations unnecessarily.</li><li>Misapplying the work-energy theorem in rotational motion by not accounting for both translational and rotational kinetic energies.</li><li>Overlooking the role of static friction in rolling motion, which provides torque without dissipating energy.</li><li>Confusing the conditions for equilibrium (net force = 0 and net torque = 0) with those for conservation laws (no net external force/torque).</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
