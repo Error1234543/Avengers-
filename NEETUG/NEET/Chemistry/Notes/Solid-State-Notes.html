@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solid State - NEET Chemistry Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Solid State - NEET Chemistry Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>Introduction to Solid State</h2><div>Solids are one of the three fundamental states of matter, characterized by structural rigidity and resistance to changes in shape or volume. Unlike liquids and gases, solids have a fixed shape and volume due to strong intermolecular forces and minimal kinetic energy of their constituent particles (atoms, ions, or molecules). The study of solid state chemistry is crucial for understanding the properties of materials like metals, ceramics, polymers, and composites, which are integral to various technological and biological applications. In NEET, solid state questions often test the ability to correlate structural properties with observable physical characteristics such as conductivity, hardness, and melting point.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Classification of Solids</h2><div>Solids can be broadly classified into two categories based on the nature of their constituent particles and the forces holding them together:
+
+1. **Crystalline Solids**: These have a highly ordered, repeating three-dimensional arrangement of particles (atoms, ions, or molecules) known as a crystal lattice. Examples include sodium chloride (NaCl), diamond, and quartz. Crystalline solids exhibit sharp melting points, anisotropy (direction-dependent properties), and well-defined geometric shapes.
+
+2. **Amorphous Solids**: These lack long-range order in their particle arrangement. Examples include glass, rubber, and plastics. Amorphous solids soften over a range of temperatures, exhibit isotropy (uniform properties in all directions), and do not have a definite geometric shape.
+
+For NEET, focus on distinguishing between these types and identifying examples, as questions often ask for classification based on given properties.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Crystal Lattices and Unit Cells</h2><div>A crystal lattice is a three-dimensional array of points representing the positions of particles in a crystalline solid. The smallest repeating unit of the lattice that, when repeated in all directions, forms the entire lattice is called a **unit cell**. Unit cells are characterized by:
+
+- **Lattice Parameters**: The lengths of the edges (a, b, c) and the angles between them (α, β, γ).
+- **Types of Unit Cells**: There are 7 crystal systems (cubic, tetragonal, orthorhombic, hexagonal, rhombohedral, monoclinic, and triclinic) and 14 Bravais lattices, which describe all possible ways particles can be arranged in a lattice.
+
+For NEET, the **cubic system** is the most important, with three types of unit cells:
+1. **Simple Cubic (SC)**: Particles are located at the corners of the cube. Coordination number = 6, packing efficiency = 52%.
+2. **Body-Centered Cubic (BCC)**: Particles at the corners and one at the center of the cube. Coordination number = 8, packing efficiency = 68%.
+3. **Face-Centered Cubic (FCC)**: Particles at the corners and centers of all faces. Coordination number = 12, packing efficiency = 74%.
+
+Memorize the number of atoms per unit cell for each type: SC (1), BCC (2), FCC (4).</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Packing in Solids</h2><div>The arrangement of particles in a crystal lattice determines its packing efficiency, which is the percentage of total space occupied by the particles. Two common packing arrangements are:
+
+1. **Hexagonal Close Packing (HCP)**: Particles are arranged in layers where the second layer fits into the depressions of the first layer, and the third layer aligns with the first (ABAB pattern). Examples include magnesium and zinc. Packing efficiency = 74%, coordination number = 12.
+
+2. **Cubic Close Packing (CCP)**: Similar to HCP, but the third layer is placed over the depressions of the second layer not covered by the first (ABCABC pattern). This is identical to the FCC unit cell. Examples include copper and silver. Packing efficiency = 74%, coordination number = 12.
+
+**Voids**: The empty spaces between particles in a lattice are called voids. Two types are important for NEET:
+- **Tetrahedral Voids**: Smaller voids formed by 4 particles. Number of tetrahedral voids = 2 × number of particles.
+- **Octahedral Voids**: Larger voids formed by 6 particles. Number of octahedral voids = number of particles.
+
+Questions often ask for the number of voids or the type of void occupied by a particle in a given lattice.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Defects in Crystals</h2><div>Real crystals are not perfect and contain defects, which can significantly alter their properties. Defects are classified as:
+
+1. **Point Defects**: Irregularities at a single lattice point.
+   - **Vacancy Defect**: A lattice site is unoccupied.
+   - **Interstitial Defect**: An extra particle occupies an interstitial site.
+   - **Impurity Defect**: Foreign particles replace or occupy interstitial sites in the lattice.
+
+2. **Stoichiometric Defects**: Defects that do not disturb the stoichiometry of the crystal.
+   - **Schottky Defect**: A pair of vacancies (one cation and one anion) in ionic solids. Common in highly ionic compounds like NaCl. Reduces density.
+   - **Frenkel Defect**: A particle moves from its lattice site to an interstitial site. Common in ionic solids with large size differences between ions (e.g., AgCl). Density remains unchanged.
+
+3. **Non-Stoichiometric Defects**: Defects that disturb the stoichiometry of the crystal.
+   - **Metal Excess Defect**: Due to anion vacancies (e.g., F-centers in NaCl) or extra cations in interstitial sites.
+   - **Metal Deficiency Defect**: Due to cation vacancies or extra anions in interstitial sites.
+
+For NEET, focus on identifying the type of defect based on given properties (e.g., density change, conductivity) and examples.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Electrical Properties of Solids</h2><div>Solids exhibit a wide range of electrical properties based on their bonding and structure:
+
+1. **Conductors**: Solids with high electrical conductivity due to the presence of free or delocalized electrons. Examples include metals (e.g., copper, silver) and graphite. Conductivity decreases with temperature.
+
+2. **Insulators**: Solids with very low electrical conductivity due to the absence of free electrons. Examples include diamond, sulfur, and most ceramics. Conductivity is negligible at room temperature.
+
+3. **Semiconductors**: Solids with intermediate conductivity that increases with temperature. Their conductivity can be altered by doping (adding impurities). Examples include silicon and germanium.
+   - **Intrinsic Semiconductors**: Pure semiconductors where conductivity is due to thermally generated electron-hole pairs.
+   - **Extrinsic Semiconductors**: Doped semiconductors where conductivity is enhanced by adding impurities.
+     - **n-type**: Doping with elements having more valence electrons (e.g., phosphorus in silicon). Majority charge carriers are electrons.
+     - **p-type**: Doping with elements having fewer valence electrons (e.g., boron in silicon). Majority charge carriers are holes.
+
+4. **Superconductors**: Solids that exhibit zero electrical resistance below a critical temperature. Examples include certain metal alloys and ceramics (e.g., YBa2Cu3O7).
+
+NEET questions often test the classification of solids based on conductivity and the effect of doping on semiconductors.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Magnetic Properties of Solids</h2><div>The magnetic properties of solids arise from the motion of electrons and their spin. Solids can be classified based on their magnetic behavior:
+
+1. **Diamagnetic Solids**: Weakly repelled by a magnetic field. All electrons are paired, and there is no net magnetic moment. Examples include copper, water, and most organic compounds.
+
+2. **Paramagnetic Solids**: Weakly attracted by a magnetic field. Contain unpaired electrons and have a net magnetic moment. Examples include aluminum, oxygen, and transition metal ions (e.g., Cu²⁺).
+
+3. **Ferromagnetic Solids**: Strongly attracted by a magnetic field and can be permanently magnetized. Contain domains of aligned magnetic moments. Examples include iron, cobalt, and nickel.
+
+4. **Antiferromagnetic Solids**: Have equal and opposite magnetic moments that cancel out, resulting in zero net magnetization. Examples include manganese oxide (MnO).
+
+5. **Ferrimagnetic Solids**: Have unequal and opposite magnetic moments, resulting in a net magnetization. Examples include magnetite (Fe3O4).
+
+For NEET, focus on identifying the type of magnetic behavior based on electron configuration and examples.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Band Theory of Solids</h2><div>Band theory explains the electrical properties of solids based on the energy levels of electrons:
+
+- **Valence Band**: The energy band occupied by valence electrons. Electrons in this band are bound to their atoms.
+- **Conduction Band**: The energy band where electrons are free to move and conduct electricity.
+- **Band Gap (Eg)**: The energy difference between the valence band and the conduction band.
+
+Based on the band gap, solids are classified as:
+1. **Conductors**: No band gap (valence and conduction bands overlap). Electrons can easily move to the conduction band.
+2. **Semiconductors**: Small band gap (Eg < 3 eV). Electrons can be excited to the conduction band by thermal energy or doping.
+3. **Insulators**: Large band gap (Eg > 3 eV). Electrons cannot be excited to the conduction band at room temperature.
+
+NEET questions often ask about the relationship between band gap and conductivity or the effect of temperature on semiconductors.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Applications of Solid State Chemistry</h2><div>Solid state chemistry has numerous applications in technology and industry:
+
+1. **Semiconductor Devices**: Used in transistors, diodes, solar cells, and integrated circuits. Silicon is the most widely used semiconductor material.
+
+2. **Superconductors**: Used in magnetic resonance imaging (MRI), maglev trains, and power transmission. High-temperature superconductors are an active area of research.
+
+3. **Ceramics**: Used in insulators, capacitors, and high-temperature applications (e.g., furnace linings, aerospace materials). Examples include alumina (Al2O3) and zirconia (ZrO2).
+
+4. **Polymers**: Used in plastics, fibers, and composites. Examples include polyethylene, nylon, and Kevlar.
+
+5. **Nanomaterials**: Materials with at least one dimension in the nanoscale (1-100 nm). Exhibit unique properties due to their small size. Examples include carbon nanotubes and quantum dots.
+
+For NEET, focus on the applications of semiconductors and superconductors, as these are frequently tested.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Crystalline solids have a long-range order, while amorphous solids do not.</li><li>The coordination number in a simple cubic unit cell is 6, in BCC it is 8, and in FCC it is 12.</li><li>Packing efficiency is highest in HCP and CCP (FCC) arrangements (74%).</li><li>Schottky defects reduce the density of the crystal, while Frenkel defects do not.</li><li>n-type semiconductors are formed by doping with elements having more valence electrons, while p-type semiconductors are formed by doping with elements having fewer valence electrons.</li><li>Ferromagnetic materials can be permanently magnetized, while paramagnetic materials are only weakly attracted to magnetic fields.</li><li>The band gap in semiconductors is small enough for electrons to be excited to the conduction band by thermal energy or doping.</li><li>Superconductors exhibit zero electrical resistance below a critical temperature.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Number of atoms per unit cell:
+- Simple Cubic (SC): Z = 1
+- Body-Centered Cubic (BCC): Z = 2
+- Face-Centered Cubic (FCC): Z = 4</div><div class="formula">Packing efficiency (PE) for cubic unit cells:
+- SC: PE = (π/6) × 100 ≈ 52%
+- BCC: PE = (√3π/8) × 100 ≈ 68%
+- FCC: PE = (√2π/6) × 100 ≈ 74%</div><div class="formula">Relationship between edge length (a) and atomic radius (r) in cubic unit cells:
+- SC: a = 2r
+- BCC: a = (4r)/√3
+- FCC: a = 2√2r</div><div class="formula">Density of a unit cell (ρ): ρ = (Z × M) / (a³ × Nₐ), where Z = number of atoms per unit cell, M = molar mass, a = edge length, Nₐ = Avogadro&#x27;s number.</div><div class="formula">Number of tetrahedral voids = 2 × number of atoms in the lattice.</div><div class="formula">Number of octahedral voids = number of atoms in the lattice.</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Confusing the number of atoms per unit cell for SC, BCC, and FCC. Remember: SC (1), BCC (2), FCC (4).</li><li>Assuming all close-packed structures have the same coordination number. Both HCP and CCP have a coordination number of 12, but their layering patterns differ (ABAB vs. ABCABC).</li><li>Misidentifying the type of defect based on density changes. Schottky defects reduce density, while Frenkel defects do not.</li><li>Assuming all semiconductors are intrinsic. Most practical semiconductors are extrinsic (doped).</li><li>Confusing ferromagnetic and paramagnetic materials. Ferromagnetic materials can be permanently magnetized, while paramagnetic materials cannot.</li><li>Assuming the band gap in semiconductors is fixed. The band gap can be altered by doping or temperature changes.</li><li>Forgetting that the number of tetrahedral voids is twice the number of atoms in the lattice, while octahedral voids are equal to the number of atoms.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
