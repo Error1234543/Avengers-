@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEET Physics: Kinematics - Complete Study Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>NEET Physics: Kinematics - Complete Study Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to Kinematics</h2><div>Kinematics is the branch of physics that studies the motion of objects without considering the forces causing the motion. It focuses on parameters like displacement, velocity, acceleration, and time. In NEET, kinematics is a foundational topic, often accounting for 2-4 questions, typically involving numerical problems or conceptual understanding of motion in one or two dimensions. Key distinctions to remember: (1) **Scalar vs. Vector Quantities**: Scalars (e.g., distance, speed) have only magnitude, while vectors (e.g., displacement, velocity, acceleration) have both magnitude and direction. (2) **Frame of Reference**: Motion is always described relative to a reference point or frame (e.g., ground, moving train). For NEET, assume the ground as the default frame unless stated otherwise.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Key Definitions and Variables</h2><div>['**Displacement (s or Δx)**: A vector quantity representing the change in position of an object. It is the shortest straight-line distance from the initial to the final position, with direction. Units: meters (m).', '**Distance**: A scalar quantity representing the total path length traveled by an object, regardless of direction. Units: meters (m).', '**Velocity (v)**: A vector quantity representing the rate of change of displacement. Average velocity = Δx/Δt; instantaneous velocity is the derivative of displacement with respect to time. Units: m/s.', '**Speed**: A scalar quantity representing the rate of change of distance. Average speed = total distance/total time. Units: m/s.', '**Acceleration (a)**: A vector quantity representing the rate of change of velocity. Average acceleration = Δv/Δt; instantaneous acceleration is the derivative of velocity with respect to time. Units: m/s². Note: Deceleration is negative acceleration.', '**Uniform Motion**: Motion with constant velocity (zero acceleration).', '**Non-Uniform Motion**: Motion with changing velocity (non-zero acceleration).']</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Equations of Motion for Uniformly Accelerated Motion</h2><div>For motion with constant acceleration, the following three equations relate displacement (s), initial velocity (u), final velocity (v), acceleration (a), and time (t). These are derived from the definitions of velocity and acceleration and are essential for solving NEET kinematics problems:
+
+1. **First Equation (Velocity-Time Relation)**: v = u + at
+   - Derivation: Acceleration (a) = (v - u)/t → v = u + at.
+
+2. **Second Equation (Displacement-Time Relation)**: s = ut + (1/2)at²
+   - Derivation: Displacement = average velocity × time = [(u + v)/2] × t. Substitute v from the first equation: s = [(u + u + at)/2] × t = ut + (1/2)at².
+
+3. **Third Equation (Velocity-Displacement Relation)**: v² = u² + 2as
+   - Derivation: From v = u + at, express t = (v - u)/a. Substitute into s = ut + (1/2)at²: s = u(v - u)/a + (1/2)a[(v - u)/a]². Simplify to get v² = u² + 2as.
+
+**Conditions for Use**: These equations apply **only** when acceleration is constant. For variable acceleration, calculus (integration/differentiation) is required, which is beyond NEET scope.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Graphical Representation of Motion</h2><div>Graphs are a powerful tool in kinematics to visualize and solve problems. NEET often tests interpretation of these graphs:
+
+1. **Displacement-Time (s-t) Graph**:
+   - Slope = velocity (v = Δs/Δt).
+   - Straight line → uniform velocity; curved line → non-uniform velocity.
+   - Horizontal line → object at rest (zero velocity).
+
+2. **Velocity-Time (v-t) Graph**:
+   - Slope = acceleration (a = Δv/Δt).
+   - Area under the graph = displacement (s = ∫v dt).
+   - Straight line → uniform acceleration; horizontal line → zero acceleration (uniform velocity).
+
+3. **Acceleration-Time (a-t) Graph**:
+   - Area under the graph = change in velocity (Δv = ∫a dt).
+   - Horizontal line → constant acceleration.
+
+**Common Mistakes**: Confusing the slope of s-t graph (velocity) with the area under v-t graph (displacement). Always label axes and units to avoid errors.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Projectile Motion</h2><div>Projectile motion is the motion of an object thrown into the air, subject to only the acceleration due to gravity (g = 9.8 m/s², downward). It is a two-dimensional motion with:
+
+1. **Horizontal Motion**: Uniform velocity (no acceleration, aₓ = 0).
+   - Horizontal velocity (vₓ) = u cosθ (where θ is the launch angle).
+   - Horizontal displacement (x) = vₓ × t.
+
+2. **Vertical Motion**: Uniformly accelerated motion (aᵧ = -g).
+   - Vertical velocity (vᵧ) = u sinθ - gt.
+   - Vertical displacement (y) = u sinθ × t - (1/2)gt².
+
+**Key Equations**:
+- Time of flight (T) = 2u sinθ / g.
+- Maximum height (H) = (u sinθ)² / (2g).
+- Horizontal range (R) = u² sin(2θ) / g. Note: Range is maximum at θ = 45°.
+
+**Assumptions**: Air resistance is neglected; g is constant. For NEET, always resolve motion into horizontal and vertical components and treat them independently.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Relative Motion</h2><div>Relative motion describes the motion of an object with respect to another moving object. The relative velocity of object A with respect to object B is given by:
+
+**vₐᵦ = vₐ - vᵦ**
+
+- If two objects move in the same direction, subtract their velocities.
+- If they move in opposite directions, add their velocities.
+
+**Example**: A boat moving downstream in a river. The boat's velocity relative to the ground (vₐ) = boat's velocity relative to water (vₐᵦ) + water's velocity relative to ground (vᵦ).
+
+**NEET Tip**: For problems involving two moving objects (e.g., trains, boats), always define the reference frame clearly. Use vector addition/subtraction for relative velocity.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Common Problem-Solving Strategies</h2><div>['**Step 1: Draw a Diagram**: Sketch the scenario, labeling all given quantities (displacement, velocity, acceleration, angles).', '**Step 2: Choose a Coordinate System**: For 2D motion, use x (horizontal) and y (vertical) axes. For inclined planes, align axes along and perpendicular to the plane.', '**Step 3: Resolve Vectors**: Break velocities or accelerations into components (e.g., vₓ = v cosθ, vᵧ = v sinθ).', '**Step 4: Apply Equations of Motion**: Use the three equations for uniformly accelerated motion, or relative motion formulas as needed. Ensure units are consistent (e.g., convert km/h to m/s).', '**Step 5: Solve for Unknowns**: Isolate the variable of interest. For projectile motion, solve horizontal and vertical motions separately.', '**Step 6: Check for Physical Reasonableness**: Ensure the answer makes sense (e.g., time cannot be negative; range cannot exceed theoretical maximum).']</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. NEET-Specific Tips and Common Pitfalls</h2><div>['**Exam Weightage**: Kinematics typically contributes 2-4 questions in NEET, often combining with laws of motion or gravitation. Prioritize projectile motion and relative motion problems.', '**Time Management**: Kinematics problems can be time-consuming. Practice solving them in under 2 minutes to leave time for other sections.', '**Unit Consistency**: Always convert units to SI (e.g., km/h to m/s: multiply by 5/18).', '**Sign Conventions**: Define positive and negative directions clearly. For example, upward motion is often taken as positive, and downward as negative.', '**Common Mistakes**:\n   - Confusing distance with displacement (e.g., in circular motion, distance ≠ displacement).\n   - Ignoring vector nature of velocity/acceleration (e.g., adding speeds instead of velocities).\n   - Misapplying equations of motion to non-uniform acceleration.\n   - Forgetting to resolve vectors into components for 2D motion.\n   - Incorrectly calculating area under graphs (e.g., using trapezoid rule for curved graphs).']</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Displacement is a vector; distance is a scalar. Displacement can be zero even if distance is not (e.g., circular motion).</li><li>Average speed is not the magnitude of average velocity unless the object moves in a straight line without changing direction.</li><li>The three equations of motion apply only to uniformly accelerated motion (constant acceleration).</li><li>In projectile motion, the horizontal and vertical motions are independent. The time of flight depends only on the vertical motion.</li><li>The maximum range of a projectile is achieved at a launch angle of 45° (ignoring air resistance).</li><li>Relative velocity is calculated as vₐᵦ = vₐ - vᵦ. The order of subtraction matters (A with respect to B).</li><li>The slope of a displacement-time graph gives velocity; the slope of a velocity-time graph gives acceleration.</li><li>The area under a velocity-time graph gives displacement; the area under an acceleration-time graph gives change in velocity.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Average velocity: v_avg = Δx / Δt</div><div class="formula">Average speed: speed_avg = total distance / total time</div><div class="formula">Average acceleration: a_avg = Δv / Δt</div><div class="formula">First equation of motion: v = u + at</div><div class="formula">Second equation of motion: s = ut + (1/2)at²</div><div class="formula">Third equation of motion: v² = u² + 2as</div><div class="formula">Time of flight (projectile): T = 2u sinθ / g</div><div class="formula">Maximum height (projectile): H = (u sinθ)² / (2g)</div><div class="formula">Horizontal range (projectile): R = u² sin(2θ) / g</div><div class="formula">Relative velocity: vₐᵦ = vₐ - vᵦ</div><div class="formula">Horizontal velocity (projectile): vₓ = u cosθ</div><div class="formula">Vertical velocity (projectile): vᵧ = u sinθ - gt</div><div class="formula">Horizontal displacement (projectile): x = vₓ × t</div><div class="formula">Vertical displacement (projectile): y = u sinθ × t - (1/2)gt²</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Using the equations of motion for non-uniform acceleration (e.g., motion with air resistance).</li><li>Confusing scalar and vector quantities (e.g., using speed instead of velocity in vector equations).</li><li>Forgetting to resolve vectors into components for 2D motion (e.g., projectile motion).</li><li>Incorrectly calculating the area under a velocity-time graph (e.g., using the wrong shape for the area).</li><li>Misapplying sign conventions (e.g., taking downward acceleration as positive in projectile motion).</li><li>Assuming the path of a projectile is a parabola in all reference frames (it is only parabolic in the ground frame).</li><li>Ignoring the independence of horizontal and vertical motions in projectile motion.</li><li>Using the wrong formula for relative velocity (e.g., adding velocities when they are in the same direction).</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
