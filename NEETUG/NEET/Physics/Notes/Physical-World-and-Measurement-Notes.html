@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Physical World and Measurement - NEET Physics Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Physical World and Measurement - NEET Physics Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to Physics and Its Scope</h2><div>Physics is the fundamental science that studies matter, energy, and their interactions. It seeks to explain natural phenomena through universal laws and principles. The scope of physics is vast, encompassing classical mechanics, electromagnetism, thermodynamics, quantum mechanics, and relativity. For NEET, the focus is on classical and modern physics concepts that underpin medical technologies and biological processes. Key branches relevant to NEET include mechanics (motion, forces, energy), optics (light behavior), and electromagnetism (electric and magnetic fields). Physics provides the foundation for understanding medical instruments like X-rays, MRI machines, and ultrasound devices, making it essential for aspiring medical professionals.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Fundamental Forces in Nature</h2><div>There are four fundamental forces in nature, each governing different interactions:
+
+- **Gravitational Force**: The weakest force, acting between all masses. It follows the inverse-square law (F ∝ 1/r²) and is described by Newton's law of gravitation: F = G(m₁m₂)/r², where G is the gravitational constant (6.674 × 10⁻¹¹ N m² kg⁻²).
+- **Electromagnetic Force**: Acts between charged particles. It is much stronger than gravity and governs chemical bonding, light, and electricity. Coulomb's law describes it: F = k(q₁q₂)/r², where k is Coulomb's constant (8.988 × 10⁹ N m² C⁻²).
+- **Strong Nuclear Force**: The strongest force, binding protons and neutrons in the atomic nucleus. It operates at very short ranges (~10⁻¹⁵ m) and is responsible for nuclear stability.
+- **Weak Nuclear Force**: Responsible for radioactive decay (e.g., beta decay) and neutrino interactions. It operates at even shorter ranges (~10⁻¹⁸ m) and is weaker than the strong force but stronger than gravity.
+
+For NEET, focus on the relative strengths, ranges, and examples of these forces in atomic and subatomic processes.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Units and Dimensions</h2><div>Units and dimensions are critical for measurement and problem-solving in physics.
+
+- **Fundamental Units**: The International System of Units (SI) defines seven base units:
+  - Meter (m) for length
+  - Kilogram (kg) for mass
+  - Second (s) for time
+  - Ampere (A) for electric current
+  - Kelvin (K) for temperature
+  - Mole (mol) for amount of substance
+  - Candela (cd) for luminous intensity
+
+- **Derived Units**: Combinations of fundamental units, e.g., Newton (N = kg m s⁻²) for force, Joule (J = kg m² s⁻²) for energy.
+
+- **Dimensions**: Represent the physical nature of a quantity. For example, force has dimensions [M L T⁻²], where M = mass, L = length, T = time. Dimensional analysis is used to check the consistency of equations and derive relationships between physical quantities.
+
+- **Dimensional Formulae**: For NEET, memorize the dimensional formulae of key quantities like velocity ([L T⁻¹]), acceleration ([L T⁻²]), and pressure ([M L⁻¹ T⁻²]). Dimensional homogeneity is a powerful tool to verify the correctness of physical equations.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Errors in Measurement and Significant Figures</h2><div>Measurement errors and significant figures are essential for precision in experiments.
+
+- **Types of Errors**:
+  - **Systematic Errors**: Consistent and repeatable errors due to faulty instruments or experimental design (e.g., zero error in a scale). These can be corrected by calibration.
+  - **Random Errors**: Unpredictable variations due to environmental factors or human limitations (e.g., parallax error). These can be minimized by taking multiple readings and averaging.
+
+- **Accuracy vs. Precision**:
+  - **Accuracy**: How close a measured value is to the true value.
+  - **Precision**: How close repeated measurements are to each other.
+
+- **Significant Figures**: The number of meaningful digits in a measurement. Rules for significant figures:
+  1. All non-zero digits are significant.
+  2. Zeros between non-zero digits are significant.
+  3. Leading zeros (before the first non-zero digit) are not significant.
+  4. Trailing zeros (after the last non-zero digit) are significant only if the number has a decimal point.
+
+- **Rounding Off**: For NEET, round off answers to the least number of significant figures in the given data. For example, 3.456 + 2.1 = 5.6 (rounded to 2 significant figures).</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Least Count and Vernier Calipers</h2><div>The least count of an instrument is the smallest measurement it can accurately record. For NEET, understanding the least count is crucial for experiments and numerical problems.
+
+- **Vernier Calipers**: A precision instrument used to measure internal and external dimensions. It consists of a main scale and a sliding vernier scale.
+  - **Least Count of Vernier Calipers**: The difference between one main scale division and one vernier scale division. For example, if the main scale reads 1 mm per division and the vernier scale has 10 divisions equal to 9 mm on the main scale, the least count is 0.1 mm.
+  - **Reading Vernier Calipers**:
+    1. Note the main scale reading just before the zero of the vernier scale.
+    2. Find the vernier scale division that aligns exactly with a main scale division.
+    3. Multiply this vernier division by the least count and add it to the main scale reading.
+
+- **Zero Error**: If the zero of the vernier scale does not coincide with the zero of the main scale when the jaws are closed, the instrument has a zero error. This must be accounted for in measurements.
+
+Example: If the main scale reads 2.3 cm and the 5th vernier division aligns with a main scale division (least count = 0.01 cm), the measurement is 2.3 + (5 × 0.01) = 2.35 cm.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Screw Gauge and Its Least Count</h2><div>A screw gauge is used to measure small lengths (e.g., diameter of a wire) with high precision. It works on the principle of a screw.
+
+- **Components**:
+  - **Main Scale**: Linear scale on the sleeve.
+  - **Circular Scale**: Rotating scale on the thimble.
+  - **Pitch**: The distance moved by the screw per complete rotation of the thimble (typically 1 mm or 0.5 mm).
+
+- **Least Count of Screw Gauge**: The smallest measurement possible, calculated as Pitch/Number of divisions on the circular scale. For example, if the pitch is 1 mm and the circular scale has 100 divisions, the least count is 0.01 mm.
+
+- **Reading Screw Gauge**:
+  1. Note the main scale reading just before the edge of the thimble.
+  2. Note the circular scale division that aligns with the main scale line.
+  3. Multiply this division by the least count and add it to the main scale reading.
+
+- **Zero Error**: If the zero of the circular scale does not align with the main scale line when the jaws are closed, the instrument has a zero error (positive or negative). This must be corrected in measurements.
+
+Example: If the main scale reads 3.5 mm and the 25th circular division aligns (least count = 0.01 mm), the measurement is 3.5 + (25 × 0.01) = 3.75 mm.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Dimensional Analysis and Its Applications</h2><div>Dimensional analysis is a method to check the consistency of physical equations and derive relationships between quantities.
+
+- **Principle of Homogeneity**: The dimensions of all terms in a physical equation must be the same. For example, in the equation v = u + at, all terms (v, u, at) must have dimensions of velocity ([L T⁻¹]).
+
+- **Applications**:
+  1. **Checking Equations**: Verify if an equation is dimensionally correct. For example, check if s = ut + (1/2)at² is dimensionally consistent (it is, as all terms have dimensions [L]).
+  2. **Deriving Relationships**: Use dimensions to derive formulas. For example, to find the time period (T) of a simple pendulum, assume T ∝ Lᵃ gᵇ, where L is length and g is acceleration due to gravity. Equating dimensions: [T] = [L]ᵃ [L T⁻²]ᵇ → [T] = [L]ᵃ⁺ᵇ [T]⁻²ᵇ. Solving gives a = 1/2, b = -1/2, so T ∝ √(L/g).
+  3. **Converting Units**: Use dimensional analysis to convert units from one system to another (e.g., converting km/h to m/s).
+
+- **Limitations**: Dimensional analysis cannot determine dimensionless constants (e.g., 1/2 in kinetic energy formula) or distinguish between quantities with the same dimensions (e.g., work and torque).</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. Common Mistakes and NEET-Specific Tips</h2><div>- **Confusing Fundamental and Derived Units**: Memorize the seven fundamental units and their symbols. Avoid mixing up units like Joule (energy) and Newton (force).
+- **Significant Figures Errors**: Always round off answers to the correct number of significant figures. For example, 2.0 + 3.1416 = 5.1 (not 5.1416).
+- **Zero Error in Instruments**: Forgetting to account for zero error in vernier calipers or screw gauge can lead to incorrect measurements. Always check for zero error before taking readings.
+- **Dimensional Analysis Pitfalls**: Do not assume an equation is correct just because it is dimensionally consistent. For example, s = ut + at² is dimensionally correct but physically wrong (correct equation is s = ut + (1/2)at²).
+- **Least Count Calculation**: Misinterpreting the least count of vernier calipers or screw gauge is a common error. Practice calculating it for different instruments.
+- **NEET-Specific Focus**: For NEET, prioritize understanding the principles of measurement, errors, and dimensional analysis over complex derivations. Questions often test practical applications, such as reading vernier calipers or calculating errors in experiments.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>The four fundamental forces in nature are gravitational, electromagnetic, strong nuclear, and weak nuclear forces.</li><li>SI units are the standard for measurement in physics, with seven fundamental units (meter, kilogram, second, ampere, kelvin, mole, candela).</li><li>Dimensional analysis is used to check the consistency of equations and derive relationships between physical quantities.</li><li>The least count of an instrument is the smallest measurement it can accurately record (e.g., 0.1 mm for vernier calipers).</li><li>Systematic errors are consistent and repeatable, while random errors are unpredictable and can be minimized by averaging multiple readings.</li><li>Significant figures represent the precision of a measurement. For example, 3.00 has three significant figures, while 0.003 has one.</li><li>Zero error in instruments like vernier calipers or screw gauge must be accounted for in measurements.</li><li>The pitch of a screw gauge is the distance moved by the screw per complete rotation of the thimble.</li><li>Dimensional homogeneity is the principle that all terms in a physical equation must have the same dimensions.</li><li>For NEET, focus on practical applications of measurement and error analysis, as questions often test these concepts.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Newton&#x27;s law of gravitation: F = G(m₁m₂)/r², where G = 6.674 × 10⁻¹¹ N m² kg⁻².</div><div class="formula">Coulomb&#x27;s law: F = k(q₁q₂)/r², where k = 8.988 × 10⁹ N m² C⁻².</div><div class="formula">Dimensions of force: [M L T⁻²].</div><div class="formula">Dimensions of velocity: [L T⁻¹].</div><div class="formula">Dimensions of acceleration: [L T⁻²].</div><div class="formula">Dimensions of pressure: [M L⁻¹ T⁻²].</div><div class="formula">Least count of vernier calipers = (1 main scale division) - (1 vernier scale division).</div><div class="formula">Least count of screw gauge = Pitch / Number of divisions on circular scale.</div><div class="formula">Time period of a simple pendulum: T = 2π√(L/g).</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Mixing up fundamental and derived units (e.g., confusing Joule with Newton).</li><li>Incorrectly rounding off answers to the wrong number of significant figures.</li><li>Forgetting to account for zero error in vernier calipers or screw gauge measurements.</li><li>Assuming an equation is correct just because it is dimensionally consistent (e.g., s = ut + at²).</li><li>Misinterpreting the least count of instruments like vernier calipers or screw gauge.</li><li>Not distinguishing between accuracy and precision in measurements.</li><li>Ignoring the difference between systematic and random errors.</li><li>Incorrectly calculating the pitch or least count of a screw gauge.</li><li>Failing to apply dimensional analysis to check the consistency of physical equations.</li><li>Overlooking the importance of practical applications (e.g., reading instruments) for NEET questions.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
