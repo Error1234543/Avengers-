@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET NEXUS PLATFORM</title>
+    <meta name="description" content="Premium 3D Spatial Educational Environment for NEET Preparation">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'/%3E%3C/svg%3E">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        neutral: { 850: '#171717', 950: '#0a0a0a' }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) translateZ(20px)' },
+                            '50%': { transform: 'translateY(-10px) translateZ(20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 
+           THEME SYSTEM REWRITE:
+           Removed all theme() calls to prevent Tailwind CDN bugs on mobile.
+           Light mode is the default CSS. html.dark is the explicit override.
+        */
+        :root {
+            --subject-rgb: 99, 102, 241; 
+            --aura-opacity: 0.08;
+            --folder-depth: 15px;
+        }
+
+        html.dark {
+            --aura-opacity: 0.15;
+        }
+
+        /* Prevent tap highlight */
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* --- Aura Environment --- */
+        .aura-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .aura-blob {
+            position: absolute;
+            filter: blur(120px);
+            border-radius: 50%;
+            background: rgba(var(--subject-rgb), var(--aura-opacity));
+            transition: background 0.8s ease, opacity 0.8s ease;
+            will-change: background, opacity;
+        }
+
+        .aura-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; }
+        .aura-2 { bottom: -20%; right: -10%; width: 70vw; height: 70vw; }
+        .aura-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; opacity: 0.5; }
+
+        /* --- 3D Spatial Folder System --- */
+        .spatial-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 10;
+        }
+
+        .spatial-folder {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .spatial-folder:active {
+            transform: scale(0.96) translateZ(-10px) !important;
+            transition: transform 0.1s ease;
+        }
+
+        .folder-back {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(var(--subject-rgb), 0.15), rgba(var(--subject-rgb), 0.02));
+            border-radius: 16px;
+            transform: translateZ(calc(var(--folder-depth) * -1));
+            box-shadow: 0 15px 35px -10px rgba(var(--subject-rgb), 0.3);
+            border: 1px solid rgba(var(--subject-rgb), 0.2);
+            backdrop-filter: blur(8px);
+            will-change: transform;
+        }
+
+        html.dark .folder-back {
+            background: linear-gradient(135deg, rgba(var(--subject-rgb), 0.25), rgba(var(--subject-rgb), 0.05));
+            box-shadow: 0 15px 35px -10px rgba(0,0,0,0.6);
+            border: 1px solid rgba(var(--subject-rgb), 0.3);
+        }
+
+        .folder-tab {
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            width: 45%;
+            height: 24px;
+            background: linear-gradient(to bottom, rgba(var(--subject-rgb), 0.2), rgba(var(--subject-rgb), 0.05));
+            border-radius: 10px 10px 0 0;
+            border: 1px solid rgba(var(--subject-rgb), 0.15);
+            border-bottom: none;
+            transform: translateZ(calc(var(--folder-depth) * -1));
+            backdrop-filter: blur(8px);
+        }
+
+        html.dark .folder-tab {
+            background: linear-gradient(to bottom, rgba(var(--subject-rgb), 0.4), rgba(var(--subject-rgb), 0.1));
+            border: 1px solid rgba(var(--subject-rgb), 0.3);
+            border-bottom: none;
+        }
+
+        .folder-front {
+            position: relative;
+            height: 100%;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            border: 1px solid rgba(var(--subject-rgb), 0.15);
+            transform: translateZ(0);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 4px 10px -2px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        html.dark .folder-front {
+            background: rgba(23, 23, 23, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .spatial-folder:hover .folder-front {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 15px 30px -5px rgba(var(--subject-rgb), 0.2);
+        }
+
+        html.dark .spatial-folder:hover .folder-front {
+            background: rgba(30, 30, 30, 0.85);
+            border: 1px solid rgba(var(--subject-rgb), 0.4);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 0 25px rgba(var(--subject-rgb), 0.25);
+        }
+
+        .folder-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(var(--subject-rgb), 0.15), transparent);
+            box-shadow: 0 5px 15px rgba(var(--subject-rgb), 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(var(--subject-rgb), 0.4);
+            transform: translateZ(15px);
+            color: rgb(var(--subject-rgb));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        html.dark .folder-icon-wrapper {
+            background: linear-gradient(135deg, rgba(var(--subject-rgb), 0.25), transparent);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .spatial-folder:hover .folder-icon-wrapper {
+            transform: translateZ(25px) scale(1.08);
+        }
+
+        .folder-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.35rem;
+            transform: translateZ(8px);
+            color: #0f172a;
+            line-height: 1.2;
+            position: relative;
+            z-index: 5;
+        }
+
+        html.dark .folder-title { color: #f8fafc; }
+
+        .folder-desc {
+            font-size: 0.875rem;
+            color: #64748b;
+            transform: translateZ(4px);
+            flex-grow: 1;
+            line-height: 1.5;
+            position: relative;
+            z-index: 5;
+        }
+
+        html.dark .folder-desc { color: #94a3b8; }
+
+        /* --- Chapter Cards (Compact Spatial Objects) --- */
+        .chapter-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 20;
+            transform: translateZ(0); 
+            will-change: transform;
+        }
+
+        html.dark .chapter-card {
+            background: rgba(30, 30, 30, 0.85); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+        }
+        
+        .chapter-card:hover {
+            background: #ffffff;
+            border-color: rgba(var(--subject-rgb), 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(var(--subject-rgb), 0.1);
+        }
+
+        html.dark .chapter-card:hover {
+            background: rgba(var(--subject-rgb), 0.12);
+            border-color: rgba(var(--subject-rgb), 0.4);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Ensure chapter titles are ALWAYS visible */
+        .chapter-title-text {
+            color: #0f172a !important;
+            opacity: 1 !important;
+            transition: color 0.3s ease;
+        }
+
+        html.dark .chapter-title-text {
+            color: #f8fafc !important;
+        }
+
+        .chapter-card:hover .chapter-title-text {
+            color: rgb(var(--subject-rgb)) !important;
+        }
+
+        /* --- Glass Header --- */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        html.dark .glass-nav {
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- Utilities --- */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .subject-text-gradient {
+            background: linear-gradient(to right, rgb(var(--subject-rgb)), #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        html.dark .subject-text-gradient {
+            background: linear-gradient(to right, rgb(var(--subject-rgb)), #f8fafc);
+        }
+
+        /* View Transitions */
+        .view-section {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .view-section.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+
+    <script>
+        // Apply theme early to prevent flashing (Perfect consistency)
+        if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // ==========================================
+        //  SET YOUR LINKS HERE — replace the text
+        //  between the quotes with your real links.
+        // ==========================================
+        const TELEGRAM_CHANNEL_URL = "YOUR_TELEGRAM_CHANNEL_LINK";
+        const CONTACT_OWNER_URL = "YOUR_CONTACT_LINK";
+    </script>
+</head>
+
+<!-- NATIVE TAILWIND BODY STYLING TO FIX DARK MODE THEME() BUGS -->
+<body class="antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-neutral-950 dark:text-white transition-colors duration-300">
+
+    <!-- Aura Background -->
+    <div class="aura-bg">
+        <div class="aura-blob aura-1"></div>
+        <div class="aura-blob aura-2"></div>
+        <div class="aura-blob aura-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-nav fixed top-0 w-full z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer group" tabindex="0" role="button" aria-label="Home" onclick="navigateTo('home')">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-transparent flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold leading-none tracking-tight text-slate-900 dark:text-white">NEET NEXUS</h1>
+                    <span class="text-[0.65rem] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Platform</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-neutral-800 transition-colors text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" aria-label="Toggle Theme">
+                    <svg id="theme-icon-dark" class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="theme-icon-light" class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button id="menu-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-neutral-800 transition-colors text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" aria-label="Open Menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMenu()">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Breadcrumb Bar -->
+        <div class="border-t border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-black/20 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center text-xs font-medium text-slate-600 dark:text-slate-400" id="breadcrumb-container" aria-label="Breadcrumb">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Drawer (Tailwind Theme Aware) -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-72 bg-white dark:bg-neutral-900 shadow-2xl z-[60] p-6 border-l border-slate-200 dark:border-white/10 flex flex-col overflow-y-auto transform translate-x-full transition-transform duration-300 ease-in-out" role="dialog" aria-modal="true" aria-label="Main Menu">
+        <div class="flex justify-between items-center mb-6">
+            <span class="font-bold text-lg text-slate-900 dark:text-white">Menu</span>
+            <button id="close-menu" class="p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-full hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" aria-label="Close Menu" onclick="toggleMenu()">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <nav class="flex-grow space-y-1">
+            <a href="javascript:void(0)" onclick="navigateTo('home'); toggleMenu();" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none">
+                <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> Home
+            </a>
+            <a href="javascript:void(0)" onclick="navigateTo('chapters', 'Physics'); toggleMenu();" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none">
+                <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"/></svg> Physics
+            </a>
+            <a href="javascript:void(0)" onclick="navigateTo('chapters', 'Chemistry'); toggleMenu();" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none">
+                <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg> Chemistry
+            </a>
+            <a href="javascript:void(0)" onclick="navigateTo('chapters', 'Biology'); toggleMenu();" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none">
+                <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Biology
+            </a>
+            <a href="javascript:void(0)" onclick="openTestZone(); toggleMenu();" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none">
+                <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> Tests / Test Zone
+            </a>
+            <a href="javascript:void(0)" onclick="focusSearch(); toggleMenu();" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none">
+                <svg class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> Search
+            </a>
+            
+            <div class="h-px bg-slate-200 dark:bg-white/10 my-6"></div>
+            
+            <!-- Premium Action Buttons -->
+            <div class="flex flex-col gap-3">
+                <a href="#" id="telegram-btn" target="_blank" rel="noopener" class="p-4 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors group block cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    <div class="flex items-center gap-3 mb-1">
+                        <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                        <span class="font-bold text-sm text-indigo-800 dark:text-indigo-300">Join Telegram Channel</span>
+                    </div>
+                    <p class="text-[0.7rem] text-indigo-600/80 dark:text-indigo-200/70 leading-snug">Join for updates, new study material and important announcements.</p>
+                </a>
+                <a href="#" id="contact-btn" target="_blank" rel="noopener" class="p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors group block cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-opacity-50">
+                    <div class="flex items-center gap-3 mb-1">
+                        <svg class="w-5 h-5 text-slate-700 dark:text-slate-300 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span class="font-bold text-sm text-slate-900 dark:text-slate-200">Contact Owner</span>
+                    </div>
+                    <p class="text-[0.7rem] text-slate-600 dark:text-slate-400 leading-snug">Have a suggestion, found an issue, or need help? Contact the owner.</p>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <!-- Overlay background for menu -->
+    <div id="menu-overlay" class="fixed inset-0 bg-slate-900/20 dark:bg-black/50 backdrop-blur-sm z-[55] hidden transition-opacity" onclick="toggleMenu()" aria-hidden="true"></div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-10">
+        
+        <!-- VIEW 1: HOME (Subject Selection) -->
+        <section id="view-home" class="view-section active">
+            <div class="mb-10 text-center sm:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 mb-4">
+                    <span class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-500 animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">Select Your Space</span>
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                   Explore Physics, Chemistry & Biology and start learning 
+                </h2>
+                <p class="mt-4 text-lg text-slate-700 dark:text-slate-400 max-w-2xl mx-auto sm:mx-0">
+                    Focused resources. Smarter practice. Better preparation — built for your NEET journey.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-10" id="subject-grid">
+                <!-- Subject Folders Injected via JS -->
+            </div>
+        </section>
+
+        <!-- VIEW 2: CHAPTER LIST -->
+        <section id="view-chapters" class="view-section">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight subject-text-gradient" id="chapter-view-title">
+                        Subject Chapters
+                    </h2>
+                    <p class="mt-2 text-slate-700 dark:text-slate-400">Select a chapter space to explore its resources.</p>
+                </div>
+                
+                <div class="relative w-full sm:w-80 spatial-container">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transform translate-z-[5px]">
+                        <svg class="h-5 w-5 text-slate-500 dark:text-slate-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <label for="chapter-search" class="sr-only">Search chapters and resources</label>
+                    <input type="text" id="chapter-search" placeholder="Search chapters & resources..." class="w-full pl-11 pr-4 py-3 rounded-xl text-sm transition-all focus:outline-none bg-black/5 border border-black/10 text-slate-900 focus:bg-white focus:border-[rgba(var(--subject-rgb),0.5)] focus:ring-2 focus:ring-[rgba(var(--subject-rgb),0.1)] dark:bg-white/5 dark:border-white/10 dark:text-white dark:focus:bg-white/10 dark:focus:border-[rgba(var(--subject-rgb),0.5)] dark:focus:ring-[rgba(var(--subject-rgb),0.2)]">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="chapter-grid">
+                <!-- Chapters Injected via JS -->
+            </div>
+            
+            <div id="no-chapters-msg" class="hidden py-16 text-center text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-neutral-900/50 rounded-2xl border border-slate-200 dark:border-neutral-800">
+                <svg class="w-12 h-12 mx-auto mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-lg font-medium" id="no-chapters-text">No matching study material found.</p>
+            </div>
+        </section>
+
+        <!-- VIEW 3: RESOURCE FOLDERS -->
+        <section id="view-resources" class="view-section">
+            <div class="mb-10 text-center sm:text-left">
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white" id="resource-view-title">
+                    Chapter Name
+                </h2>
+                <p class="mt-2 text-slate-700 dark:text-slate-400">Access study material, practice sessions, and tests.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" id="resource-grid">
+                <!-- Resource Folders Injected via JS -->
+            </div>
+            
+            <div id="no-resources-msg" class="hidden py-16 text-center text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-neutral-900/50 rounded-2xl border border-slate-200 dark:border-neutral-800">
+                 <p class="text-lg font-medium">No resources available for this chapter.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer - Premium Messaging -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-neutral-900/50 py-10 relative z-10 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-600 dark:text-slate-400">
+            <p class="mb-3 font-medium text-slate-800 dark:text-slate-200">Study with purpose. Prepare with discipline. Move one step closer to becoming the doctor you dream of becoming.</p>
+            <p class="text-sm mb-8">Every chapter you complete is another step toward your medical dream.</p>
+            <div class="text-xs space-y-1.5 opacity-80">
+                <p>&copy; NEET NEXUS PLATFORM — All Rights Reserved.</p>
+                <p>Educational content and study resources are created by our own AI Factory.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Logic -->
+    <script>
+        // Set up initial configurable URLs
+        document.getElementById('telegram-btn').href = TELEGRAM_CHANNEL_URL;
+        document.getElementById('contact-btn').href = CONTACT_OWNER_URL;
+
+        // ==========================================
+        // 1. DIGITAL ICONS (Zero Emojis, Pure SVG)
+        // ==========================================
+        const ICONS = {
+            physics: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" /></svg>`,
+            chemistry: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>`,
+            biology: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+            notes: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>`,
+            practice: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>`,
+            pyq: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+            flashcards: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`,
+            revision: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+            test: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>`,
+            topic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>`,
+            medal: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>`,
+            chapter: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`
+        };
+
+        // ==========================================
+        // 2. CENTRALIZED DATA CONFIGURATION
+        // ==========================================
+        
+        const SUBJECTS = [
+            { id: "Physics", title: "Physics", rgb: "6, 182, 212", icon: ICONS.physics, desc: "Notes • Practice • PYQ • Tests • Revision" }, // Cyan
+            { id: "Chemistry", title: "Chemistry", rgb: "245, 158, 11", icon: ICONS.chemistry, desc: "Notes • Practice • PYQ • Tests • Revision" }, // Amber
+            { id: "Biology", title: "Biology", rgb: "16, 185, 129", icon: ICONS.biology, desc: "Notes • Practice • PYQ • Tests • Revision" } // Emerald
+        ];
+
+        const RESOURCE_TYPES = {
+            "Notes": { icon: ICONS.notes, desc: "Concept notes" },
+            "Practice": { icon: ICONS.practice, desc: "Topic-wise MCQs" },
+            "PYQ": { icon: ICONS.pyq, desc: "Previous year questions" },
+            "Flashcards": { icon: ICONS.flashcards, desc: "Active recall" },
+            "Quick-Revision": { icon: ICONS.revision, desc: "Formulae & summaries" },
+            "Chapter-Test": { icon: ICONS.test, desc: "Micro-level assessment" },
+            "Topic-Test": { icon: ICONS.topic, desc: "Focused evaluation" },
+            "Revision-Test": { icon: ICONS.revision, desc: "Spaced repetition" },
+            "Subject-Test": { icon: ICONS.medal, desc: "Complete mastery" },
+            "Full-Mock": { icon: ICONS.medal, desc: "Simulated NEET" },
+            "Full-Syllabus-Mock": { icon: ICONS.medal, desc: "Full Syllabus Exam" }
+        };
+
+        const SITE_DATA = {
+            "Physics": {
+                path: "./Physics/",
+                chapters: {
+                    "Alternating-Current": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Atoms": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Current-Electricity": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Dual-Nature-of-Radiation-and-Matter": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Electromagnetic-Induction": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Electromagnetic-Waves": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Electrostatics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Gravitation": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Kinematics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Kinetic-Theory-of-Gases": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Laws-of-Motion": ["Chapter-Test", "Flashcards", "Full-Syllabus-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Magnetism-and-Matter": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Mechanical-Properties-of-Fluids": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Mechanical-Properties-of-Solids": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Motion": ["Flashcards", "Notes", "PYQ", "Practice", "Topic-Test"],
+                    "Motion-of-System-of-Particles-and-Rigid-Body": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Moving-Charges-and-Magnetism": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Nuclei": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Oscillations": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Physical-World-and-Measurement": ["Chapter-Test", "Flashcards", "Full-Syllabus-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Ray-Optics-and-Optical-Instruments": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Semiconductor-Electronics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Thermal-Properties-of-Matter": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Thermodynamics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Units-and-Measurements": ["Flashcards", "Notes", "PYQ", "Practice", "Topic-Test"],
+                    "Wave-Optics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Waves": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Work-Energy-and-Power": ["Chapter-Test", "Flashcards", "Full-Syllabus-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"]
+                },
+                "globals": ["Full-Mock"]
+            },
+            "Chemistry": {
+                path: "./Chemistry/",
+                chapters: {
+                    "Alcohols-Phenols-and-Ethers": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Aldehydes-Ketones-and-Carboxylic-Acids": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Biomolecules": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Chemical-Bonding": ["Flashcards", "Notes", "PYQ", "Practice", "Topic-Test"],
+                    "Chemical-Bonding-and-Molecular-Structure": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Chemical-Kinetics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Chemistry-in-Everyday-Life": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Classification-of-Elements-and-Periodicity": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Coordination-Compounds": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Electrochemistry": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Environmental-Chemistry": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Equilibrium": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Haloalkanes-and-Haloarenes": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Hydrocarbons": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Hydrogen-and-s-Block-Elements": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Organic-Chemistry-Basic-Principles": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Organic-Compounds-Containing-Nitrogen": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Polymers": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Redox-Reactions": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Solid-State": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Solutions": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Some-Basic-Concepts-of-Chemistry": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "States-of-Matter": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Structure-of-Atom": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Surface-Chemistry": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "Thermodynamics": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "d-and-f-Block-Elements": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "p-Block-Elements-Group-13-14": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"],
+                    "p-Block-Elements-Group-15-18": ["Chapter-Test", "Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test", "Topic-Test"]
+                },
+                "globals": ["Full-Mock"]
+            },
+            "Biology": {
+                path: "./Biology/",
+                chapters: {
+                    "Animal-Kingdom": ["Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Topic-Test"],
+                    "Biological-Classification": ["Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Topic-Test"],
+                    "Biology-and-Human-Welfare": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Biotechnology-and-Its-Applications": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Cell-Structure-and-Function": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Diversity-in-Living-World": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Ecology-and-Environment": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Genetics-and-Evolution": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Human-Physiology": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Plant-Kingdom": ["Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Topic-Test"],
+                    "Plant-Physiology": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Reproduction": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "Structural-Organisation-in-Animals-and-Plants": ["Chapter-Test", "Flashcards", "Full-Mock", "Notes", "PYQ", "Practice", "Quick-Revision", "Revision-Test", "Subject-Test"],
+                    "The-Living-World": ["Flashcards", "Notes", "PYQ", "Practice", "Quick-Revision", "Topic-Test"]
+                },
+                "globals": []
+            }
+        };
+
+        // ==========================================
+        // 3. STATE MANAGEMENT & ROUTING
+        // ==========================================
+        let appState = {
+            view: 'home', // 'home' | 'chapters' | 'resources'
+            subject: null, // 'Physics' | 'Chemistry' | 'Biology'
+            chapterId: null // e.g., 'Motion'
+        };
+
+        function navigateTo(view, subjectId = null, chapterId = null) {
+            appState.view = view;
+            if (subjectId) appState.subject = subjectId;
+            if (chapterId) appState.chapterId = chapterId;
+            renderApp();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function formatName(str) {
+            return str.replace(/-/g, ' ');
+        }
+
+        function getResourceTitle(resId) {
+            return formatName(resId);
+        }
+
+        function openTestZone() {
+            if(!appState.subject) appState.subject = SUBJECTS[0].id;
+            navigateTo('chapters', appState.subject);
+            const searchInput = document.getElementById('chapter-search');
+            searchInput.value = 'test';
+            searchInput.dispatchEvent(new Event('input'));
+        }
+
+        function focusSearch() {
+            if(appState.view !== 'chapters') {
+                if(!appState.subject) appState.subject = SUBJECTS[0].id;
+                navigateTo('chapters', appState.subject);
+            }
+            setTimeout(() => document.getElementById('chapter-search').focus(), 100);
+        }
+
+        // ==========================================
+        // 4. RENDERING LOGIC
+        // ==========================================
+        function renderApp() {
+            updateThemeColor();
+            updateBreadcrumbs();
+
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+                void el.offsetWidth;
+            });
+
+            if (appState.view === 'home') {
+                document.getElementById('view-home').classList.add('active');
+                renderHome();
+            } else if (appState.view === 'chapters') {
+                document.getElementById('view-chapters').classList.add('active');
+                renderChapters();
+            } else if (appState.view === 'resources') {
+                document.getElementById('view-resources').classList.add('active');
+                renderResources();
+            }
+        }
+
+        function updateThemeColor() {
+            if (appState.subject && appState.view !== 'home') {
+                const sub = SUBJECTS.find(s => s.id === appState.subject);
+                if (sub) document.documentElement.style.setProperty('--subject-rgb', sub.rgb);
+            } else {
+                document.documentElement.style.setProperty('--subject-rgb', '99, 102, 241');
+            }
+        }
+
+        function updateBreadcrumbs() {
+            const container = document.getElementById('breadcrumb-container');
+            let html = `<button onclick="navigateTo('home')" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1 focus:outline-none"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg> Home</button>`;
+            
+            if (appState.view === 'chapters' || appState.view === 'resources') {
+                html += `<span class="mx-2 opacity-50">/</span><button onclick="navigateTo('chapters', '${appState.subject}')" class="hover:text-[rgb(var(--subject-rgb))] transition-colors font-semibold truncate max-w-[100px] sm:max-w-none focus:outline-none">${appState.subject}</button>`;
+            }
+            if (appState.view === 'resources') {
+                html += `<span class="mx-2 opacity-50">/</span><span class="text-slate-900 dark:text-white font-semibold truncate max-w-[120px] sm:max-w-none" title="${formatName(appState.chapterId)}">${formatName(appState.chapterId)}</span>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function renderHome() {
+            const grid = document.getElementById('subject-grid');
+            grid.innerHTML = SUBJECTS.map(sub => `
+                <div class="h-52 sm:h-60 spatial-container w-11/12 mx-auto sm:w-full">
+                    <a href="javascript:void(0)" onclick="navigateTo('chapters', '${sub.id}')" class="spatial-folder group focus:outline-none" style="--subject-rgb: ${sub.rgb};" aria-label="Open ${sub.title} Space">
+                        <div class="folder-tab"></div>
+                        <div class="folder-back"></div>
+                        <div class="folder-front">
+                            <div class="folder-icon-wrapper w-14 h-14 sm:w-16 sm:h-16 rounded-2xl mb-4 sm:mb-5">
+                                <div class="w-7 h-7 sm:w-8 sm:h-8">${sub.icon}</div>
+                            </div>
+                            <h3 class="folder-title text-2xl mb-2">${sub.title}</h3>
+                            <p class="folder-desc text-xs sm:text-sm opacity-80">${sub.desc}</p>
+                            <div class="mt-4 flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[rgb(var(--subject-rgb))] opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity transform translate-z-[5px]">
+                                Enter Space <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function renderChapters() {
+            document.getElementById('chapter-view-title').textContent = `${appState.subject} Chapters`;
+            const grid = document.getElementById('chapter-grid');
+            const noMsg = document.getElementById('no-chapters-msg');
+            
+            const subjectData = SITE_DATA[appState.subject];
+            if(!subjectData || !subjectData.chapters) {
+                grid.innerHTML = '';
+                noMsg.classList.remove('hidden');
+                return;
+            }
+
+            const chapters = Object.keys(subjectData.chapters);
+            
+            grid.innerHTML = chapters.map((chId) => {
+                const displayName = formatName(chId);
+                return `
+                <a href="javascript:void(0)" onclick="navigateTo('resources', '${appState.subject}', '${chId}')" class="chapter-card p-4 sm:p-5 rounded-2xl flex items-start gap-4 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[rgba(var(--subject-rgb),0.5)]" data-search-term="${displayName.toLowerCase()}" aria-label="Open ${displayName}">
+                    <div class="w-10 h-10 rounded-xl bg-[rgba(var(--subject-rgb),0.1)] text-[rgb(var(--subject-rgb))] flex items-center justify-center shrink-0 border border-[rgba(var(--subject-rgb),0.2)] group-hover:scale-110 transition-transform relative z-10">
+                        ${ICONS.chapter}
+                    </div>
+                    <div class="relative z-10">
+                        <h4 class="chapter-title-text text-sm sm:text-base font-bold leading-tight">${displayName}</h4>
+                        <div class="text-[10px] font-medium text-slate-600 dark:text-slate-400 mt-1">${subjectData.chapters[chId].length} Resources</div>
+                    </div>
+                </a>
+            `}).join('');
+
+            document.getElementById('chapter-search').value = '';
+            noMsg.classList.add('hidden');
+        }
+
+        function renderResources() {
+            document.getElementById('resource-view-title').textContent = formatName(appState.chapterId);
+            const grid = document.getElementById('resource-grid');
+            const noMsg = document.getElementById('no-resources-msg');
+            
+            const subjectData = SITE_DATA[appState.subject];
+            if(!subjectData || !subjectData.chapters || !subjectData.chapters[appState.chapterId]) {
+                 grid.innerHTML = '';
+                 noMsg.classList.remove('hidden');
+                 return;
+            }
+
+            const resources = subjectData.chapters[appState.chapterId];
+            
+            if(resources.length === 0) {
+                grid.innerHTML = '';
+                noMsg.classList.remove('hidden');
+                return;
+            }
+
+            noMsg.classList.add('hidden');
+            
+            grid.innerHTML = resources.map(resId => {
+                const rType = RESOURCE_TYPES[resId] || { icon: ICONS.notes, desc: "Study Material" };
+                const relativePath = `./${appState.subject}/${resId}/${appState.chapterId}-${resId}.html`;
+                
+                return `
+                <div class="h-48 sm:h-56 spatial-container">
+                    <a href="${relativePath}" class="spatial-folder group focus:outline-none" aria-label="Open ${getResourceTitle(resId)}">
+                        <div class="folder-tab"></div>
+                        <div class="folder-back"></div>
+                        <div class="folder-front">
+                            <div class="folder-icon-wrapper w-12 h-12">
+                                <div class="w-6 h-6">${rType.icon}</div>
+                            </div>
+                            <h4 class="folder-title text-xl">${getResourceTitle(resId)}</h4>
+                            <p class="folder-desc text-xs">${rType.desc}</p>
+                        </div>
+                    </a>
+                </div>
+            `}).join('');
+        }
+
+        // ==========================================
+        // 5. INITIALIZATION & ADVANCED UNIFIED SEARCH
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderApp();
+            setupSearch();
+            setupThemeToggle();
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const menu = document.getElementById('mobile-menu');
+                    if (!menu.classList.contains('translate-x-full')) toggleMenu();
+                }
+            });
+        });
+
+        function setupSearch() {
+            const searchInput = document.getElementById('chapter-search');
+            const grid = document.getElementById('chapter-grid');
+            const noMsg = document.getElementById('no-chapters-msg');
+
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase().trim();
+                const subjectData = SITE_DATA[appState.subject];
+                
+                if (!term) {
+                    renderChapters();
+                    return;
+                }
+
+                if(!subjectData || !subjectData.chapters) return;
+
+                let resultsHTML = '';
+                let resultCount = 0;
+
+                Object.keys(subjectData.chapters).forEach(chId => {
+                    const chapterName = formatName(chId);
+                    const chapterNameLower = chapterName.toLowerCase();
+                    
+                    if (chapterNameLower.includes(term)) {
+                        resultsHTML += createSearchResultCard(appState.subject, chId, null, chapterName, `Chapter • ${subjectData.chapters[chId].length} Resources`);
+                        resultCount++;
+                    }
+                    
+                    subjectData.chapters[chId].forEach(resId => {
+                        const resName = formatName(resId).toLowerCase();
+                        if (`${chapterNameLower} ${resName}`.includes(term) || resName.includes(term)) {
+                            resultsHTML += createSearchResultCard(
+                                appState.subject, 
+                                chId, 
+                                resId, 
+                                `${chapterName} - ${getResourceTitle(resId)}`, 
+                                `Resource Link`
+                            );
+                            resultCount++;
+                        }
+                    });
+                });
+
+                grid.innerHTML = resultsHTML;
+                if (resultCount === 0) {
+                    noMsg.classList.remove('hidden');
+                } else {
+                    noMsg.classList.add('hidden');
+                }
+            });
+        }
+        
+        function createSearchResultCard(subject, chId, resId, displayTitle, subtitle) {
+            let clickAction, iconSVG;
+            if(resId) {
+                const relativePath = `./${subject}/${resId}/${chId}-${resId}.html`;
+                clickAction = `window.location.href='${relativePath}'`;
+                iconSVG = (RESOURCE_TYPES[resId] && RESOURCE_TYPES[resId].icon) ? RESOURCE_TYPES[resId].icon : ICONS.notes;
+            } else {
+                clickAction = `navigateTo('resources', '${subject}', '${chId}')`;
+                iconSVG = ICONS.chapter;
+            }
+
+            return `
+                <a href="javascript:void(0)" onclick="${clickAction}" class="chapter-card p-4 sm:p-5 rounded-2xl flex items-start gap-4 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[rgba(var(--subject-rgb),0.5)]">
+                    <div class="w-10 h-10 rounded-xl bg-[rgba(var(--subject-rgb),0.1)] text-[rgb(var(--subject-rgb))] flex items-center justify-center shrink-0 border border-[rgba(var(--subject-rgb),0.2)] group-hover:scale-110 transition-transform relative z-10">
+                        ${iconSVG}
+                    </div>
+                    <div class="relative z-10">
+                        <h4 class="chapter-title-text text-sm sm:text-base font-bold leading-tight">${displayTitle}</h4>
+                        <div class="text-[10px] font-medium text-slate-600 dark:text-slate-400 mt-1">${subtitle}</div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function setupThemeToggle() {
+            const btn = document.getElementById('theme-toggle');
+            btn.addEventListener('click', () => {
+                const html = document.documentElement;
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+        
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const btn = document.getElementById('menu-toggle');
+            
+            if (!menu.classList.contains('translate-x-full')) {
+                // Close
+                menu.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                // Open
+                menu.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+    </script>
+</body>
+</html>
