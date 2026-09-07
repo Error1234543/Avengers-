@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Surface Chemistry - NEET Chemistry Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Surface Chemistry - NEET Chemistry Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>Introduction to Surface Chemistry</h2><div>Surface chemistry deals with phenomena occurring at the surfaces or interfaces of substances. Unlike bulk chemistry, where reactions occur throughout the volume of a substance, surface chemistry focuses on the interactions at the boundary between two phases (e.g., solid-liquid, solid-gas, liquid-gas). This field is critical in understanding processes like adsorption, catalysis, colloids, and corrosion. For NEET, key applications include industrial catalysts, biological systems (e.g., enzyme action), and environmental processes (e.g., pollution control). Surface chemistry is distinct from bulk chemistry because the properties of atoms or molecules at the surface differ due to unbalanced forces, leading to unique behaviors such as adsorption and surface tension.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Adsorption: Definition and Types</h2><div>Adsorption is the process where atoms, ions, or molecules (adsorbate) adhere to the surface of a solid or liquid (adsorbent). It is a surface phenomenon, unlike absorption, which involves penetration into the bulk. Adsorption is classified into two types:
+1. **Physisorption (Physical Adsorption)**: Weak van der Waals forces bind the adsorbate to the adsorbent. It is reversible, exothermic, and occurs at low temperatures. Examples include the adsorption of gases like nitrogen on charcoal.
+2. **Chemisorption (Chemical Adsorption)**: Strong chemical bonds (covalent or ionic) form between the adsorbate and adsorbent. It is irreversible, highly specific, and occurs at higher temperatures. Examples include the adsorption of oxygen on tungsten.
+Key differences: Physisorption is multilayered, while chemisorption is monolayered. Physisorption decreases with temperature, while chemisorption may initially increase before decreasing.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Factors Affecting Adsorption</h2><div>Several factors influence the extent of adsorption:
+- **Nature of Adsorbent**: Porous or finely divided solids (e.g., activated charcoal, silica gel) have higher surface areas and thus greater adsorption capacity.
+- **Nature of Adsorbate**: Gases with higher critical temperatures (e.g., NH₃, SO₂) are more readily adsorbed than those with lower critical temperatures (e.g., H₂, N₂).
+- **Temperature**: Physisorption decreases with increasing temperature, while chemisorption may increase initially before decreasing.
+- **Pressure**: For gases, adsorption increases with pressure (Freundlich and Langmuir isotherms describe this relationship).
+- **Surface Area**: Larger surface areas provide more active sites for adsorption, enhancing the process.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Adsorption Isotherms</h2><div>Adsorption isotherms describe the relationship between the amount of adsorbate adsorbed and its pressure (for gases) or concentration (for solutions) at constant temperature. Key isotherms include:
+1. **Freundlich Isotherm**: Empirical equation: x/m = kP^(1/n), where x/m is the amount adsorbed per unit mass of adsorbent, P is pressure, and k and n are constants. It applies to physisorption at low pressures.
+2. **Langmuir Isotherm**: Assumes monolayer adsorption on a homogeneous surface. Equation: θ = (aP)/(1 + aP), where θ is the fraction of surface covered, P is pressure, and a is a constant. It explains chemisorption and physisorption at high pressures.
+3. **BET Isotherm**: Extends Langmuir’s theory to multilayer adsorption. Used to determine surface area of adsorbents (e.g., catalysts). Equation: (P/P₀)/[V(1 - P/P₀)] = 1/(VₘC) + (C - 1)(P/P₀)/(VₘC), where V is the volume adsorbed, Vₘ is the monolayer volume, P₀ is saturation pressure, and C is a constant.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Catalysis: Homogeneous and Heterogeneous</h2><div>Catalysis is the process where a catalyst increases the rate of a chemical reaction without being consumed. Catalysts provide an alternative pathway with lower activation energy. Types of catalysis:
+1. **Homogeneous Catalysis**: Catalyst and reactants are in the same phase (e.g., liquid or gas). Example: Hydrolysis of esters using H⁺ ions.
+2. **Heterogeneous Catalysis**: Catalyst and reactants are in different phases (e.g., solid catalyst with gaseous reactants). Example: Haber process (Fe catalyst for NH₃ synthesis).
+Key features of heterogeneous catalysis:
+- **Adsorption Theory**: Reactants adsorb onto the catalyst surface, forming bonds that weaken existing bonds in the reactants, facilitating reaction.
+- **Active Sites**: Specific locations on the catalyst surface where adsorption and reaction occur.
+- **Promoters and Poisons**: Promoters enhance catalyst activity (e.g., Al₂O₃ in Fe catalyst for NH₃ synthesis), while poisons deactivate it (e.g., lead in catalytic converters).</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Colloids: Classification and Properties</h2><div>Colloids are heterogeneous mixtures where one substance (dispersed phase) is uniformly distributed in another (dispersion medium). Particle size ranges from 1 nm to 1000 nm. Classification:
+1. **Based on Dispersed Phase and Dispersion Medium**:
+   - Sol: Solid in liquid (e.g., gold sol).
+   - Emulsion: Liquid in liquid (e.g., milk).
+   - Foam: Gas in liquid (e.g., whipped cream).
+   - Aerosol: Liquid or solid in gas (e.g., fog, smoke).
+2. **Based on Interaction**:
+   - Lyophilic (solvent-loving): Strong affinity between dispersed phase and dispersion medium (e.g., starch in water).
+   - Lyophobic (solvent-hating): Weak affinity (e.g., gold sol).
+Properties of colloids:
+- **Tyndall Effect**: Scattering of light by colloidal particles (used to distinguish colloids from true solutions).
+- **Brownian Motion**: Random movement of colloidal particles due to collisions with dispersion medium molecules.
+- **Electrophoresis**: Movement of charged colloidal particles under an electric field (used to determine charge).
+- **Coagulation**: Precipitation of colloidal particles by adding electrolytes (Hardy-Schulze rule: higher valency ions are more effective coagulants).</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Preparation and Purification of Colloids</h2><div>Colloids can be prepared by:
+1. **Dispersion Methods**: Breaking down larger particles into colloidal size.
+   - **Mechanical Dispersion**: Grinding (e.g., colloidal graphite).
+   - **Peptization**: Converting precipitates into colloids using a peptizing agent (e.g., Fe(OH)₃ precipitate + FeCl₃ → Fe(OH)₃ sol).
+2. **Condensation Methods**: Aggregating smaller particles into colloidal size.
+   - **Chemical Methods**: Redox reactions (e.g., gold sol from AuCl₃ + SnCl₂), hydrolysis (e.g., Fe(OH)₃ sol from FeCl₃ + hot water).
+   - **Physical Methods**: Exchange of solvents (e.g., sulfur sol by pouring sulfur alcohol solution into water).
+Purification methods:
+- **Dialysis**: Removing dissolved impurities using a semi-permeable membrane (e.g., parchment paper).
+- **Electrodialysis**: Accelerating dialysis using an electric field.
+- **Ultrafiltration**: Filtering colloidal particles using ultrafilters (e.g., collodion membranes).</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Emulsions and Their Applications</h2><div>Emulsions are colloidal systems where both the dispersed phase and dispersion medium are liquids (e.g., oil in water or water in oil). Types:
+1. **Oil-in-Water (O/W)**: Oil droplets dispersed in water (e.g., milk, vanishing cream).
+2. **Water-in-Oil (W/O)**: Water droplets dispersed in oil (e.g., butter, cold cream).
+Emulsifiers (or emulsifying agents) stabilize emulsions by reducing interfacial tension. Examples:
+- Soaps and detergents (for O/W emulsions).
+- Proteins and gums (e.g., egg yolk in mayonnaise).
+Applications:
+- **Food Industry**: Salad dressings, ice cream.
+- **Pharmaceuticals**: Ointments, creams.
+- **Cosmetics**: Lotions, moisturizers.
+- **Industry**: Cutting oils, lubricants.
+Demulsification (breaking emulsions) is achieved by heating, centrifugation, or adding electrolytes.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Applications of Surface Chemistry in NEET</h2><div>Surface chemistry has wide-ranging applications relevant to NEET:
+- **Catalysis**: Industrial processes like Haber (NH₃), Contact (H₂SO₄), and Ostwald (HNO₃) processes rely on heterogeneous catalysis.
+- **Adsorption**: Used in gas masks (activated charcoal), chromatography, and water purification.
+- **Colloids**: Biological systems (e.g., blood, cell membranes), food industry (e.g., milk, butter), and pharmaceuticals (e.g., colloidal silver).
+- **Corrosion Prevention**: Adsorption of inhibitors on metal surfaces (e.g., organic amines on iron).
+- **Medicine**: Drug delivery systems (e.g., liposomes), dialysis for kidney patients.
+- **Environmental Chemistry**: Removal of pollutants via adsorption (e.g., activated charcoal for dye removal).</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Adsorption is always exothermic, while absorption may be endothermic or exothermic.</li><li>Physisorption is reversible and multilayered; chemisorption is irreversible and monolayered.</li><li>Freundlich isotherm fails at high pressures; Langmuir isotherm assumes monolayer adsorption.</li><li>Hardy-Schulze rule: Coagulating power of ions increases with valency (e.g., Al³⁺ &gt; Ba²⁺ &gt; Na⁺).</li><li>Tyndall effect is observed in colloids but not in true solutions.</li><li>Brownian motion is due to collisions with dispersion medium molecules and confirms the kinetic theory of matter.</li><li>Emulsifiers stabilize emulsions by reducing interfacial tension between immiscible liquids.</li><li>Heterogeneous catalysis involves adsorption of reactants on the catalyst surface, lowering activation energy.</li><li>Colloidal gold is used in medicine for treating arthritis and as a diagnostic tool.</li><li>Dialysis is used to purify blood in artificial kidneys (hemodialysis).</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Freundlich Isotherm: x/m = kP^(1/n) (x = mass of adsorbate, m = mass of adsorbent, P = pressure, k and n are constants).</div><div class="formula">Langmuir Isotherm: θ = (aP)/(1 + aP) (θ = fraction of surface covered, P = pressure, a = constant).</div><div class="formula">BET Isotherm: (P/P₀)/[V(1 - P/P₀)] = 1/(VₘC) + (C - 1)(P/P₀)/(VₘC) (V = volume adsorbed, Vₘ = monolayer volume, P₀ = saturation pressure, C = constant).</div><div class="formula">Hardy-Schulze Rule: Coagulating power ∝ (valency of ion)⁶ (e.g., Al³⁺ &gt; Ba²⁺ &gt; Na⁺).</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Confusing adsorption (surface phenomenon) with absorption (bulk phenomenon).</li><li>Assuming chemisorption is always reversible; it is typically irreversible due to strong chemical bonds.</li><li>Ignoring the effect of temperature on adsorption: physisorption decreases with temperature, while chemisorption may initially increase.</li><li>Misapplying Freundlich isotherm at high pressures; it is valid only for low to moderate pressures.</li><li>Forgetting that Langmuir isotherm assumes monolayer adsorption and homogeneous surfaces.</li><li>Overlooking the role of electrolytes in coagulation: higher valency ions are more effective (Hardy-Schulze rule).</li><li>Confusing lyophilic and lyophobic colloids: lyophilic colloids are stable and reversible, while lyophobic colloids are unstable and irreversible.</li><li>Assuming all colloids exhibit Tyndall effect; only those with particle size comparable to light wavelength do.</li><li>Neglecting the difference between O/W and W/O emulsions in applications (e.g., milk is O/W, butter is W/O).</li><li>Forgetting that catalysts lower activation energy but do not alter the equilibrium position of a reaction.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
