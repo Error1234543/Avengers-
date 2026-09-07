@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solutions - NEET Chemistry Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Solutions - NEET Chemistry Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to Solutions</h2><div>A solution is a homogeneous mixture of two or more substances, where one substance (the solute) is uniformly dispersed in another (the solvent). Solutions can exist in solid, liquid, or gaseous states, but liquid solutions are most common in NEET. The solute is the component present in smaller quantity, while the solvent is the component in larger quantity. For example, in a sugar solution, sugar is the solute and water is the solvent. Solutions are characterized by their concentration, which can be expressed in various units such as molarity, molality, mole fraction, and mass percentage. Understanding the nature of solutions is fundamental for topics like colligative properties, solubility, and electrochemistry.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Types of Solutions</h2><div>Solutions can be classified based on the physical states of the solute and solvent:
+
+- **Gaseous Solutions**: Both solute and solvent are gases (e.g., air, a mixture of nitrogen and oxygen).
+- **Liquid Solutions**: Solvent is liquid, and solute can be gas (e.g., carbonated water), liquid (e.g., ethanol in water), or solid (e.g., sugar in water).
+- **Solid Solutions**: Solvent is solid, and solute can be gas (e.g., hydrogen in palladium), liquid (e.g., mercury in silver), or solid (e.g., alloys like brass).
+
+Additionally, solutions can be classified as:
+- **Saturated Solution**: A solution that contains the maximum amount of solute that can dissolve at a given temperature.
+- **Unsaturated Solution**: A solution that contains less solute than the saturated solution at a given temperature.
+- **Supersaturated Solution**: A solution that contains more solute than the saturated solution at a given temperature. Supersaturated solutions are unstable and can crystallize upon disturbance.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Methods of Expressing Concentration of Solutions</h2><div>Concentration of a solution quantifies the amount of solute present in a given amount of solvent or solution. The following are key methods of expressing concentration, crucial for NEET:
+
+- **Molarity (M)**: Number of moles of solute per liter of solution. Formula: M = moles of solute / volume of solution (L). Molarity is temperature-dependent because volume changes with temperature.
+- **Molality (m)**: Number of moles of solute per kilogram of solvent. Formula: m = moles of solute / mass of solvent (kg). Molality is temperature-independent.
+- **Mole Fraction (x)**: Ratio of the number of moles of a component to the total number of moles of all components in the solution. For a solution with components A and B, mole fraction of A (x_A) = n_A / (n_A + n_B).
+- **Mass Percentage (w/w)**: Mass of solute divided by the total mass of the solution, multiplied by 100. Formula: (mass of solute / mass of solution) × 100.
+- **Volume Percentage (v/v)**: Volume of solute divided by the total volume of the solution, multiplied by 100. Used for liquid solutes.
+- **Parts Per Million (ppm)**: Mass of solute per million parts of the solution. Used for very dilute solutions.
+
+For NEET, molarity and molality are the most frequently tested, especially in numerical problems.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Solubility and Factors Affecting Solubility</h2><div>Solubility is the maximum amount of solute that can dissolve in a given amount of solvent at a specific temperature. It is typically expressed in grams of solute per 100 grams of solvent. Key factors affecting solubility include:
+
+- **Nature of Solute and Solvent**: "Like dissolves like" is a general rule. Polar solutes dissolve in polar solvents (e.g., NaCl in water), while non-polar solutes dissolve in non-polar solvents (e.g., iodine in carbon tetrachloride).
+- **Temperature**:
+  - For most solids, solubility increases with temperature (e.g., sugar in water).
+  - For gases, solubility decreases with increasing temperature (e.g., oxygen in water).
+- **Pressure**: Pressure has a significant effect on the solubility of gases. According to Henry’s Law, the solubility of a gas in a liquid is directly proportional to the partial pressure of the gas above the liquid. This is expressed as: S = k_H × P, where S is solubility, k_H is Henry’s law constant, and P is partial pressure.
+
+Understanding solubility is essential for predicting the behavior of solutions, especially in topics like colligative properties and chemical equilibrium.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Colligative Properties</h2><div>Colligative properties are properties of solutions that depend on the number of solute particles (molecules or ions) in the solution, not on the nature of the solute. These properties are crucial for NEET and include:
+
+- **Relative Lowering of Vapour Pressure**: When a non-volatile solute is added to a solvent, the vapour pressure of the solution decreases. According to Raoult’s Law, the relative lowering of vapour pressure is equal to the mole fraction of the solute. Formula: (P° - P) / P° = x_solute, where P° is the vapour pressure of pure solvent, P is the vapour pressure of the solution, and x_solute is the mole fraction of the solute.
+- **Elevation of Boiling Point**: The boiling point of a solution is higher than that of the pure solvent. The elevation in boiling point (ΔT_b) is proportional to the molality of the solution. Formula: ΔT_b = i × K_b × m, where i is the van’t Hoff factor, K_b is the ebullioscopic constant, and m is molality.
+- **Depression of Freezing Point**: The freezing point of a solution is lower than that of the pure solvent. The depression in freezing point (ΔT_f) is proportional to the molality of the solution. Formula: ΔT_f = i × K_f × m, where K_f is the cryoscopic constant.
+- **Osmotic Pressure**: Osmosis is the movement of solvent molecules from a region of lower solute concentration to a region of higher solute concentration through a semi-permeable membrane. Osmotic pressure (π) is the pressure required to stop osmosis. Formula: π = i × C × R × T, where C is molar concentration, R is the gas constant, and T is temperature in Kelvin.
+
+The van’t Hoff factor (i) accounts for the number of particles a solute dissociates into in solution. For non-electrolytes, i = 1; for electrolytes, i > 1 (e.g., NaCl dissociates into 2 ions, so i = 2).</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Ideal and Non-Ideal Solutions</h2><div>Solutions can be classified as ideal or non-ideal based on their behavior:
+
+- **Ideal Solutions**: These solutions obey Raoult’s Law over the entire range of concentrations. In ideal solutions, the interactions between solute-solute, solvent-solvent, and solute-solvent molecules are similar. Examples include benzene and toluene, or hexane and heptane. For ideal solutions, ΔH_mixing = 0 and ΔV_mixing = 0.
+- **Non-Ideal Solutions**: These solutions do not obey Raoult’s Law over the entire range of concentrations. Non-ideal solutions can show either positive or negative deviations from Raoult’s Law:
+  - **Positive Deviation**: The vapour pressure of the solution is higher than predicted by Raoult’s Law. This occurs when solute-solvent interactions are weaker than solute-solute or solvent-solvent interactions. Example: ethanol and water.
+  - **Negative Deviation**: The vapour pressure of the solution is lower than predicted by Raoult’s Law. This occurs when solute-solvent interactions are stronger than solute-solute or solvent-solvent interactions. Example: acetone and chloroform.
+
+Understanding the behavior of ideal and non-ideal solutions is important for interpreting vapour pressure diagrams and phase equilibria.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Abnormal Colligative Properties and van’t Hoff Factor</h2><div>Colligative properties are based on the number of particles in solution. However, for electrolytes, the number of particles increases due to dissociation, leading to abnormal colligative properties. The van’t Hoff factor (i) is used to account for this:
+
+- For non-electrolytes (e.g., glucose, urea), i = 1.
+- For electrolytes, i > 1. For example:
+  - NaCl dissociates into Na⁺ and Cl⁻, so i = 2.
+  - CaCl₂ dissociates into Ca²⁺ and 2 Cl⁻, so i = 3.
+  - For weak electrolytes, i is less than the expected value due to incomplete dissociation.
+
+The van’t Hoff factor is used to modify the formulas for colligative properties. For example:
+- ΔT_b = i × K_b × m
+- ΔT_f = i × K_f × m
+- π = i × C × R × T
+
+In NEET, numerical problems often require calculating the van’t Hoff factor or using it to determine molecular weights or degrees of dissociation.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. Applications of Colligative Properties</h2><div>Colligative properties have several practical applications, many of which are relevant for NEET:
+
+- **Determination of Molecular Weight**: Colligative properties like osmotic pressure and depression in freezing point are used to determine the molecular weight of solutes, especially for large molecules like polymers.
+- **Desalination of Water**: Reverse osmosis, which relies on osmotic pressure, is used to remove salts from seawater.
+- **Antifreeze Solutions**: Ethylene glycol is added to water in car radiators to lower the freezing point of water, preventing it from freezing in cold climates.
+- **Preservation of Food**: Sugar and salt are used to preserve food by creating a hypertonic environment that inhibits microbial growth.
+- **Intravenous Fluids**: Medical solutions like saline are isotonic with blood plasma to prevent osmotic imbalances in cells.
+
+Understanding these applications helps in connecting theoretical concepts to real-world scenarios, a common focus in NEET questions.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>9. Common Mistakes and Misconceptions</h2><div>Students often make the following mistakes while studying solutions:
+
+- **Confusing Molarity and Molality**: Molarity depends on volume (temperature-dependent), while molality depends on mass (temperature-independent).
+- **Ignoring the van’t Hoff Factor**: Forgetting to account for dissociation in electrolytes leads to incorrect calculations of colligative properties.
+- **Misapplying Raoult’s Law**: Assuming all solutions are ideal and obey Raoult’s Law without considering deviations.
+- **Incorrect Units**: Using incorrect units for concentration (e.g., using grams instead of moles for molarity).
+- **Overlooking Solubility Trends**: Not considering the effect of temperature and pressure on solubility, especially for gases.
+- **Assuming All Solutions are Dilute**: Colligative property formulas assume dilute solutions; applying them to concentrated solutions can lead to errors.
+- **Confusing Solute and Solvent**: Misidentifying the solute and solvent in a solution, especially in cases like alloys or gas mixtures.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>A solution is a homogeneous mixture of solute and solvent.</li><li>Molarity (M) is temperature-dependent, while molality (m) is temperature-independent.</li><li>Henry’s Law states that the solubility of a gas in a liquid is directly proportional to its partial pressure.</li><li>Colligative properties depend on the number of solute particles, not their nature.</li><li>Raoult’s Law applies to ideal solutions and states that the vapour pressure of a solution is proportional to the mole fraction of the solvent.</li><li>The van’t Hoff factor (i) accounts for the number of particles a solute dissociates into in solution.</li><li>Osmotic pressure is the pressure required to stop osmosis and is given by π = iCRT.</li><li>Positive deviation from Raoult’s Law occurs when solute-solvent interactions are weaker than solute-solute or solvent-solvent interactions.</li><li>Negative deviation from Raoult’s Law occurs when solute-solvent interactions are stronger than solute-solute or solvent-solvent interactions.</li><li>Colligative properties are used to determine molecular weights, especially for large molecules like polymers.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Molarity (M) = moles of solute / volume of solution (L)</div><div class="formula">Molality (m) = moles of solute / mass of solvent (kg)</div><div class="formula">Mole fraction (x_A) = n_A / (n_A + n_B)</div><div class="formula">Mass percentage (w/w) = (mass of solute / mass of solution) × 100</div><div class="formula">Henry’s Law: S = k_H × P</div><div class="formula">Raoult’s Law: (P° - P) / P° = x_solute</div><div class="formula">Elevation of boiling point: ΔT_b = i × K_b × m</div><div class="formula">Depression of freezing point: ΔT_f = i × K_f × m</div><div class="formula">Osmotic pressure: π = i × C × R × T</div><div class="formula">van’t Hoff factor (i) = observed colligative property / expected colligative property for non-electrolyte</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Confusing molarity with molality and not accounting for temperature dependence.</li><li>Forgetting to use the van’t Hoff factor for electrolytes in colligative property calculations.</li><li>Assuming all solutions are ideal and obey Raoult’s Law without considering deviations.</li><li>Using incorrect units (e.g., grams instead of moles) in concentration calculations.</li><li>Ignoring the effect of temperature and pressure on the solubility of gases.</li><li>Misidentifying the solute and solvent in a solution, especially in non-aqueous or solid solutions.</li><li>Applying colligative property formulas to concentrated solutions without considering deviations.</li><li>Overlooking the dissociation of weak electrolytes, leading to incorrect van’t Hoff factor values.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
