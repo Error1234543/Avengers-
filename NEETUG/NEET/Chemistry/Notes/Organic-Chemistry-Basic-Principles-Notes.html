@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Organic Chemistry - Basic Principles (NEET)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Organic Chemistry - Basic Principles (NEET)</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to Organic Chemistry</h2><div>Organic chemistry is the study of carbon-containing compounds, their structures, properties, compositions, reactions, and synthesis. Carbon is unique due to its ability to form stable covalent bonds with other carbon atoms and elements like hydrogen, oxygen, nitrogen, sulfur, and halogens. This property leads to the formation of a vast number of organic compounds, which are the basis of life and many industrial applications. Organic compounds are classified into two broad categories: hydrocarbons (containing only carbon and hydrogen) and derivatives of hydrocarbons (containing additional elements like oxygen, nitrogen, etc.). The study of organic chemistry is fundamental for understanding biological processes, pharmaceuticals, polymers, and petrochemicals.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Tetravalency and Catenation of Carbon</h2><div>Carbon exhibits tetravalency, meaning it forms four covalent bonds to achieve a stable electronic configuration. This property is due to the presence of four valence electrons in its outermost shell. Carbon atoms can bond with other carbon atoms to form long chains, branched structures, or rings, a property known as catenation. Catenation is responsible for the diversity and complexity of organic compounds. For example, alkanes are saturated hydrocarbons with single bonds between carbon atoms, while alkenes and alkynes contain double and triple bonds, respectively. The strength of carbon-carbon bonds (single, double, or triple) influences the stability and reactivity of organic molecules.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Structural Representations of Organic Compounds</h2><div>Organic compounds can be represented using various structural formulas, each serving a specific purpose:
+
+- **Lewis Structures**: Show all valence electrons and bonds explicitly, including lone pairs.
+- **Condensed Formulas**: Simplify the representation by omitting some or all bonds (e.g., CH3CH2OH for ethanol).
+- **Bond-Line Formulas**: Use lines to represent carbon-carbon bonds, with carbon atoms implied at the ends and intersections of lines. Hydrogen atoms bonded to carbon are omitted for simplicity.
+- **Three-Dimensional Formulas**: Represent spatial arrangements using wedge (coming out of the plane) and dash (going into the plane) bonds to show stereochemistry.
+
+Understanding these representations is crucial for visualizing molecular geometry, predicting reactivity, and interpreting spectroscopic data.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Classification of Organic Compounds</h2><div>Organic compounds are classified based on their structure and functional groups:
+
+- **Hydrocarbons**: Compounds containing only carbon and hydrogen. They are further divided into:
+  - **Alkanes**: Saturated hydrocarbons with single bonds (e.g., methane, ethane).
+  - **Alkenes**: Unsaturated hydrocarbons with at least one double bond (e.g., ethene, propene).
+  - **Alkynes**: Unsaturated hydrocarbons with at least one triple bond (e.g., ethyne, propyne).
+  - **Aromatic Hydrocarbons**: Contain benzene rings or similar structures (e.g., benzene, toluene).
+
+- **Functional Group Derivatives**: Compounds containing functional groups like hydroxyl (-OH), carboxyl (-COOH), amino (-NH2), etc. Examples include alcohols (R-OH), carboxylic acids (R-COOH), and amines (R-NH2).
+
+- **Heterocyclic Compounds**: Cyclic compounds containing atoms other than carbon in the ring (e.g., pyridine, furan).
+
+This classification helps in predicting the chemical behavior and properties of organic compounds.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Nomenclature of Organic Compounds (IUPAC System)</h2><div>The IUPAC (International Union of Pure and Applied Chemistry) system provides a standardized method for naming organic compounds. The steps for naming a compound are:
+
+1. **Identify the Parent Chain**: The longest continuous carbon chain containing the functional group or multiple bond.
+2. **Number the Chain**: Assign numbers to carbon atoms in the chain, starting from the end nearest to the functional group or multiple bond.
+3. **Name the Substituents**: Identify and name the groups attached to the parent chain (e.g., methyl, ethyl, chloro).
+4. **Assign Locants**: Use numbers to indicate the position of substituents and functional groups.
+5. **Combine the Name**: Arrange the substituents in alphabetical order, followed by the parent chain name and suffix indicating the functional group (e.g., -ol for alcohols, -oic acid for carboxylic acids).
+
+Example: CH3-CH2-CH(CH3)-CH2-OH is named 2-methylbutan-1-ol.
+
+Common mistakes include incorrect numbering of the parent chain, misidentifying the longest chain, and improper alphabetical ordering of substituents.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Isomerism in Organic Compounds</h2><div>Isomerism is the phenomenon where compounds have the same molecular formula but different structural arrangements or spatial orientations. Isomers exhibit different physical and chemical properties. The two main types of isomerism are:
+
+- **Structural Isomerism**: Compounds differ in the connectivity of atoms. Types include:
+  - **Chain Isomerism**: Different carbon chain arrangements (e.g., butane and isobutane).
+  - **Position Isomerism**: Different positions of functional groups or multiple bonds (e.g., 1-propanol and 2-propanol).
+  - **Functional Isomerism**: Different functional groups (e.g., ethanol and dimethyl ether).
+  - **Metamerism**: Different alkyl groups around a functional group (e.g., diethyl ether and methyl propyl ether).
+
+- **Stereoisomerism**: Compounds have the same connectivity but differ in spatial arrangement. Types include:
+  - **Geometric Isomerism (Cis-Trans)**: Occurs in alkenes due to restricted rotation around double bonds (e.g., cis-2-butene and trans-2-butene).
+  - **Optical Isomerism**: Compounds are non-superimposable mirror images (enantiomers) due to chiral centers (e.g., L-alanine and D-alanine).
+
+Understanding isomerism is essential for predicting the number of possible isomers for a given molecular formula and their distinct properties.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Fundamental Concepts in Organic Reactions</h2><div>Organic reactions involve the breaking and forming of covalent bonds. Key concepts include:
+
+- **Reaction Mechanisms**: Step-by-step descriptions of how reactions occur, including the movement of electrons and formation of intermediates (e.g., carbocations, carbanions, free radicals).
+- **Types of Bond Cleavage**:
+  - **Homolytic Cleavage**: Each atom retains one electron from the bond, forming free radicals.
+  - **Heterolytic Cleavage**: One atom retains both electrons, forming ions (e.g., carbocations or carbanions).
+- **Types of Reagents**:
+  - **Electrophiles**: Electron-deficient species that seek electrons (e.g., H+, NO2+).
+  - **Nucleophiles**: Electron-rich species that donate electrons (e.g., OH-, NH3).
+- **Types of Reactions**:
+  - **Substitution Reactions**: One group replaces another (e.g., SN1, SN2).
+  - **Addition Reactions**: Atoms or groups are added to a molecule (e.g., hydrogenation of alkenes).
+  - **Elimination Reactions**: Atoms or groups are removed to form multiple bonds (e.g., dehydration of alcohols).
+  - **Rearrangement Reactions**: Atoms or groups migrate within a molecule to form a more stable structure.
+
+Understanding these concepts helps in predicting the products of organic reactions and their mechanisms.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. Electronic Displacement Effects in Organic Molecules</h2><div>Electronic displacement effects influence the reactivity and stability of organic molecules. These effects are:
+
+- **Inductive Effect**: The permanent polarization of a sigma bond due to the electronegativity difference between bonded atoms. It decreases rapidly with distance and can be electron-withdrawing (-I effect, e.g., -NO2, -Cl) or electron-donating (+I effect, e.g., -CH3, -OH).
+- **Mesomeric Effect (Resonance)**: The delocalization of pi electrons in conjugated systems, leading to multiple resonance structures. It can be electron-withdrawing (-M effect, e.g., -COOH, -NO2) or electron-donating (+M effect, e.g., -OH, -NH2).
+- **Electromeric Effect**: A temporary polarization of pi electrons in the presence of an attacking reagent. It can be +E (electron-donating) or -E (electron-withdrawing).
+- **Hyperconjugation**: The delocalization of sigma electrons (e.g., C-H bonds) into adjacent pi systems or empty p-orbitals, stabilizing the molecule (e.g., in carbocations or alkenes).
+
+These effects explain the stability of intermediates, the direction of reactions, and the acidity/basicity of organic compounds.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>9. Types of Organic Reactions and Their Mechanisms</h2><div>Organic reactions are classified based on their mechanisms:
+
+- **Substitution Reactions**:
+  - **Nucleophilic Substitution (SN1 and SN2)**: Involve the replacement of a leaving group by a nucleophile. SN2 is a one-step process with inversion of configuration, while SN1 is a two-step process with racemization.
+  - **Electrophilic Substitution**: Common in aromatic compounds (e.g., nitration, halogenation).
+
+- **Addition Reactions**:
+  - **Electrophilic Addition**: Alkenes and alkynes react with electrophiles (e.g., HBr, Br2).
+  - **Nucleophilic Addition**: Carbonyl compounds react with nucleophiles (e.g., addition of Grignard reagents).
+
+- **Elimination Reactions**:
+  - **E1 and E2**: Involve the removal of atoms or groups to form multiple bonds. E2 is a one-step process, while E1 is two-step.
+
+- **Rearrangement Reactions**: Atoms or groups migrate to form more stable structures (e.g., pinacol-pinacolone rearrangement).
+
+Understanding these mechanisms is crucial for predicting reaction outcomes and designing synthetic routes.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>10. Purification and Characterization of Organic Compounds</h2><div>Purification and characterization are essential steps in organic chemistry:
+
+- **Purification Techniques**:
+  - **Crystallization**: Used for solids based on solubility differences.
+  - **Distillation**: Separates liquids based on boiling points (simple, fractional, steam distillation).
+  - **Sublimation**: Purifies solids that sublime (e.g., naphthalene).
+  - **Chromatography**: Separates components based on affinity (e.g., thin-layer chromatography, column chromatography).
+
+- **Characterization Techniques**:
+  - **Melting Point and Boiling Point**: Physical constants used to identify compounds.
+  - **Elemental Analysis**: Determines the percentage composition of elements.
+  - **Spectroscopic Methods**:
+    - **UV-Visible Spectroscopy**: Studies electronic transitions.
+    - **Infrared (IR) Spectroscopy**: Identifies functional groups based on vibrational modes.
+    - **Nuclear Magnetic Resonance (NMR) Spectroscopy**: Determines the structure and environment of hydrogen and carbon atoms.
+    - **Mass Spectrometry**: Determines molecular weight and fragmentation patterns.
+
+These techniques are vital for confirming the identity and purity of organic compounds.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Carbon forms covalent bonds due to its tetravalency and catenation property.</li><li>Organic compounds are classified into hydrocarbons and their derivatives based on functional groups.</li><li>The IUPAC system provides a standardized method for naming organic compounds.</li><li>Isomerism (structural and stereoisomerism) explains the diversity of organic compounds with the same molecular formula.</li><li>Electronic displacement effects (inductive, mesomeric, electromeric, hyperconjugation) influence reactivity and stability.</li><li>Organic reactions include substitution, addition, elimination, and rearrangement, each with distinct mechanisms.</li><li>Purification techniques (crystallization, distillation, chromatography) and characterization methods (spectroscopy) are essential for studying organic compounds.</li><li>Resonance and hyperconjugation stabilize organic molecules and intermediates.</li><li>Nucleophiles and electrophiles play key roles in organic reaction mechanisms.</li><li>Understanding reaction mechanisms is crucial for predicting products and designing synthetic routes.</li></ul></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Incorrectly identifying the longest carbon chain in IUPAC nomenclature, leading to wrong parent names.</li><li>Misnumbering the carbon chain, resulting in incorrect locants for substituents or functional groups.</li><li>Confusing structural isomers with stereoisomers, especially in geometric and optical isomerism.</li><li>Overlooking the role of electronic displacement effects in predicting reaction outcomes.</li><li>Misidentifying nucleophiles and electrophiles in reaction mechanisms.</li><li>Incorrectly applying SN1/SN2 or E1/E2 mechanisms based on substrate and reagent conditions.</li><li>Failing to recognize resonance structures and their contribution to molecular stability.</li><li>Using inappropriate purification techniques for a given compound (e.g., distillation for heat-sensitive compounds).</li><li>Misinterpreting spectroscopic data (e.g., IR peaks for functional groups or NMR chemical shifts).</li><li>Assuming all organic reactions follow a single-step mechanism without considering intermediates.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
