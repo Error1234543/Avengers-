@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chemical Equilibrium - NEET Chemistry Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Chemical Equilibrium - NEET Chemistry Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>Introduction to Chemical Equilibrium</h2><div>Chemical equilibrium is a dynamic state in which the rate of the forward reaction equals the rate of the reverse reaction, resulting in no net change in the concentrations of reactants and products over time. This state is achieved in reversible reactions, where reactants convert to products and products revert to reactants simultaneously. The concept is fundamental in understanding reaction behavior under given conditions of temperature, pressure, and concentration. For NEET, it is crucial to recognize that equilibrium is not static; molecular-level processes continue, but macroscopic properties remain constant. Equilibrium can be established in physical processes (e.g., phase changes) and chemical reactions, but this chapter focuses on the latter.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Law of Mass Action and Equilibrium Constant (Kc and Kp)</h2><div>The Law of Mass Action states that the rate of a chemical reaction is proportional to the product of the active masses (concentrations) of the reactants, each raised to the power of their stoichiometric coefficients. For a general reaction: aA + bB ⇌ cC + dD, the equilibrium constant in terms of concentration (Kc) is given by:
+
+Kc = [C]^c [D]^d / [A]^a [B]^b
+
+Here, [A], [B], [C], and [D] represent the molar concentrations of the reactants and products at equilibrium. For gaseous reactions, the equilibrium constant can also be expressed in terms of partial pressures (Kp):
+
+Kp = (PC)^c (PD)^d / (PA)^a (PB)^b
+
+Kp and Kc are related by the equation: Kp = Kc (RT)^Δn, where Δn is the change in the number of moles of gas (moles of products - moles of reactants), R is the gas constant, and T is the temperature in Kelvin. For NEET, it is essential to remember that Kc and Kp are temperature-dependent and do not include concentrations or partial pressures of pure solids or liquids.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Characteristics of Equilibrium Constant</h2><div>- **Temperature Dependence**: The value of Kc or Kp changes with temperature. For endothermic reactions, K increases with temperature, while for exothermic reactions, K decreases with temperature.
+- **Reaction Quotient (Q)**: Q is calculated using the same expression as K but with initial concentrations (not necessarily at equilibrium). Comparing Q with K helps predict the direction of the reaction:
+  - If Q < K, the reaction proceeds in the forward direction to reach equilibrium.
+  - If Q > K, the reaction proceeds in the reverse direction.
+  - If Q = K, the reaction is at equilibrium.
+- **Units of K**: Kc has units of (mol/L)^Δn, while Kp has units of (atm)^Δn. However, for simplicity, units are often omitted in calculations.
+- **Reversing a Reaction**: If a reaction is reversed, the equilibrium constant becomes the reciprocal of the original (K' = 1/K).
+- **Multiplying a Reaction**: If the stoichiometric coefficients of a reaction are multiplied by a factor, the equilibrium constant is raised to the power of that factor (K' = K^n).</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Le Chatelier&#x27;s Principle</h2><div>Le Chatelier's Principle states that if a dynamic equilibrium is disturbed by changing the conditions (concentration, pressure, temperature), the system adjusts to counteract the change and restore equilibrium. This principle is critical for predicting the effect of external factors on equilibrium position:
+
+1. **Concentration**: Increasing the concentration of reactants shifts the equilibrium toward the products (forward reaction), while increasing the concentration of products shifts it toward the reactants (reverse reaction).
+
+2. **Pressure**: For gaseous reactions, increasing pressure shifts the equilibrium toward the side with fewer moles of gas to reduce pressure. Decreasing pressure shifts it toward the side with more moles of gas. If the number of moles of gas is equal on both sides, pressure has no effect.
+
+3. **Temperature**: Increasing temperature favors the endothermic direction (absorbs heat), while decreasing temperature favors the exothermic direction (releases heat). For example, in an exothermic reaction (ΔH < 0), increasing temperature shifts the equilibrium toward the reactants.
+
+4. **Catalyst**: A catalyst speeds up both the forward and reverse reactions equally, so it does not affect the equilibrium position. It only helps the system reach equilibrium faster.
+
+For NEET, Le Chatelier's Principle is frequently tested with practical examples, such as the Haber process for ammonia synthesis or the contact process for sulfuric acid production.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Ionic Equilibrium and Solubility Product (Ksp)</h2><div>Ionic equilibrium deals with the equilibrium established between undissociated molecules and their ions in solution. It is particularly important for weak electrolytes (e.g., weak acids, weak bases) and sparingly soluble salts. Key concepts include:
+
+1. **Degree of Ionization (α)**: The fraction of total molecules that ionize in solution. For weak electrolytes, α is very small.
+
+2. **Acid and Base Dissociation Constants (Ka and Kb)**: For a weak acid HA ⇌ H⁺ + A⁻, Ka = [H⁺][A⁻] / [HA]. For a weak base BOH ⇌ B⁺ + OH⁻, Kb = [B⁺][OH⁻] / [BOH]. Higher Ka or Kb values indicate stronger acids or bases.
+
+3. **Solubility Product (Ksp)**: For a sparingly soluble salt AₓBᵧ ⇌ xA⁺ + yB⁻, Ksp = [A⁺]^x [B⁻]^y. Ksp is a measure of the solubility of the salt. If the ionic product (Q) exceeds Ksp, precipitation occurs.
+
+4. **Common Ion Effect**: The solubility of a salt decreases in the presence of a common ion. For example, the solubility of AgCl decreases in a solution containing NaCl due to the common Cl⁻ ion.
+
+For NEET, numerical problems involving Ksp, solubility, and the common ion effect are common. It is essential to practice calculations involving these concepts.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>pH, pOH, and Henderson-Hasselbalch Equation</h2><div>pH and pOH are logarithmic measures of the concentration of H⁺ and OH⁻ ions, respectively:
+
+- pH = -log[H⁺]
+- pOH = -log[OH⁻]
+- At 25°C, pH + pOH = 14.
+
+For weak acids and bases, the Henderson-Hasselbalch equation is used to calculate the pH of buffer solutions:
+
+pH = pKa + log([A⁻] / [HA])
+
+where [A⁻] is the concentration of the conjugate base and [HA] is the concentration of the weak acid. This equation is crucial for understanding buffer action and is frequently tested in NEET. Buffers resist changes in pH when small amounts of acid or base are added. For example, a mixture of CH₃COOH and CH₃COONa acts as a buffer.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Applications of Equilibrium in Industrial Processes</h2><div>Equilibrium principles are applied in various industrial processes to maximize yield and efficiency:
+
+1. **Haber Process**: Production of ammonia (N₂ + 3H₂ ⇌ 2NH₃). High pressure (200-400 atm) and moderate temperature (400-500°C) are used to favor the forward reaction. A catalyst (iron) is used to speed up the reaction.
+
+2. **Contact Process**: Production of sulfuric acid (2SO₂ + O₂ ⇌ 2SO₃). High pressure and low temperature favor the forward reaction, but a compromise temperature (400-450°C) is used with a catalyst (V₂O₅) to balance yield and rate.
+
+3. **Ostwald Process**: Production of nitric acid (4NH₃ + 5O₂ ⇌ 4NO + 6H₂O). High temperature and a catalyst (Pt-Rh) are used to favor the forward reaction.
+
+For NEET, understanding these processes and the role of Le Chatelier's Principle in optimizing conditions is important.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Numerical Problems and Problem-Solving Strategies</h2><div>Numerical problems in equilibrium are a significant part of the NEET Chemistry section. Common types include:
+
+1. **Calculating Equilibrium Constants (Kc and Kp)**: Given equilibrium concentrations or partial pressures, calculate Kc or Kp. Remember to use the stoichiometric coefficients as exponents.
+
+2. **Determining Equilibrium Concentrations**: Given initial concentrations and Kc, calculate the equilibrium concentrations of reactants and products. This often involves setting up an ICE (Initial, Change, Equilibrium) table.
+
+3. **Solubility and Ksp Calculations**: Calculate the solubility of a salt or the Ksp given solubility, or vice versa. Problems may also involve the common ion effect.
+
+4. **pH and Buffer Calculations**: Calculate the pH of weak acids/bases or buffer solutions using the Henderson-Hasselbalch equation.
+
+**Problem-Solving Tips**:
+- Always write the balanced chemical equation first.
+- Use the ICE table to track changes in concentrations.
+- For gases, remember that partial pressures are proportional to mole fractions.
+- Pay attention to units (e.g., mol/L for Kc, atm for Kp).
+- Practice problems involving the reaction quotient (Q) to predict the direction of the reaction.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Common Mistakes and Misconceptions</h2><div>- **Assuming Equilibrium is Static**: Equilibrium is dynamic; reactants and products are continuously interconverting, but their concentrations remain constant.
+- **Ignoring Units**: While Kc and Kp are often written without units, it is important to understand their dimensionality, especially in calculations.
+- **Misapplying Le Chatelier's Principle**: Pressure changes only affect gaseous reactions with unequal moles of gas on either side. Temperature changes depend on whether the reaction is endothermic or exothermic.
+- **Confusing Kc and Kp**: Kc uses concentrations, while Kp uses partial pressures. They are related but not interchangeable unless Δn = 0.
+- **Forgetting Pure Solids/Liquids**: Pure solids and liquids are not included in equilibrium expressions.
+- **Incorrect ICE Table Setup**: Ensure the change in concentration is proportional to the stoichiometric coefficients. For example, if 2 moles of a reactant are consumed, the change is -2x, not -x.
+- **Buffer Misconceptions**: A buffer must contain a weak acid/base and its conjugate salt. Strong acids/bases cannot form buffers.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Chemical equilibrium is dynamic, not static.</li><li>The equilibrium constant (Kc or Kp) is temperature-dependent and does not include pure solids or liquids.</li><li>Le Chatelier&#x27;s Principle predicts the effect of changes in concentration, pressure, and temperature on equilibrium.</li><li>The reaction quotient (Q) helps determine the direction of the reaction relative to equilibrium.</li><li>For weak acids and bases, the Henderson-Hasselbalch equation is used to calculate the pH of buffer solutions.</li><li>The solubility product (Ksp) is a measure of the solubility of sparingly soluble salts.</li><li>The common ion effect reduces the solubility of a salt in the presence of a common ion.</li><li>Industrial processes like the Haber process and Contact process apply equilibrium principles to maximize yield.</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Equilibrium constant (Kc): Kc = [C]^c [D]^d / [A]^a [B]^b</div><div class="formula">Equilibrium constant (Kp): Kp = (PC)^c (PD)^d / (PA)^a (PB)^b</div><div class="formula">Relationship between Kp and Kc: Kp = Kc (RT)^Δn, where Δn = (c + d) - (a + b)</div><div class="formula">Reaction quotient (Q): Q = [C]^c [D]^d / [A]^a [B]^b (using initial concentrations)</div><div class="formula">Solubility product (Ksp): Ksp = [A⁺]^x [B⁻]^y for AₓBᵧ ⇌ xA⁺ + yB⁻</div><div class="formula">pH: pH = -log[H⁺]</div><div class="formula">pOH: pOH = -log[OH⁻]</div><div class="formula">Relationship between pH and pOH: pH + pOH = 14 (at 25°C)</div><div class="formula">Henderson-Hasselbalch equation: pH = pKa + log([A⁻] / [HA])</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Including pure solids or liquids in the equilibrium expression.</li><li>Confusing Kc and Kp or misapplying their relationship.</li><li>Incorrectly setting up the ICE table for equilibrium calculations.</li><li>Assuming pressure changes affect all gaseous reactions equally (only those with Δn ≠ 0 are affected).</li><li>Forgetting that catalysts do not affect equilibrium position, only the rate of reaching equilibrium.</li><li>Misapplying Le Chatelier&#x27;s Principle to temperature changes without considering whether the reaction is endothermic or exothermic.</li><li>Using the Henderson-Hasselbalch equation for strong acids or bases, which do not form buffers.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
