@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biotechnology and Its Applications - NEET Biology Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Biotechnology and Its Applications - NEET Biology Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>Introduction to Biotechnology</h2><div>Biotechnology is the integration of natural sciences and engineering sciences to achieve the application of organisms, cells, parts thereof, and molecular analogues for products and services. It encompasses a wide range of techniques, including genetic engineering, tissue culture, and molecular diagnostics. The field has evolved significantly, with applications in medicine, agriculture, and industry. For NEET, focus on understanding the foundational concepts, such as the tools and techniques used in biotechnology, as well as their practical applications in real-world scenarios.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Tools of Recombinant DNA Technology</h2><div>Recombinant DNA technology is a cornerstone of biotechnology. Key tools include:
+
+- **Restriction Enzymes**: These are molecular scissors that cut DNA at specific recognition sequences. For example, EcoRI recognizes the sequence GAATTC and cuts between G and A.
+- **DNA Ligase**: This enzyme joins DNA fragments by forming phosphodiester bonds between them.
+- **Vectors**: These are DNA molecules used to transfer foreign DNA into host cells. Common vectors include plasmids (e.g., pBR322) and bacteriophages (e.g., lambda phage).
+- **Host Organisms**: Bacteria like *Escherichia coli* are commonly used as hosts for cloning due to their rapid growth and ease of manipulation.
+- **Polymerase Chain Reaction (PCR)**: A technique to amplify DNA in vitro. It involves denaturation, annealing, and extension steps, typically using Taq polymerase.
+
+Understanding these tools is critical for solving NEET questions on genetic engineering and cloning.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Process of Genetic Engineering</h2><div>Genetic engineering involves the following steps:
+
+1. **Isolation of DNA**: The gene of interest is isolated from the source organism using restriction enzymes.
+2. **Insertion into a Vector**: The isolated gene is inserted into a vector (e.g., plasmid) using DNA ligase.
+3. **Introduction into Host**: The recombinant vector is introduced into a host cell (e.g., *E. coli*) through transformation.
+4. **Selection of Transformed Cells**: Transformed cells are selected using selectable markers, such as antibiotic resistance genes (e.g., ampicillin resistance in pBR322).
+5. **Expression of the Gene**: The host cell is cultured to produce the desired protein or product.
+
+For NEET, focus on the role of each step and the enzymes involved, as questions often test these details.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Applications in Medicine</h2><div>Biotechnology has revolutionized medicine with applications such as:
+
+- **Genetically Engineered Insulin**: Human insulin (Humulin) is produced using recombinant DNA technology in *E. coli*. This replaced insulin derived from animals, reducing allergic reactions.
+- **Gene Therapy**: This involves correcting defective genes responsible for disease development. For example, gene therapy has been used to treat severe combined immunodeficiency (SCID).
+- **Vaccines**: Recombinant vaccines, such as the hepatitis B vaccine, are produced using biotechnology. These vaccines are safer and more effective than traditional vaccines.
+- **Diagnostics**: Techniques like PCR and ELISA are used for early detection of diseases like HIV and COVID-19.
+- **Monoclonal Antibodies**: These are used in cancer treatment (e.g., Herceptin for breast cancer) and diagnostics.
+
+NEET often includes questions on the production of insulin and vaccines, so prioritize these topics.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Applications in Agriculture</h2><div>Biotechnology has transformed agriculture through:
+
+- **Bt Cotton**: A genetically modified crop that produces the *Bacillus thuringiensis* (Bt) toxin, which is lethal to insect pests like bollworms. This reduces the need for chemical pesticides.
+- **Golden Rice**: Engineered to produce beta-carotene (a precursor of vitamin A), addressing vitamin A deficiency in developing countries.
+- **Herbicide-Tolerant Crops**: Crops like Roundup Ready soybeans are resistant to herbicides, allowing farmers to control weeds without damaging the crop.
+- **Disease-Resistant Crops**: Biotechnology has enabled the development of crops resistant to viral, bacterial, and fungal diseases.
+
+For NEET, focus on the mechanism of Bt toxin and the benefits of genetically modified crops.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>Transgenic Animals and Ethical Issues</h2><div>Transgenic animals are those that have had foreign genes deliberately inserted into their genome. Applications include:
+
+- **Pharming**: Production of pharmaceutical proteins in animal milk (e.g., antithrombin III in goats).
+- **Disease Models**: Transgenic mice are used to study human diseases like Alzheimer's and cancer.
+- **Xenotransplantation**: The use of animal organs for human transplants, though ethical and safety concerns remain.
+
+Ethical issues in biotechnology include:
+- **Biosafety**: Concerns about the release of genetically modified organisms (GMOs) into the environment.
+- **Patenting of Life Forms**: Debates over whether genes and organisms can be patented.
+- **Human Cloning**: Ethical concerns about reproductive cloning and its implications.
+
+NEET questions often test knowledge of transgenic animals and the ethical dilemmas associated with biotechnology.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>Biotechnological Applications in the Environment</h2><div>Biotechnology offers solutions for environmental challenges:
+
+- **Bioremediation**: The use of microorganisms to clean up pollutants. For example, *Pseudomonas* species are used to degrade oil spills.
+- **Biofertilizers**: Microorganisms like *Rhizobium* and *Azotobacter* enhance soil fertility by fixing atmospheric nitrogen.
+- **Biodegradable Plastics**: Produced using microorganisms, these plastics reduce environmental pollution.
+- **Wastewater Treatment**: Microorganisms are used to break down organic matter in sewage treatment plants.
+
+For NEET, focus on the role of microorganisms in bioremediation and biofertilizers.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>Stem Cell Technology</h2><div>Stem cells are undifferentiated cells with the potential to develop into various cell types. Types of stem cells include:
+
+- **Embryonic Stem Cells**: Derived from early embryos, these cells are pluripotent and can differentiate into any cell type.
+- **Adult Stem Cells**: Found in tissues like bone marrow, these cells are multipotent and can differentiate into a limited range of cell types.
+- **Induced Pluripotent Stem Cells (iPSCs)**: Adult cells reprogrammed to an embryonic-like state, offering potential for regenerative medicine.
+
+Applications of stem cell technology include:
+- **Regenerative Medicine**: Repair or replacement of damaged tissues (e.g., spinal cord injuries, heart disease).
+- **Drug Testing**: Stem cells are used to test the safety and efficacy of new drugs.
+- **Disease Modeling**: Stem cells help study diseases like Parkinson's and diabetes.
+
+NEET questions often focus on the types of stem cells and their applications in medicine.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>Biosafety and Regulatory Frameworks</h2><div>Biosafety refers to the safe handling and containment of genetically modified organisms (GMOs) to prevent harm to human health and the environment. Key regulatory frameworks include:
+
+- **Cartagena Protocol on Biosafety**: An international agreement ensuring the safe transfer, handling, and use of GMOs.
+- **Genetic Engineering Appraisal Committee (GEAC)**: In India, GEAC regulates the release of GMOs and products derived from them.
+- **Institutional Biosafety Committees (IBSCs)**: These committees oversee research involving GMOs at the institutional level.
+
+For NEET, understand the role of GEAC and the Cartagena Protocol in regulating biotechnology.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Recombinant DNA technology involves the use of restriction enzymes, DNA ligase, and vectors like plasmids.</li><li>Bt cotton produces the Bt toxin, which is lethal to insect pests like bollworms.</li><li>Human insulin (Humulin) is produced using recombinant DNA technology in *E. coli*.</li><li>Golden Rice is genetically engineered to produce beta-carotene, addressing vitamin A deficiency.</li><li>Gene therapy aims to correct defective genes responsible for disease development, such as SCID.</li><li>Transgenic animals are used for pharming, disease modeling, and xenotransplantation.</li><li>Stem cells are classified as embryonic, adult, or induced pluripotent stem cells (iPSCs).</li><li>Bioremediation uses microorganisms like *Pseudomonas* to degrade pollutants such as oil spills.</li><li>The Cartagena Protocol on Biosafety is an international agreement ensuring the safe use of GMOs.</li><li>GEAC (Genetic Engineering Appraisal Committee) regulates the release of GMOs in India.</li></ul></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Confusing restriction enzymes with DNA ligase: Restriction enzymes cut DNA, while DNA ligase joins DNA fragments.</li><li>Assuming all genetically modified crops are harmful: Many GM crops, like Bt cotton, have proven benefits such as reduced pesticide use.</li><li>Misidentifying the role of vectors: Vectors like plasmids are used to transfer foreign DNA into host cells, not to cut DNA.</li><li>Overlooking the ethical issues in biotechnology: Always consider biosafety, patenting, and human cloning debates in answers.</li><li>Forgetting the difference between embryonic and adult stem cells: Embryonic stem cells are pluripotent, while adult stem cells are multipotent.</li><li>Ignoring the role of microorganisms in bioremediation: Microorganisms like *Pseudomonas* are critical for degrading pollutants.</li><li>Assuming gene therapy is a cure-all: Gene therapy is still experimental and has limitations, such as potential immune responses.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
