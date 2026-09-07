@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coordination Compounds - NEET Chemistry Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132238;--muted:#617189;--brand:#6d4aff;--brand2:#15b8a6;--paper:#f7f9fc;--line:#dfe7f1;--good:#138a67;--bad:#c03b50;--warn:#c98a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{padding:28px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#172c4b,#6d4aff 65%,#15b8a6);box-shadow:0 16px 40px #172c4b24}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;font-weight:800;opacity:.82}.hero h1{margin:.25rem 0;font-size:clamp(1.7rem,4vw,3rem);line-height:1.15}.meta{opacity:.9;display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem}.pill{display:inline-block;padding:4px 10px;border:1px solid #ffffff45;border-radius:999px}
+main{margin-top:22px}.section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 6px 20px #1322380a}.section h2{margin-top:0;font-size:1.3rem}.muted{color:var(--muted)}.callout{border-left:4px solid var(--brand2);background:#e9fbf7;padding:14px 16px;border-radius:0 12px 12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:14px;padding:15px}.formula{background:#f0edff;border:1px solid #d9d0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,monospace;overflow:auto}.question{border-top:1px solid var(--line);padding:18px 0}.question:first-child{border-top:0}.option{display:flex;align-items:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:7px 0;transition:.15s;cursor:pointer}.option input[type=radio]{margin-top:4px;flex:0 0 auto}.option:hover{border-color:var(--brand);background:#f4f1ff}.answer{color:var(--good);font-weight:700}.warning{background:#fff7e5;border:1px solid #f3d18b;border-radius:12px;padding:12px}.footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:28px}
+button{border:0;border-radius:10px;background:var(--brand);color:#fff;padding:10px 14px;cursor:pointer;font-weight:700;transition:.15s}button:hover{filter:brightness(1.08)}button.secondary{background:#e9edff;color:var(--ink)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.palette{display:flex;gap:6px;flex-wrap:wrap}.palette button{min-width:38px;background:#eef0f6;color:var(--ink);border:2px solid transparent}.palette button.answered{background:#d7f6ec;color:var(--good);border-color:var(--good)}.palette button.marked{background:#fff1d6;color:var(--warn);border-color:var(--warn)}.palette button.current{border-color:var(--brand);box-shadow:0 0 0 2px #6d4aff33}
+.review{display:none}.review.show{display:block}
+.progressbar{height:8px;border-radius:999px;background:#e6e9f2;overflow:hidden;margin:10px 0}.progressbar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .25s}
+.result-correct{color:var(--good)}.result-wrong{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:14px 12px 44px}.hero,.section{padding:17px;border-radius:15px}.grid{grid-template-columns:1fr}}
+
+.notes-page{background:#fffef6;background-image:repeating-linear-gradient(#fffef6 0 33px,#cfe0f5 33px 34px);background-position-y:8px;border:1px solid #ecdfb8;border-radius:16px;padding:22px 22px 22px 46px;margin:16px 0;position:relative;box-shadow:0 8px 22px #1322380f}
+.notes-page::before{content:'';position:absolute;left:26px;top:0;bottom:0;width:2px;background:#ffb9c6}
+.notes-page h2{font-family:'Kalam',cursive;color:#a8501c;font-size:1.5rem;text-decoration:underline wavy #ffd166 2px}
+.notes-page>div{font-size:1.03rem}
+.sticky{border-radius:10px;padding:14px 16px;box-shadow:2px 4px 10px #00000018;margin:14px 0}
+.sticky.yellow{background:#fff6b8;transform:rotate(-.6deg)}
+.sticky.pink{background:#ffe1ec;transform:rotate(.5deg)}
+.sticky.blue{background:#dff1ff;transform:rotate(-.4deg)}
+.sticky h2{font-family:'Kalam',cursive;margin-top:0}
+.hl{background:linear-gradient(120deg,#fff59d 0 100%);background-repeat:no-repeat;background-size:100% 45%;background-position:0 85%;padding:0 2px}
+</style></head>
+<body><div class="wrap"><header class="hero"><div class="eyebrow">Sonic Resource Factory</div>
+<h1>Coordination Compounds - NEET Chemistry Notes</h1><div class="meta"><span class="pill">NEET</span><span class="pill">English</span><span class="pill">Notes</span></div></header>
+<main><section class="notes-page" style="background-color:#eef2ff"><h2>1. Introduction to Coordination Compounds</h2><div>Coordination compounds are molecules or ions that contain a central metal atom or ion bonded to a group of surrounding molecules or ions, known as ligands. These compounds are pivotal in inorganic chemistry and have wide applications in industries, medicine, and biological systems. The central metal atom acts as a Lewis acid (electron pair acceptor), while the ligands act as Lewis bases (electron pair donors). The bond formed between the metal and the ligand is called a coordinate covalent bond. Coordination compounds often exhibit unique properties such as color, magnetic behavior, and catalytic activity, which are not observed in simple ionic or covalent compounds. For NEET, it is essential to understand the basic terminology, such as coordination number, coordination sphere, and the distinction between primary and secondary valency.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>2. Werner&#x27;s Theory of Coordination Compounds</h2><div>Alfred Werner proposed the coordination theory in 1893 to explain the structure and bonding in coordination compounds. According to Werner's theory: 
+1. **Primary Valency**: This corresponds to the oxidation state of the central metal ion and is satisfied by negative ions (ionic bonds). These valencies are non-directional and are represented by dotted lines. 
+2. **Secondary Valency**: This corresponds to the coordination number of the central metal ion and is satisfied by ligands (coordinate covalent bonds). These valencies are directional and determine the geometry of the complex. 
+For example, in the complex [Co(NH₃)₆]Cl₃, cobalt has a primary valency of +3 (satisfied by 3 Cl⁻ ions) and a secondary valency of 6 (satisfied by 6 NH₃ molecules). Werner's theory laid the foundation for modern coordination chemistry and is frequently tested in NEET for its historical and conceptual significance.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>3. Nomenclature of Coordination Compounds</h2><div>The nomenclature of coordination compounds follows specific IUPAC rules to ensure systematic naming. Key rules include: 
+1. **Cation Before Anion**: The cation is named first, followed by the anion. 
+2. **Ligands**: Ligands are named before the metal. Neutral ligands have their own names (e.g., NH₃ = ammine, H₂O = aqua), while anionic ligands end with '-o' (e.g., Cl⁻ = chloro, CN⁻ = cyano). 
+3. **Prefixes**: Use prefixes like di-, tri-, tetra-, penta-, and hexa- to indicate the number of ligands. For complex ligands (e.g., ethylenediamine), use bis-, tris-, tetrakis-, etc. 
+4. **Metal**: The metal is named after the ligands. If the complex is anionic, the metal name ends with '-ate' (e.g., ferrate for iron, cuprate for copper). 
+5. **Oxidation State**: The oxidation state of the metal is indicated in Roman numerals in parentheses after the metal name. 
+Example: [Co(NH₃)₅Cl]Cl₂ is named pentaamminechlorocobalt(III) chloride. Mastery of nomenclature is crucial for NEET, as questions often test the ability to name or write formulas of coordination compounds.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>4. Isomerism in Coordination Compounds</h2><div>Isomerism in coordination compounds arises when compounds have the same molecular formula but different arrangements of atoms. The two main types of isomerism are: 
+
+**A. Structural Isomerism**: 
+1. **Ionization Isomerism**: Occurs when the counter ion in a complex salt is also a potential ligand. Example: [Co(NH₃)₅Br]SO₄ and [Co(NH₃)₅SO₄]Br. 
+2. **Coordination Isomerism**: Occurs in compounds where both the cation and anion are complex ions, and the ligands are exchanged between them. Example: [Co(NH₃)₆][Cr(CN)₆] and [Cr(NH₃)₆][Co(CN)₆]. 
+3. **Linkage Isomerism**: Occurs when a ligand can bind to the metal ion through different donor atoms. Example: [Co(NH₃)₅(NO₂)]²⁺ (nitro) and [Co(NH₃)₅(ONO)]²⁺ (nitrito). 
+4. **Solvate Isomerism**: Occurs when water is involved as a ligand or as a solvent of crystallization. Example: [Cr(H₂O)₆]Cl₃ and [Cr(H₂O)₅Cl]Cl₂·H₂O. 
+
+**B. Stereoisomerism**: 
+1. **Geometrical Isomerism**: Occurs in complexes with coordination numbers 4 (square planar) and 6 (octahedral). Example: cis-[Pt(NH₃)₂Cl₂] and trans-[Pt(NH₃)₂Cl₂]. 
+2. **Optical Isomerism**: Occurs in complexes that are non-superimposable mirror images (enantiomers). Example: [Co(en)₃]³⁺, where 'en' is ethylenediamine. 
+Understanding isomerism is critical for NEET, as questions often require identifying or drawing isomers.</div></section><section class="notes-page" style="background-color:#eef2ff"><h2>5. Bonding in Coordination Compounds</h2><div>The bonding in coordination compounds is explained by three primary theories: 
+
+**A. Valence Bond Theory (VBT)**: 
+- Proposed by Linus Pauling, VBT explains the bonding in terms of hybridization of atomic orbitals. 
+- The central metal ion uses its (n-1)d, ns, np, or nd orbitals to form hybrid orbitals (e.g., sp³, dsp², d²sp³). 
+- Inner orbital complexes use (n-1)d orbitals (low spin, diamagnetic), while outer orbital complexes use nd orbitals (high spin, paramagnetic). 
+- Example: [Co(NH₃)₆]³⁺ uses d²sp³ hybridization (inner orbital complex). 
+
+**B. Crystal Field Theory (CFT)**: 
+- CFT explains the bonding in terms of electrostatic interactions between the central metal ion and the ligands. 
+- Ligands are treated as point negative charges that split the d-orbitals of the metal ion into different energy levels. 
+- In an octahedral field, the d-orbitals split into t₂g (lower energy) and eg (higher energy) sets. The energy difference is called Δ₀ (crystal field splitting energy). 
+- The magnitude of Δ₀ determines whether the complex is high spin (weak field ligands) or low spin (strong field ligands). 
+- CFT explains the color and magnetic properties of coordination compounds. 
+
+**C. Molecular Orbital Theory (MOT)**: 
+- MOT provides a more comprehensive explanation by considering the overlap of metal and ligand orbitals to form molecular orbitals. 
+- It explains the bonding, antibonding, and non-bonding orbitals in coordination compounds. 
+For NEET, focus on VBT and CFT, as MOT is less frequently tested.</div></section><section class="notes-page" style="background-color:#eafaf3"><h2>6. Stability of Coordination Compounds</h2><div>The stability of coordination compounds is influenced by several factors: 
+1. **Nature of the Metal Ion**: Smaller, highly charged metal ions form more stable complexes due to stronger electrostatic attractions. 
+2. **Nature of the Ligand**: Ligands with stronger donor atoms (e.g., C in CN⁻) form more stable complexes than those with weaker donor atoms (e.g., O in H₂O). Chelating ligands (e.g., ethylenediamine) form more stable complexes than monodentate ligands due to the chelate effect. 
+3. **Chelate Effect**: The enhanced stability of complexes containing chelate rings compared to similar complexes without rings. This is due to the increase in entropy during the formation of chelate complexes. 
+4. **Crystal Field Stabilization Energy (CFSE)**: Complexes with higher CFSE are more stable. For example, low-spin d⁶ complexes (e.g., [Co(CN)₆]³⁻) are more stable than high-spin d⁶ complexes (e.g., [CoF₆]³⁻). 
+5. **Steric Factors**: Bulky ligands may destabilize complexes due to steric hindrance. 
+Understanding stability is important for NEET, as questions may ask about the relative stability of different complexes.</div></section><section class="notes-page" style="background-color:#fff7ea"><h2>7. Applications of Coordination Compounds</h2><div>Coordination compounds have diverse applications in various fields: 
+1. **Medicine**: 
+   - Cisplatin ([Pt(NH₃)₂Cl₂]) is used as an anticancer drug. 
+   - EDTA is used to treat lead poisoning by forming stable complexes with metal ions. 
+2. **Industry**: 
+   - Coordination compounds are used as catalysts in industrial processes (e.g., Wilkinson's catalyst, [RhCl(PPh₃)₃], for hydrogenation reactions). 
+   - They are used in the extraction of metals (e.g., nickel from its ores using CO to form [Ni(CO)₄]). 
+3. **Analytical Chemistry**: 
+   - Coordination compounds are used in qualitative and quantitative analysis (e.g., dimethylglyoxime for nickel detection). 
+   - EDTA is used in complexometric titrations to determine metal ion concentrations. 
+4. **Biological Systems**: 
+   - Hemoglobin (iron complex) and chlorophyll (magnesium complex) are essential for oxygen transport and photosynthesis, respectively. 
+   - Vitamin B₁₂ (cobalamin) contains a cobalt coordination complex. 
+For NEET, focus on the applications most relevant to biology and medicine, as these are frequently tested.</div></section><section class="notes-page" style="background-color:#fdeef7"><h2>8. Important Terms and Concepts</h2><div>- **Coordination Number**: The number of ligand donor atoms directly bonded to the central metal ion. Common coordination numbers are 4 (tetrahedral or square planar) and 6 (octahedral). 
+- **Ligand**: A molecule or ion that donates a pair of electrons to the central metal ion. Ligands can be monodentate (one donor atom), bidentate (two donor atoms), or polydentate (multiple donor atoms). 
+- **Chelate**: A complex containing a ligand that forms a ring structure with the central metal ion. 
+- **Ambidentate Ligand**: A ligand that can bind to the metal ion through two different donor atoms (e.g., NO₂⁻ can bind through N or O). 
+- **Spectrochemical Series**: A series that ranks ligands based on their ability to split the d-orbitals of the metal ion. Strong field ligands (e.g., CN⁻, CO) cause a large Δ₀, while weak field ligands (e.g., I⁻, Br⁻) cause a small Δ₀. 
+- **Magnetic Properties**: Complexes can be diamagnetic (no unpaired electrons) or paramagnetic (one or more unpaired electrons). The magnetic moment is calculated using the spin-only formula: μ = √[n(n+2)] BM, where n is the number of unpaired electrons.</div></section><div class="sticky yellow"><h2>Important facts</h2><ul><li>Werner&#x27;s theory distinguishes between primary valency (oxidation state) and secondary valency (coordination number).</li><li>The IUPAC nomenclature of coordination compounds follows a specific order: ligands first, then the metal, with oxidation state in Roman numerals.</li><li>Geometrical isomerism is common in square planar and octahedral complexes, while optical isomerism occurs in octahedral complexes with chelating ligands.</li><li>Crystal Field Theory explains the color and magnetic properties of coordination compounds based on the splitting of d-orbitals.</li><li>The stability of coordination compounds is influenced by the nature of the metal ion, ligands, chelate effect, and crystal field stabilization energy.</li><li>Cisplatin is a coordination compound used as an anticancer drug, highlighting the medical applications of these compounds.</li><li>The spectrochemical series ranks ligands based on their ability to split d-orbitals, with strong field ligands causing larger splitting.</li><li>Coordination compounds play crucial roles in biological systems, such as hemoglobin (oxygen transport) and chlorophyll (photosynthesis).</li></ul></div><div class="sticky blue"><h2>Formulas and relationships</h2><div class="formula">Magnetic moment (spin-only formula): μ = √[n(n+2)] BM, where n = number of unpaired electrons.</div><div class="formula">Crystal field splitting energy (Δ₀) for octahedral complexes: Δ₀ = E(eg) - E(t₂g).</div><div class="formula">Hybridization in coordination compounds: 
+  - sp³ (tetrahedral, e.g., [Ni(CO)₄]), 
+  - dsp² (square planar, e.g., [Ni(CN)₄]²⁻), 
+  - d²sp³ (octahedral, e.g., [Co(NH₃)₆]³⁺).</div></div><div class="sticky pink"><h2>Common mistakes</h2><ul><li>Confusing primary valency (oxidation state) with secondary valency (coordination number) in Werner&#x27;s theory.</li><li>Incorrectly naming coordination compounds by not following IUPAC rules (e.g., not using &#x27;-ate&#x27; for anionic complexes or misordering ligands).</li><li>Misidentifying isomers, especially linkage isomers (e.g., nitro vs. nitrito) and geometrical isomers (e.g., cis vs. trans).</li><li>Assuming all coordination compounds are colored; color arises from d-d transitions, so d⁰ or d¹⁰ complexes are colorless.</li><li>Forgetting that strong field ligands cause low-spin complexes, while weak field ligands cause high-spin complexes.</li><li>Incorrectly calculating magnetic moments by not considering the number of unpaired electrons in the complex.</li><li>Overlooking the chelate effect when comparing the stability of complexes with monodentate vs. polydentate ligands.</li></ul></div></main><div class="footer">Prepared for educational practice. Verify official syllabi and patterns with the relevant authority.</div></div>
+<script></script></body></html>
